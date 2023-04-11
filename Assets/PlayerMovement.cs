@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         LocalMove(movevementValue.x, movevementValue.y);
-        RotationLook(movevementValue.x, movevementValue.y, lookSpeed);
+       RotationLook(movevementValue.x, movevementValue.y, lookSpeed);
        HorizontalLean(playerModel, movevementValue.y, leanLimit, .1f);
         ClampPosition();
      //   DebugManager.Instance.Log(this.tag, "Its Activated");
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void RotationLook(float h, float v, float speed)
     {
-      //  aimTarget.parent.position = Vector3.zero;
+        aimTarget.parent.position = Vector3.zero;
         aimTarget.localPosition = new Vector3(h, v, 1);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(aimTarget.position), Mathf.Deg2Rad * speed);
 

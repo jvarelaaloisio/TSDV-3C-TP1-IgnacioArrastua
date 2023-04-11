@@ -157,7 +157,7 @@ Transform:
   - {fileID: 1546719567}
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.001, y: 0, z: 0}
 --- !u!114 &91841279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Path: {fileID: 645681229}
   m_UpdateMethod: 0
   m_PositionUnits: 1
-  m_Speed: 0
+  m_Speed: 1
   m_Position: 0
 --- !u!1 &190323605
 GameObject:
@@ -226,7 +226,6 @@ MonoBehaviour:
   lookSpeed: 50
   cartSpeed: 20
   leanLimit: 20
-
   aimTarget: {fileID: 1007687841}
   dolly: {fileID: 91841279}
 --- !u!114 &190323608
@@ -313,7 +312,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 63.54
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1077,7 +1076,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 63.54
+    FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
