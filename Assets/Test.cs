@@ -275,6 +275,17 @@ public partial class @Test: IInputActionCollection2, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8714e871-dc5c-48df-8553-16f4d64f7585"",
+                    ""path"": ""<DualSenseGamepadHID>/rightTriggerButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
