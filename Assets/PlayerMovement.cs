@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnFire(InputValue input)
     {
         DebugManager.Instance.Log(this.tag, "Apretaste el gatillo. Fire!!");
-
+    }
     private void LocalMove(float x, float y)
     {
         transform.localPosition += new Vector3(x, y, 0) * xySpeed * Time.deltaTime;
