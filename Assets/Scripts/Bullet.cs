@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private bool isActive;
     public static float velocity = 10f;
-    private static float damage = 10f;
+    private static float damage = 30f;
     public static float maxAliveTime = 3f;
     private float timer;
     // Start is called before the first frame update

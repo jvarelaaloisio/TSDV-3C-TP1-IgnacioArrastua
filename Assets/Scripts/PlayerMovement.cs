@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
-[Header("GameObjects")]
+    [Header("GameObjects")]
     [SerializeField]
     Transform playerModel;
     [SerializeField]
@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        dolly.m_Speed = cartSpeed;      
+        dolly.m_Speed = cartSpeed;
     }
 
 
@@ -51,8 +51,8 @@ public class PlayerMovement : MonoBehaviour
     {
 
         movevementValue = input.Get<Vector2>();
-          
-        
+
+
     }
 
     public void OnFire(InputValue input)
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     private void ShootRay()
     {
         RaycastHit hit;
-        if (Physics.Raycast(rayPosition.position, rayPosition.forward, out hit, raycastDistance))
+        if (CheckLaserHitBox(out hit) && hit.collider.CompareTag("Enemy"))
         {
             hit.collider.gameObject.SetActive(false);
             isFiringRay = true;
@@ -79,6 +79,15 @@ public class PlayerMovement : MonoBehaviour
             isFiringRay = false;
         }
         DebugManager.Instance.Log(tag, isFiringRay.ToString());
+    }
+
+    private bool CheckLaserHitBox(out RaycastHit hit)
+    {
+        return Physics.Raycast(rayPosition.position, rayPosition.forward, out hit, raycastDistance) ||
+               Physics.Raycast(rayPosition.position + Vector3.up / 2, rayPosition.forward , out hit, raycastDistance) ||
+               Physics.Raycast(rayPosition.position + Vector3.down / 2, rayPosition.forward , out hit, raycastDistance) ||
+               Physics.Raycast(rayPosition.position + Vector3.right / 2, rayPosition.forward , out hit, raycastDistance) ||
+               Physics.Raycast(rayPosition.position + Vector3.left / 2, rayPosition.forward , out hit, raycastDistance);
     }
 
     private void ShootBullet()
@@ -117,12 +126,16 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireSphere(aimTarget.position, .5f);
         Gizmos.DrawSphere(aimTarget.position, .15f);
 
-            Gizmos.color = Color.red;
+        Gizmos.color = Color.red;
         if (isFiringRay)
         {
             Gizmos.color = Color.green;
         }
-            Gizmos.DrawLine(rayPosition.position, rayPosition.position + transform.forward* raycastDistance);
+        Gizmos.DrawRay(rayPosition.position,  transform.forward * raycastDistance);
+        Gizmos.DrawRay(rayPosition.position + Vector3.up / 2,  rayPosition.forward * raycastDistance);
+        Gizmos.DrawRay(rayPosition.position + Vector3.down / 2,  rayPosition.forward * raycastDistance);
+        Gizmos.DrawRay(rayPosition.position + Vector3.right / 2, rayPosition.forward * raycastDistance);
+        Gizmos.DrawRay(rayPosition.position + Vector3.left / 2,  rayPosition.forward * raycastDistance);
     }
 
 }
