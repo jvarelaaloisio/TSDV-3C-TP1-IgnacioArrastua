@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour
     {
 
         isActive = true;
-        boom = GetComponent<ParticleSystem>();
+        boom = GetComponentInChildren<ParticleSystem>();
         boom.enableEmission = true;
         bc = GetComponent<BoxCollider>();
     }
