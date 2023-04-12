@@ -256,8 +256,8 @@
                 },
                 {
                     "name": "",
-                    "id": "8714e871-dc5c-48df-8553-16f4d64f7585",
-                    "path": "<DualSenseGamepadHID>/rightTriggerButton",
+                    "id": "551692b3-34d3-40e6-b6ee-471208aa1b86",
+                    "path": "<DualSenseGamepadHID>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

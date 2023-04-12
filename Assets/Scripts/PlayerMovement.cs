@@ -2,32 +2,45 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] Transform playerModel;
-    [SerializeField] private float xySpeed;
-    [SerializeField] private float lookSpeed;
-    [SerializeField] private float cartSpeed;
+    [SerializeField]
+    Transform playerModel;
+    public Bullet bullet;
+    [SerializeField]
+    private float xySpeed;
+    [SerializeField]
+    private float lookSpeed;
+    [SerializeField]
+    private float cartSpeed;
     private Vector2 movevementValue;
-    [SerializeField] float leanLimit;
-    [SerializeField] private Transform aimTarget;
-    [SerializeField] Cinemachine.CinemachineDollyCart dolly;
+    [SerializeField]
+    float leanLimit;
+    [SerializeField]
+    private Transform aimTarget;
+    [SerializeField]
+    Cinemachine.CinemachineDollyCart dolly;
 
 
 
     void Start()
     {
-        dolly.m_Speed = cartSpeed;
+        dolly.m_Speed = cartSpeed;      
     }
 
 
     void Update()
     {
-        LocalMove(movevementValue.x, movevementValue.y);
-       RotationLook(movevementValue.x, movevementValue.y, lookSpeed);
-       HorizontalLean(playerModel, movevementValue.y, leanLimit, .1f);
-        ClampPosition();
-     //   DebugManager.Instance.Log(this.tag, "Its Activated");
-     
+        Movement();
+        //   DebugManager.Instance.Log(this.tag, "Its Activated");
 
+
+    }
+
+    private void Movement()
+    {
+        LocalMove(movevementValue.x, movevementValue.y);
+        RotationLook(movevementValue.x, movevementValue.y, lookSpeed);
+        HorizontalLean(playerModel, movevementValue.y, leanLimit, .1f);
+        ClampPosition();
     }
 
     public void OnMove(InputValue input)
@@ -40,8 +53,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnFire(InputValue input)
     {
-        DebugManager.Instance.Log(this.tag, "Apretaste el gatillo. Fire!!");
+        ShootBullet();
+        //DebugManager.Instance.Log(this.tag, "Apretaste el gatillo. Fire!!");
     }
+
+    private void ShootBullet()
+    {
+        bullet.SetStartPosition(transform);
+        bullet.ActivateBullet();
+        bullet.ResetBulletTimer();
+    }
+
     private void LocalMove(float x, float y)
     {
         transform.localPosition += new Vector3(x, y, 0) * xySpeed * Time.deltaTime;
@@ -70,6 +92,6 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(aimTarget.position, .5f);
         Gizmos.DrawSphere(aimTarget.position, .15f);
-
     }
+
 }
