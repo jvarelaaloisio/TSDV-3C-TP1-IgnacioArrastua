@@ -6,14 +6,26 @@ public class EnemyController : MonoBehaviour
 {
     public bool isActive;
     private BoxCollider bc;
+
+    [SerializeField]
+    GameObject model;
     [SerializeField]
     private float maxHealth;
-    private float currentHealth;
+    private float _currentHealth;
+    private ParticleSystem boom;
+
+    public float CurrentHealth
+    {
+        get => _currentHealth;
+        set => _currentHealth = value;
+    }
 
     void Start()
     {
-        isActive = true;
 
+        isActive = true;
+        boom = GetComponent<ParticleSystem>();
+        boom.enableEmission = true;
         bc = GetComponent<BoxCollider>();
     }
 
@@ -22,37 +34,39 @@ public class EnemyController : MonoBehaviour
     {
         CheckEnemyStatus();
     }
-    private void OnDisable()
-    {
-        Invoke("StartObject", 3f);
-    }
-    private void OnEnable()
-    {
-        currentHealth = maxHealth;
-    }
     public void StartObject()
     {
-        this.gameObject.SetActive(true);
+        model.SetActive(true);
+        isActive = true;
     }
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject.tag);
-        if (other.gameObject.tag == "Bullet")
+        if (other.gameObject.tag == "Bullet" && isActive)
         {
             other.gameObject.GetComponent<Bullet>().ResetBulletTimer();
             other.gameObject.GetComponent<Bullet>().SetStartPosition(Vector3.zero);
             other.gameObject.GetComponent<Bullet>().SetActiveState(false);
-            currentHealth -= other.gameObject.GetComponent<Bullet>().GetDamage();
-
-
+            CurrentHealth -= other.gameObject.GetComponent<Bullet>().GetDamage();
         }
     }
     void CheckEnemyStatus()
     {
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
-            this.gameObject.SetActive(false);
+            KillEnemy();
+            if (boom.isPlaying == false)
+            {
+                boom.Play();
+                CurrentHealth = maxHealth;
+                Invoke("StartObject", 3f);
+            }
         }
+    }
+    void KillEnemy()
+    {
+        model.SetActive(false);
+        isActive = false;
     }
 }
 

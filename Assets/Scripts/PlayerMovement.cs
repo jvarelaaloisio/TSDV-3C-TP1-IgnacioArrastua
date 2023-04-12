@@ -69,9 +69,9 @@ public class PlayerMovement : MonoBehaviour
     private void ShootRay()
     {
         RaycastHit hit;
-        if (CheckLaserHitBox(out hit) && hit.collider.CompareTag("Enemy"))
+        if (CheckLaserHitBox(out hit) && hit.collider.CompareTag("Enemy") && hit.collider.GetComponent<EnemyController>().isActive)
         {
-            hit.collider.gameObject.SetActive(false);
+            hit.collider.GetComponent<EnemyController>().CurrentHealth -= hit.collider.GetComponent<EnemyController>().CurrentHealth;
             isFiringRay = true;
         }
         else

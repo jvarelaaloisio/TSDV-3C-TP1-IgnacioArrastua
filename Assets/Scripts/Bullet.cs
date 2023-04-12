@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private bool isActive;
-    public static float velocity = 10f;
+    public static float velocity = 50f;
     private static float damage = 30f;
     public static float maxAliveTime = 3f;
     private float timer;
