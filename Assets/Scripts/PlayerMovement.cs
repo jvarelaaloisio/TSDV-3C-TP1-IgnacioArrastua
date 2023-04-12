@@ -2,9 +2,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
+[Header("GameObjects")]
     [SerializeField]
     Transform playerModel;
+    [SerializeField]
+    Transform rayPosition;
+    [SerializeField]
+    private Transform aimTarget;
     public Bullet bullet;
+    [SerializeField]
+    Cinemachine.CinemachineDollyCart dolly;
+    [Header("Values")]
     [SerializeField]
     private float xySpeed;
     [SerializeField]
@@ -14,12 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movevementValue;
     [SerializeField]
     float leanLimit;
-    [SerializeField]
-    private Transform aimTarget;
-    [SerializeField]
-    Cinemachine.CinemachineDollyCart dolly;
-
-
+    public int raycastDistance;
+    private bool isFiringRay;
 
     void Start()
     {
@@ -56,11 +60,31 @@ public class PlayerMovement : MonoBehaviour
         ShootBullet();
         //DebugManager.Instance.Log(this.tag, "Apretaste el gatillo. Fire!!");
     }
+    public void OnFire2(InputValue input)
+    {
+        ShootRay();
+
+    }
+
+    private void ShootRay()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(rayPosition.position, rayPosition.forward, out hit, raycastDistance))
+        {
+            hit.collider.gameObject.SetActive(false);
+            isFiringRay = true;
+        }
+        else
+        {
+            isFiringRay = false;
+        }
+        DebugManager.Instance.Log(tag, isFiringRay.ToString());
+    }
 
     private void ShootBullet()
     {
         bullet.SetStartPosition(transform);
-        bullet.ActivateBullet();
+        bullet.SetActiveState(true);
         bullet.ResetBulletTimer();
     }
 
@@ -92,6 +116,13 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(aimTarget.position, .5f);
         Gizmos.DrawSphere(aimTarget.position, .15f);
+
+            Gizmos.color = Color.red;
+        if (isFiringRay)
+        {
+            Gizmos.color = Color.green;
+        }
+            Gizmos.DrawLine(rayPosition.position, rayPosition.position + transform.forward* raycastDistance);
     }
 
 }
