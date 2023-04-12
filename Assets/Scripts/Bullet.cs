@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     private bool isActive;
     public static float velocity = 10f;
     private static float damage = 10f;
-    public static float maxAliveTime = 2f;
+    public static float maxAliveTime = 3f;
     private float timer;
     // Start is called before the first frame update
     void Start()
@@ -31,19 +31,22 @@ public class Bullet : MonoBehaviour
             timer -= maxAliveTime;
         }
     }
-    public void ActivateBullet()
+    public void SetActiveState(bool status)
     {
-        isActive = true;
+        isActive = status;
     }
     public void SetStartPosition(Transform spawnPosition)
     {
         transform.position = spawnPosition.position;
+    } public void SetStartPosition(Vector3 spawnPosition)
+    {
+        transform.position = spawnPosition;
     }
     public void ResetBulletTimer()
     {
         timer = 0.0f;
     }
-    private float GetDamage() => damage;
+    public float GetDamage() => damage;
     
 
 }
