@@ -27,14 +27,18 @@ public class PlayerMovement : MonoBehaviour
     private bool isFiringRay;
     private bool isPressingButton;
     private float currentBeanTimer;
-    private float currentShootTimer;
     [SerializeField]
-    private float specialBeanTimer =1.2f;
-    private float specialBeanActiveTime =1.2f;
+    private float specialBeanTimer = 1.2f;
+    private float specialBeanActiveTime = 1.2f;
     [SerializeField]
-    private float minShootTimer = 0.2f;
+    private float minHoldShootTimer = 0.2f;
+    private float currentHoldShootTimer;
+    [SerializeField]
+    private float minShootTimer = 0.05f;
+    private float currentSingleShootTimer;
 
     private bool auxCoroutine = false;
+    private bool singleBulletShoot;
 
     void Start()
     {
@@ -44,34 +48,42 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-      //  ShootRay();
+
         Movement();
         AttackLogic();
     }
 
     private void AttackLogic()
     {
-        currentShootTimer += Time.deltaTime;
+        currentHoldShootTimer += Time.deltaTime;
+        currentSingleShootTimer += Time.deltaTime;
         if (isPressingButton)
         {
             currentBeanTimer += Time.deltaTime;
-            if (currentShootTimer > minShootTimer)
+            if (currentSingleShootTimer > minShootTimer && !singleBulletShoot)
+            {
+                singleBulletShoot = true;
+                currentSingleShootTimer = 0.0f;
+                ShootBullet();
+            }
+            else if (currentHoldShootTimer > minHoldShootTimer && singleBulletShoot)
             {
                 ShootBullet();
-                currentShootTimer -= minShootTimer;
+                currentHoldShootTimer -= minHoldShootTimer;
             }
 
         }
         else
         {
-            if (currentBeanTimer > specialBeanTimer )
+            if (currentBeanTimer > specialBeanTimer)
             {
-               
-                  ShootRay();
+                Debug.Log("Disparo");
+                ShootRay();
             }
-
-            currentBeanTimer = 0;
-            currentShootTimer = minShootTimer;
+            singleBulletShoot = false;
+            
+            currentBeanTimer = 0.0f;
+            currentHoldShootTimer = minHoldShootTimer;
         }
     }
 
@@ -117,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    
+
     public void ShootRay()
     {
         if (CheckLaserHitBox(out var hit) && hit.collider.CompareTag("Enemy") && hit.collider.GetComponent<EnemyController>().isActive)
@@ -130,19 +142,19 @@ public class PlayerMovement : MonoBehaviour
         {
             isFiringRay = false;
         }
-       // DebugManager.Instance.Log(tag, isFiringRay.ToString());
-     
+        // DebugManager.Instance.Log(tag, isFiringRay.ToString());
+
     }
 
     IEnumerator continuosRay()
     {
         yield return new WaitForEndOfFrame();
         auxCoroutine = true;
-        var currentTimer =0.0f;
-        while(currentTimer < specialBeanActiveTime)
+        var currentTimer = 0.0f;
+        while (currentTimer < specialBeanActiveTime)
         {
             currentTimer += Time.fixedDeltaTime;
-            
+
             ShootRay();
         }
         yield break;
