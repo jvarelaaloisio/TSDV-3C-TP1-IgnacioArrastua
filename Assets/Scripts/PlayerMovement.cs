@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
@@ -24,6 +25,16 @@ public class PlayerMovement : MonoBehaviour
     float leanLimit;
     public int raycastDistance;
     private bool isFiringRay;
+    private bool isPressingButton;
+    private float currentBeanTimer;
+    private float currentShootTimer;
+    [SerializeField]
+    private float specialBeanTimer =1.2f;
+    private float specialBeanActiveTime =1.2f;
+    [SerializeField]
+    private float minShootTimer = 0.2f;
+
+    private bool auxCoroutine = false;
 
     void Start()
     {
@@ -33,61 +44,117 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+      //  ShootRay();
         Movement();
-        //   DebugManager.Instance.Log(this.tag, "Its Activated");
+        AttackLogic();
+    }
 
+    private void AttackLogic()
+    {
+        currentShootTimer += Time.deltaTime;
+        if (isPressingButton)
+        {
+            currentBeanTimer += Time.deltaTime;
+            if (currentShootTimer > minShootTimer)
+            {
+                ShootBullet();
+                currentShootTimer -= minShootTimer;
+            }
 
+        }
+        else
+        {
+            if (currentBeanTimer > specialBeanTimer )
+            {
+               
+                  ShootRay();
+            }
+
+            currentBeanTimer = 0;
+            currentShootTimer = minShootTimer;
+        }
+    }
+
+    public void ShootCoroutine()
+    {
+        StartCoroutine(continuosRay());
     }
 
     private void Movement()
     {
         LocalMove(movevementValue.x, movevementValue.y);
         RotationLook(movevementValue.x, movevementValue.y, lookSpeed);
-        HorizontalLean(playerModel, movevementValue.y, leanLimit, .1f);
+        HorizontalLean(playerModel, -movevementValue.x, leanLimit, .1f);
         ClampPosition();
     }
 
-    public void OnMove(InputValue input)
+    public void OnMove(InputAction.CallbackContext ctx)
     {
 
-        movevementValue = input.Get<Vector2>();
+        movevementValue = ctx.ReadValue<Vector2>();
 
 
     }
 
-    public void OnFire(InputValue input)
+    public void OnFire(InputAction.CallbackContext ctx)
     {
-        ShootBullet();
+        //  ShootBullet();
         //DebugManager.Instance.Log(this.tag, "Apretaste el gatillo. Fire!!");
+        if (ctx.performed)
+        {
+            isPressingButton = true;
+
+        }
+        else if (ctx.canceled)
+        {
+            isPressingButton = false;
+        }
     }
-    public void OnFire2(InputValue input)
+    public void OnFire2(InputAction.CallbackContext ctx)
     {
+
         ShootRay();
 
     }
 
-    private void ShootRay()
+    
+    public void ShootRay()
     {
-        RaycastHit hit;
-        if (CheckLaserHitBox(out hit) && hit.collider.CompareTag("Enemy") && hit.collider.GetComponent<EnemyController>().isActive)
+        if (CheckLaserHitBox(out var hit) && hit.collider.CompareTag("Enemy") && hit.collider.GetComponent<EnemyController>().isActive)
         {
             hit.collider.GetComponent<EnemyController>().CurrentHealth -= hit.collider.GetComponent<EnemyController>().CurrentHealth;
             isFiringRay = true;
+            Debug.Log("RayoLaser");
         }
         else
         {
             isFiringRay = false;
         }
-        DebugManager.Instance.Log(tag, isFiringRay.ToString());
+       // DebugManager.Instance.Log(tag, isFiringRay.ToString());
+     
     }
 
+    IEnumerator continuosRay()
+    {
+        yield return new WaitForEndOfFrame();
+        auxCoroutine = true;
+        var currentTimer =0.0f;
+        while(currentTimer < specialBeanActiveTime)
+        {
+            currentTimer += Time.fixedDeltaTime;
+            
+            ShootRay();
+        }
+        yield break;
+        auxCoroutine = false;
+    }
     private bool CheckLaserHitBox(out RaycastHit hit)
     {
         return Physics.Raycast(rayPosition.position, rayPosition.forward, out hit, raycastDistance) ||
-               Physics.Raycast(rayPosition.position + Vector3.up / 2, rayPosition.forward , out hit, raycastDistance) ||
-               Physics.Raycast(rayPosition.position + Vector3.down / 2, rayPosition.forward , out hit, raycastDistance) ||
-               Physics.Raycast(rayPosition.position + Vector3.right / 2, rayPosition.forward , out hit, raycastDistance) ||
-               Physics.Raycast(rayPosition.position + Vector3.left / 2, rayPosition.forward , out hit, raycastDistance);
+               Physics.Raycast(rayPosition.position + Vector3.up / 2, rayPosition.forward, out hit, raycastDistance) ||
+               Physics.Raycast(rayPosition.position + Vector3.down / 2, rayPosition.forward, out hit, raycastDistance) ||
+               Physics.Raycast(rayPosition.position + Vector3.right / 2, rayPosition.forward, out hit, raycastDistance) ||
+               Physics.Raycast(rayPosition.position + Vector3.left / 2, rayPosition.forward, out hit, raycastDistance);
     }
 
     private void ShootBullet()
@@ -131,11 +198,11 @@ public class PlayerMovement : MonoBehaviour
         {
             Gizmos.color = Color.green;
         }
-        Gizmos.DrawRay(rayPosition.position,  transform.forward * raycastDistance);
-        Gizmos.DrawRay(rayPosition.position + Vector3.up / 2,  rayPosition.forward * raycastDistance);
-        Gizmos.DrawRay(rayPosition.position + Vector3.down / 2,  rayPosition.forward * raycastDistance);
+        Gizmos.DrawRay(rayPosition.position, rayPosition.forward * raycastDistance);
+        Gizmos.DrawRay(rayPosition.position + Vector3.up / 2, rayPosition.forward * raycastDistance);
+        Gizmos.DrawRay(rayPosition.position + Vector3.down / 2, rayPosition.forward * raycastDistance);
         Gizmos.DrawRay(rayPosition.position + Vector3.right / 2, rayPosition.forward * raycastDistance);
-        Gizmos.DrawRay(rayPosition.position + Vector3.left / 2,  rayPosition.forward * raycastDistance);
+        Gizmos.DrawRay(rayPosition.position + Vector3.left / 2, rayPosition.forward * raycastDistance);
     }
 
 }

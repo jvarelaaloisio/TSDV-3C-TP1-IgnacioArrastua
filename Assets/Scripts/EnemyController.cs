@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
+     //   Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "Bullet" && isActive)
         {
             other.gameObject.GetComponent<Bullet>().ResetBulletTimer();

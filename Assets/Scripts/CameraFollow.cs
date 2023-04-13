@@ -41,11 +41,13 @@ public class CameraFollow : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        var aux = Camera.main.transform.position;
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine( target.parent.transform.position +new Vector3(-limits.x, -limits.y, 0),target.parent.transform.position+ new Vector3(limits.x, -limits.y, 0));
-        Gizmos.DrawLine( target.parent.transform.position +new Vector3(-limits.x, limits.y,  0),target.parent.transform.position+ new Vector3(limits.x, limits.y, 0));
-        Gizmos.DrawLine( target.parent.transform.position +new Vector3(-limits.x, -limits.y, 0),target.parent.transform.position+ new Vector3(-limits.x, limits.y, 0));
-        Gizmos.DrawLine( target.parent.transform.position +new Vector3(limits.x, -limits.y,  0), target.parent.transform.position + new Vector3(limits.x, limits.y,0));
+        
+        Gizmos.DrawLine(new Vector3(-limits.x, -limits.y, aux.z), new Vector3(limits.x, -limits.y,aux.z));
+        Gizmos.DrawLine(new Vector3(-limits.x, limits.y,  aux.z), new Vector3(limits.x, limits.y, aux.z));
+        Gizmos.DrawLine(new Vector3(-limits.x, -limits.y, aux.z), new Vector3(-limits.x, limits.y,aux.z));
+        Gizmos.DrawLine(new Vector3(limits.x, -limits.y,  aux.z), new Vector3(limits.x, limits.y, aux.z));
     }
 
 }
