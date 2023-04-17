@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     Transform rayPosition;
     [SerializeField]
     private Transform aimTarget;
+
+    [SerializeField] private ParticleSystem prefire;
+    [SerializeField] private ParticleSystem fireLaser;
     public Bullet bullet;
     [SerializeField]
     Cinemachine.CinemachineDollyCart dolly;
@@ -39,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool auxCoroutine = false;
     private bool singleBulletShoot;
+    private bool hasPreFireBeenDone;
 
     void Start()
     {
@@ -72,6 +76,16 @@ public class PlayerMovement : MonoBehaviour
                 currentHoldShootTimer -= minHoldShootTimer;
             }
 
+            if (currentBeanTimer > specialBeanTimer )
+            {
+                prefire.Play();
+                
+            }
+            else
+            {
+                prefire.Stop();
+            }
+
         }
         else
         {
@@ -81,9 +95,11 @@ public class PlayerMovement : MonoBehaviour
                 ShootRay();
             }
             singleBulletShoot = false;
-            
+
             currentBeanTimer = 0.0f;
             currentHoldShootTimer = minHoldShootTimer;
+            hasPreFireBeenDone = false;
+            prefire.Stop();
         }
     }
 
@@ -132,10 +148,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void ShootRay()
     {
+        fireLaser.Play();
         if (CheckLaserHitBox(out var hit) && hit.collider.CompareTag("Enemy") && hit.collider.GetComponent<EnemyController>().isActive)
         {
             hit.collider.GetComponent<EnemyController>().CurrentHealth -= hit.collider.GetComponent<EnemyController>().CurrentHealth;
             isFiringRay = true;
+
             Debug.Log("RayoLaser");
         }
         else
