@@ -12,23 +12,28 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isActive = false;
+        isActive = true;
         timer = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isActive) return;
-        timer += Time.deltaTime;
-        if (timer <= maxAliveTime)
+        if (isActive)
         {
-            transform.localPosition += Vector3.forward * velocity * Time.deltaTime;
+            timer += Time.deltaTime;
+            if (timer <= maxAliveTime)
+            {
+                transform.localPosition += transform.forward * velocity * Time.deltaTime;
+            }
+            else
+            {
+                isActive = false;
+            }
         }
         else
         {
-            isActive = false;
-            timer -= maxAliveTime;
+            Destroy(gameObject);
         }
     }
     public void SetActiveState(bool status)
@@ -38,7 +43,9 @@ public class Bullet : MonoBehaviour
     public void SetStartPosition(Transform spawnPosition)
     {
         transform.position = spawnPosition.position;
-    } public void SetStartPosition(Vector3 spawnPosition)
+        transform.forward = spawnPosition.forward;
+    }
+    public void SetStartPosition(Vector3 spawnPosition)
     {
         transform.position = spawnPosition;
     }
@@ -47,6 +54,6 @@ public class Bullet : MonoBehaviour
         timer = 0.0f;
     }
     public float GetDamage() => damage;
-    
 
+    public bool GetActiveState() => isActive;
 }

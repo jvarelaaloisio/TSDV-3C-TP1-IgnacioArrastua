@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -7,6 +8,7 @@ namespace Assets.Scripts
 {
     public class PlayerShooting : MonoBehaviour
     {
+        private List<Bullet> _bullets;
         [SerializeField]
         Transform rayPosition;
         [SerializeField]
@@ -51,10 +53,10 @@ namespace Assets.Scripts
                 if (currentSingleShootTimer > minShootTimer && !singleBulletShoot)
                 {
                     singleBulletShoot = true;
-                    currentSingleShootTimer = 0.0f;
+                    //currentSingleShootTimer = 0.0f;
                     ShootBullet();
                 }
-                else if (currentHoldShootTimer > minHoldShootTimer && singleBulletShoot)
+                else if (currentHoldShootTimer > minHoldShootTimer && singleBulletShoot && currentSingleShootTimer > minHoldShootTimer)
                 {
                     ShootBullet();
                     currentHoldShootTimer -= minHoldShootTimer;
@@ -80,11 +82,12 @@ namespace Assets.Scripts
                     ShootRay();
                 }
                 singleBulletShoot = false;
-
+                currentSingleShootTimer = 0.0f;
                 currentBeanTimer = 0.0f;
                 currentHoldShootTimer = minHoldShootTimer;
                 prefire.Stop();
             }
+         
         }
 
         public void OnFire(InputAction.CallbackContext ctx)
@@ -103,11 +106,13 @@ namespace Assets.Scripts
         }
         private void ShootBullet()
         {
-            //var newBullet = Instantiate(bullet);
-            bullet.SetStartPosition(transform);
-            bullet.SetActiveState(true);
-            bullet.ResetBulletTimer();
+            var newBullet = Instantiate(bullet,rayPosition.position, Quaternion.identity);
+     
+            newBullet.SetStartPosition(transform);
+            newBullet.SetActiveState(true);
+            newBullet.ResetBulletTimer();
         }
+     
         public void ShootRay()
         {
             fireLaser.Play();
