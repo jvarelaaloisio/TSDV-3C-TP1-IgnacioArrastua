@@ -854,7 +854,7 @@ GameObject:
   - component: {fileID: 837816409}
   - component: {fileID: 837816408}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: DebugManager
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1020,7 +1020,7 @@ MonoBehaviour:
   target: {fileID: 190323606}
   offset: {x: 0, y: 0, z: 0}
   limits: {x: 5, y: 2}
-  smoothTime: 0.277
+  smoothTime: 1
 --- !u!1 &1546719566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,6 +1063,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46020200e761403409d0c55ae4ca2206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1557655343 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4561208014688274248}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7322c2be5e74bf54e8d8c0ec477d51b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1735526489
@@ -1647,7 +1659,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1557655341}
+      objectReference: {fileID: 1557655343}
     - target: {fileID: 4561208014810438864, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1691,7 +1703,7 @@ PrefabInstance:
     - target: {fileID: 4561208014810438864, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerMovement, Assembly-CSharp
+      value: Assets.Scripts.PlayerShooting, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4561208014810438864, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}
@@ -1942,6 +1954,21 @@ PrefabInstance:
         type: 3}
       propertyPath: clearBehavior
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 2089756211}
+    - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: minShootTimer
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: raycastDistance
+      value: 19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
