@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Path: {fileID: 645681229}
   m_UpdateMethod: 0
   m_PositionUnits: 1
-  m_Speed: 1
+  m_Speed: 20
   m_Position: 0
 --- !u!4 &190323606 stripped
 Transform:
@@ -261,7 +261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: -0.091641545, y: -0.27462786, z: -0.026303306, w: 0.9568122}
-  m_LocalPosition: {x: -0.22720432, y: 66.79815, z: -36.139736}
+  m_LocalPosition: {x: -0.32183313, y: 65.87524, z: -35.988472}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1127,7 +1127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340943315}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1186,7 +1186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 190323606}
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: -0.94, z: 0}
   limits: {x: 5, y: 2}
   smoothTime: 1
 --- !u!1 &1546719566
@@ -1263,7 +1263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1670401858
 Transform:
   m_ObjectHideFlags: 0
@@ -1528,7 +1528,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f22ad7547438cc94597ee65c18fd2f1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimPartent: {fileID: 1670401858}
+  aimParent: {fileID: 1670401858}
+  velocity: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0}
+  smoothTime: 0.168
 --- !u!1 &2068281366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2040,6 +2043,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4561208014810438879, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}
+      propertyPath: offset
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4561208014810438879, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 1007687841}
@@ -2072,6 +2080,26 @@ PrefabInstance:
         type: 3}
       propertyPath: specialBeanTimer
       value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4561208014810438879, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: maxPositionBeforeClamp.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4561208014810438879, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: maxPositionBeforeClamp.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4561208014810438879, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: minPositionBeforeClamp.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4561208014810438879, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: minPositionBeforeClamp.y
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 5749836711703111395, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}

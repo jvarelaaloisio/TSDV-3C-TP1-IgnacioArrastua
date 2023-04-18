@@ -1,6 +1,11 @@
 using System.Collections;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
+
 public class PlayerMovement : MonoBehaviour
 {
     [Header("GameObjects")]
@@ -21,6 +26,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movevementValue;
     [SerializeField]
     float leanLimit;
+    [Header("ClampValues")]
+    [SerializeField]
+    Vector2 minPositionBeforeClamp = new Vector2(8,3.5f);
+    [SerializeField]
+    Vector2 maxPositionBeforeClamp = new Vector2(8, 8);
 
 
     void Start()
@@ -57,10 +67,13 @@ public class PlayerMovement : MonoBehaviour
     }
     private void ClampPosition()
     {
-        var pos = Camera.main.WorldToViewportPoint(transform.position);
-        pos.x = Mathf.Clamp01(pos.x);
-        pos.y = Mathf.Clamp01(pos.y);
-        transform.position = Camera.main.ViewportToWorldPoint(pos);
+        var pos = transform.localPosition;
+        pos.y = Mathf.Clamp(pos.y, -minPositionBeforeClamp.y, maxPositionBeforeClamp.y);
+        pos.x = Mathf.Clamp(pos.x, -minPositionBeforeClamp.x, maxPositionBeforeClamp.x);
+       // pos.x = Mathf.Clamp01(pos.x);
+       // pos.y = Mathf.Clamp01(pos.y);
+        Debug.Log(pos);
+        transform.localPosition = new Vector3(pos.x,pos.y, transform.localPosition.z);
     }
     void RotationLook(float h, float v, float speed)
     {

@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
             timer += Time.deltaTime;
             if (timer <= maxAliveTime)
             {
-                transform.localPosition += transform.forward * velocity * Time.deltaTime;
+                transform.localPosition += Time.deltaTime * velocity * transform.forward;
             }
             else
             {

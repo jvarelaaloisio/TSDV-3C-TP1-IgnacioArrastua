@@ -39,15 +39,6 @@ public class CameraFollow : MonoBehaviour
         transform.localPosition = Vector3.SmoothDamp(localPos, new Vector3(targetLocalPos.x + offset.x, targetLocalPos.y + offset.y, localPos.z), ref velocity, smoothTime);
     }
 
-    private void OnDrawGizmos()
-    {
-        var aux = Camera.main.transform.position;
-        Gizmos.color = Color.blue;
-        
-        Gizmos.DrawLine(new Vector3(-limits.x, -limits.y, aux.z), new Vector3(limits.x, -limits.y,aux.z));
-        Gizmos.DrawLine(new Vector3(-limits.x, limits.y,  aux.z), new Vector3(limits.x, limits.y, aux.z));
-        Gizmos.DrawLine(new Vector3(-limits.x, -limits.y, aux.z), new Vector3(-limits.x, limits.y,aux.z));
-        Gizmos.DrawLine(new Vector3(limits.x, -limits.y,  aux.z), new Vector3(limits.x, limits.y, aux.z));
-    }
+
 
 }
