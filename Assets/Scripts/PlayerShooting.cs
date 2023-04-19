@@ -34,6 +34,9 @@ namespace Assets.Scripts
 
         private bool auxCoroutine = false;
         private bool singleBulletShoot;
+        [SerializeField]
+        private Transform bulletHolder;
+
         // Use this for initialization
         void Start()
         {
@@ -106,7 +109,7 @@ namespace Assets.Scripts
         }
         private void ShootBullet()
         {
-            var newBullet = Instantiate(bullet,rayPosition.position, Quaternion.identity);
+            var newBullet = Instantiate(bullet,rayPosition.position, bulletHolder.rotation,bulletHolder);
      
             newBullet.SetStartPosition(transform);
             newBullet.SetActiveState(true);

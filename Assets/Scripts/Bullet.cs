@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     private static float damage = 30f;
     public static float maxAliveTime = 3f;
     private float timer;
+    private Transform CameraHolder;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,7 @@ public class Bullet : MonoBehaviour
             timer += Time.deltaTime;
             if (timer <= maxAliveTime)
             {
-                transform.localPosition += Time.deltaTime * velocity * transform.forward;
+                transform.localPosition += Time.deltaTime * velocity * Vector3.forward;
             }
             else
             {
@@ -43,7 +44,6 @@ public class Bullet : MonoBehaviour
     public void SetStartPosition(Transform spawnPosition)
     {
         transform.position = spawnPosition.position;
-        transform.forward = spawnPosition.forward;
     }
     public void SetStartPosition(Vector3 spawnPosition)
     {
