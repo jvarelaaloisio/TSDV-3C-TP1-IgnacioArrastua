@@ -18,13 +18,15 @@ namespace Assets.Scripts
         [SerializeField]
         private ParticleSystem fireLaser;
         public int raycastDistance;
-        private bool isFiringRay;
         private bool isPressingButton;
         private float currentBeanTimer;
+        private bool canFireSpecialBean;
+        [SerializeField]
+        public float specialBeanCooldown;
+        public  float specialBeanCooldownTimer = 0.0f;
+
         [SerializeField]
         private float specialBeanTimer = 1.2f;
-        [SerializeField]
-        private float specialBeanActiveTime = 1.2f;
         [SerializeField]
         private float minHoldShootTimer = 0.2f;
         private float currentHoldShootTimer;
@@ -48,6 +50,8 @@ namespace Assets.Scripts
         }
         private void AttackLogic()
         {
+
+            SpecialBeanCooldownTimers();
             currentHoldShootTimer += Time.deltaTime;
             currentSingleShootTimer += Time.deltaTime;
             if (isPressingButton)
@@ -56,7 +60,6 @@ namespace Assets.Scripts
                 if (currentSingleShootTimer > minShootTimer && !singleBulletShoot)
                 {
                     singleBulletShoot = true;
-                    //currentSingleShootTimer = 0.0f;
                     ShootBullet();
                 }
                 else if (currentHoldShootTimer > minHoldShootTimer && singleBulletShoot && currentSingleShootTimer > minHoldShootTimer)
@@ -65,7 +68,7 @@ namespace Assets.Scripts
                     currentHoldShootTimer -= minHoldShootTimer;
                 }
 
-                if (currentBeanTimer > specialBeanTimer)
+                if (currentBeanTimer > specialBeanTimer && canFireSpecialBean)
                 {
                     prefire.Play();
 
@@ -78,11 +81,12 @@ namespace Assets.Scripts
             }
             else
             {
-                if (currentBeanTimer > specialBeanTimer)
+                if (currentBeanTimer > specialBeanTimer &&canFireSpecialBean)
                 {
                     Debug.Log("Disparo");
-                    //StartCorroutine(continuosRay());
                     ShootRay();
+                    canFireSpecialBean = false;
+                    specialBeanCooldownTimer = 0.0f;
                 }
                 singleBulletShoot = false;
                 currentSingleShootTimer = 0.0f;
@@ -93,10 +97,16 @@ namespace Assets.Scripts
          
         }
 
+        private void SpecialBeanCooldownTimers()
+        {
+            if (!canFireSpecialBean) specialBeanCooldownTimer += Time.deltaTime;
+            if (!(specialBeanCooldownTimer > specialBeanCooldown)) return;
+            canFireSpecialBean = true;
+      
+        }
+
         public void OnFire(InputAction.CallbackContext ctx)
         {
-            //  ShootBullet();
-            //DebugManager.Instance.Log(this.tag, "Apretaste el gatillo. Fire!!");
             if (ctx.performed)
             {
                 isPressingButton = true;
@@ -122,15 +132,10 @@ namespace Assets.Scripts
             if (CheckLaserHitBox(out var hit) && hit.collider.CompareTag("Enemy") && hit.collider.GetComponent<EnemyController>().isActive)
             {
                 hit.collider.GetComponent<EnemyController>().CurrentHealth -= hit.collider.GetComponent<EnemyController>().CurrentHealth;
-                isFiringRay = true;
 
                 Debug.Log("RayoLaser");
             }
-            else
-            {
-                isFiringRay = false;
-            }
-            // DebugManager.Instance.Log(tag, isFiringRay.ToString());
+
 
         }
         private bool CheckLaserHitBox(out RaycastHit hit)
