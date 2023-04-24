@@ -38,11 +38,6 @@ namespace Assets.Scripts
         [SerializeField]
         private Transform bulletHolder;
 
-        // Use this for initialization
-        void Start()
-        {
-
-        }
         private void Update()
         {
             AttackLogic();

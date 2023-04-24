@@ -30,7 +30,6 @@ public class EnemyController : MonoBehaviour
       
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckEnemyStatus();
@@ -44,7 +43,7 @@ public class EnemyController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-     //   Debug.Log(other.gameObject.tag);
+    
         if (other.gameObject.tag == "Bullet" && isActive)
         {
             other.gameObject.GetComponent<Bullet>().ResetBulletTimer();
