@@ -34,12 +34,13 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         CheckEnemyStatus();
+        animator.SetBool("isAlive", isActive);
     }
     public void StartObject()
     {
         model.SetActive(true);
         isActive = true;
-        animator.Play("Circle");
+      
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -69,7 +70,6 @@ public class EnemyController : MonoBehaviour
     {
         model.SetActive(false);
         isActive = false;
-       animator.Play("Stop");
     }
 }
 
