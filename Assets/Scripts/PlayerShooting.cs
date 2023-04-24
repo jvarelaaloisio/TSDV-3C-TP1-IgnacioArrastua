@@ -34,7 +34,6 @@ namespace Assets.Scripts
         private float minShootTimer = 0.05f;
         private float currentSingleShootTimer;
 
-        private bool auxCoroutine = false;
         private bool singleBulletShoot;
         [SerializeField]
         private Transform bulletHolder;

@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     public bool isActive;
     private BoxCollider bc;
-
+    private Animator animator;
     [SerializeField]
     GameObject model;
     [SerializeField]
@@ -22,11 +22,12 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-
+        animator = GetComponent<Animator>();
         isActive = true;
         boom = GetComponentInChildren<ParticleSystem>();
         boom.enableEmission = true;
         bc = GetComponent<BoxCollider>();
+      
     }
 
     // Update is called once per frame
@@ -38,6 +39,7 @@ public class EnemyController : MonoBehaviour
     {
         model.SetActive(true);
         isActive = true;
+        animator.Play("Circle");
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -67,6 +69,7 @@ public class EnemyController : MonoBehaviour
     {
         model.SetActive(false);
         isActive = false;
+       animator.Play("Stop");
     }
 }
 
