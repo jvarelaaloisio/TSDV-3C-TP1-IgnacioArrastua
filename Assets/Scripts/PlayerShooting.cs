@@ -8,6 +8,8 @@ namespace Assets.Scripts
 {
     public class PlayerShooting : MonoBehaviour
     {
+        [SerializeField]
+        private PlayerSettings player;
         private List<Bullet> _bullets;
         [SerializeField]
         Transform rayPosition;
@@ -19,18 +21,14 @@ namespace Assets.Scripts
         private ParticleSystem fireLaser;
         public int raycastDistance;
         private bool isPressingButton;
+        [Header("Cooldowns Presets")]
         private float currentBeanTimer;
         private bool canFireSpecialBean;
-        [SerializeField]
-        public float specialBeanCooldown;
-        public  float specialBeanCooldownTimer = 0.0f;
-
-        [SerializeField]
+        private float specialBeanCooldown;
+        private float specialBeanCooldownTimer = 0.0f;
         private float specialBeanTimer = 1.2f;
-        [SerializeField]
         private float minHoldShootTimer = 0.2f;
         private float currentHoldShootTimer;
-        [SerializeField]
         private float minShootTimer = 0.05f;
         private float currentSingleShootTimer;
 
@@ -38,6 +36,12 @@ namespace Assets.Scripts
         [SerializeField]
         private Transform bulletHolder;
 
+        private void Awake()
+        {
+            specialBeanCooldown = player.specialBeanCooldown;
+            minShootTimer = player.minShootTimer;
+            minHoldShootTimer = player.minHoldShootTimer;
+        }
         private void Update()
         {
             AttackLogic();
@@ -75,7 +79,7 @@ namespace Assets.Scripts
             }
             else
             {
-                if (currentBeanTimer > specialBeanTimer &&canFireSpecialBean)
+                if (currentBeanTimer > specialBeanTimer && canFireSpecialBean)
                 {
                     Debug.Log("Disparo");
                     ShootRay();
@@ -88,7 +92,7 @@ namespace Assets.Scripts
                 currentHoldShootTimer = minHoldShootTimer;
                 prefire.Stop();
             }
-         
+
         }
 
         private void SpecialBeanCooldownTimers()
@@ -96,7 +100,7 @@ namespace Assets.Scripts
             if (!canFireSpecialBean) specialBeanCooldownTimer += Time.deltaTime;
             if (!(specialBeanCooldownTimer > specialBeanCooldown)) return;
             canFireSpecialBean = true;
-      
+
         }
 
         public void OnFire(InputAction.CallbackContext ctx)
@@ -113,13 +117,16 @@ namespace Assets.Scripts
         }
         private void ShootBullet()
         {
-            var newBullet = Instantiate(bullet,rayPosition.position, bulletHolder.rotation,bulletHolder);
-     
+            var newBullet = Instantiate(bullet, rayPosition.position, bulletHolder.rotation, bulletHolder);
+
             newBullet.SetStartPosition(transform);
             newBullet.SetActiveState(true);
             newBullet.ResetBulletTimer();
         }
-     
+
+        public float GetSpecialBeanCooldown() => specialBeanCooldown;
+        public float GetSpecialBeanCooldownTimer() => specialBeanCooldownTimer;
+       
         public void ShootRay()
         {
             fireLaser.Play();

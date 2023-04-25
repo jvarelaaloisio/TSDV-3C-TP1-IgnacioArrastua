@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("GameObjects")]
     [SerializeField]
+    private PlayerSettings player;
+    [SerializeField]
     Transform playerModel;
 
     [SerializeField]
@@ -28,14 +30,19 @@ public class PlayerMovement : MonoBehaviour
     float leanLimit;
     [Header("ClampValues")]
     [SerializeField]
-    Vector2 minPositionBeforeClamp = new Vector2(8,3.5f);
+    Vector2 minPositionBeforeClamp = new Vector2(8, 3.5f);
     [SerializeField]
     Vector2 maxPositionBeforeClamp = new Vector2(8, 8);
 
 
-    void Start()
+    private void Awake()
     {
         dolly.m_Speed = cartSpeed;
+        xySpeed = player.xySpeed;
+        lookSpeed = player.lookSpeed;
+        cartSpeed = player.cartSpeed;
+        maxPositionBeforeClamp = player.maxPositionBeforeClamp;
+        minPositionBeforeClamp = player.minPositionBeforeClamp;
     }
 
 
@@ -70,10 +77,10 @@ public class PlayerMovement : MonoBehaviour
         var pos = transform.localPosition;
         pos.y = Mathf.Clamp(pos.y, -minPositionBeforeClamp.y, maxPositionBeforeClamp.y);
         pos.x = Mathf.Clamp(pos.x, -minPositionBeforeClamp.x, maxPositionBeforeClamp.x);
-       // pos.x = Mathf.Clamp01(pos.x);
-       // pos.y = Mathf.Clamp01(pos.y);
+        // pos.x = Mathf.Clamp01(pos.x);
+        // pos.y = Mathf.Clamp01(pos.y);
         Debug.Log(pos);
-        transform.localPosition = new Vector3(pos.x,pos.y, transform.localPosition.z);
+        transform.localPosition = new Vector3(pos.x, pos.y, transform.localPosition.z);
     }
     void RotationLook(float h, float v, float speed)
     {

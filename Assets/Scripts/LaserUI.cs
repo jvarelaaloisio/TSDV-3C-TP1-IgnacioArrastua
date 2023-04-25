@@ -19,8 +19,8 @@ public class LaserUI : MonoBehaviour
     }
     private void Update()
     {
-        sliderMaxTimer = playerShooting.specialBeanCooldown;
-        sliderCurrentTimer = playerShooting.specialBeanCooldownTimer;
+        sliderMaxTimer = playerShooting.GetSpecialBeanCooldown();
+        sliderCurrentTimer = playerShooting.GetSpecialBeanCooldownTimer();
         var currentTime = sliderCurrentTimer / sliderMaxTimer;
         currentTime = Mathf.Clamp01(currentTime);
         Debug.Log(currentTime);

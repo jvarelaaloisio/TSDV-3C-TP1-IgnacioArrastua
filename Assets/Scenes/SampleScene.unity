@@ -2275,9 +2275,21 @@ PrefabInstance:
       objectReference: {fileID: 91841279}
     - target: {fileID: 4561208014810438879, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 11400000, guid: e64f707767407f34587f76abbb141f4f,
+        type: 2}
+    - target: {fileID: 4561208014810438879, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 1007687841}
+    - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 11400000, guid: e64f707767407f34587f76abbb141f4f,
+        type: 2}
     - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}
       propertyPath: bulletHolder
