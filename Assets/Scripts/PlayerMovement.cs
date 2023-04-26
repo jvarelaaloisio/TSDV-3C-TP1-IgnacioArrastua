@@ -28,11 +28,10 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movevementValue;
     [SerializeField]
     float leanLimit;
-    [Header("ClampValues")]
-    [SerializeField]
-    Vector2 minPositionBeforeClamp = new Vector2(8, 3.5f);
-    [SerializeField]
-    Vector2 maxPositionBeforeClamp = new Vector2(8, 8);
+
+    [Header("ClampValues")] 
+    private Vector2 minPositionBeforeClamp;
+    private Vector2 maxPositionBeforeClamp;
 
 
     private void Awake()
@@ -48,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
         Movement();
     }
 
