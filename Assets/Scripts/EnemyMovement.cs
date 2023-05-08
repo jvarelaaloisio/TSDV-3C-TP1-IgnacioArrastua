@@ -54,7 +54,7 @@ public class EnemyMovement : MonoBehaviour
                     {
                         currentPoint = startLoop;
                         currentLoopTimes++;
-                       transform.position += movementPoints[currentPoint].position;
+                    //   transform.position += movementPoints[currentPoint].position;
                     }
                     else
                     {
