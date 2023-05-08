@@ -92,7 +92,7 @@ namespace Assets.Scripts
                 currentHoldShootTimer = minHoldShootTimer;
                 prefire.Stop();
             }
-
+            
         }
 
         private void SpecialBeanCooldownTimers()
@@ -130,13 +130,12 @@ namespace Assets.Scripts
         public void ShootRay()
         {
             fireLaser.Play();
-            if (CheckLaserHitBox(out var hit) && hit.collider.CompareTag("Enemy") && hit.collider.GetComponent<EnemyController>().isActive)
+            if (CheckLaserHitBox(out var hit) && hit.collider.CompareTag("Enemy") && hit.collider.GetComponent<EnemyBaseStats>().isActive)
             {
-                hit.collider.GetComponent<EnemyController>().CurrentHealth -= hit.collider.GetComponent<EnemyController>().CurrentHealth;
+                hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth -= hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth;
 
                 Debug.Log("RayoLaser");
             }
-
 
         }
         private bool CheckLaserHitBox(out RaycastHit hit)
@@ -146,6 +145,12 @@ namespace Assets.Scripts
                    Physics.Raycast(rayPosition.position + Vector3.down / 2, rayPosition.forward, out hit, raycastDistance) ||
                    Physics.Raycast(rayPosition.position + Vector3.right / 2, rayPosition.forward, out hit, raycastDistance) ||
                    Physics.Raycast(rayPosition.position + Vector3.left / 2, rayPosition.forward, out hit, raycastDistance);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(rayPosition.position, rayPosition.forward* raycastDistance);
         }
     }
 }

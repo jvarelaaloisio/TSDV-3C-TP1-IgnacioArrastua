@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyBaseStats : MonoBehaviour
 {
     public bool isActive;
     private BoxCollider bc;
-    private Animator animator;
     [SerializeField]
     GameObject model;
     [SerializeField]
@@ -22,18 +21,16 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
         isActive = true;
         boom = GetComponentInChildren<ParticleSystem>();
-        boom.enableEmission = true;
+        boom.enableEmission = false;
         bc = GetComponent<BoxCollider>();
-      
+        CurrentHealth = maxHealth;
     }
 
     void Update()
     {
         CheckEnemyStatus();
-        animator.SetBool("isAlive", isActive);
     }
     public void StartObject()
     {

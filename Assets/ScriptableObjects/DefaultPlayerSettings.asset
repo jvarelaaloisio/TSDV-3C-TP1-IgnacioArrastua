@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: DefaultPlayerSettings
   m_EditorClassIdentifier: 
   specialBeanCooldown: 10
-  specialBeanTimerCooldown: 1.2
   minHoldShootTimer: 0.2
   minShootTimer: 0.08
   xySpeed: 20

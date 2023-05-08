@@ -18,6 +18,7 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
+  
         if (!Application.isPlaying)
         {
             transform.localPosition = offset;
