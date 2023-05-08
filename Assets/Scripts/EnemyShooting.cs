@@ -1,16 +1,49 @@
+using System.Linq;
 using UnityEngine;
 
 public class EnemyShooting : MonoBehaviour
 {
-    public float speed = 1;
+
+    [SerializeField]
+    private Bullet bullet;
+    [SerializeField]
+    private Transform bulletHolder;
+    [SerializeField]private Transform shootingPoints;
+    Transform[] bulletPoint;
+
+    [Header("Cooldowns Presets")]
+    [SerializeField] private float shootBulletCooldown = 0.2f;
+    private float currentShootBulletColdown = 0.0f;
+    private bool isActive = false;
     void Start()
     {
-        transform.position = new Vector3(0, 0, 0);
+        bulletPoint = shootingPoints.transform.Cast<Transform>().ToArray();
+        isActive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += Vector3.forward * Time.deltaTime * speed;
+        if (isActive)
+        {
+            currentShootBulletColdown += Time.deltaTime;
+            if (currentShootBulletColdown > shootBulletCooldown)
+            {
+                foreach (var shoot in bulletPoint)
+                {
+                    ShootBullet(shoot);
+                }
+                currentShootBulletColdown -= shootBulletCooldown;
+            }
+
+        }
+    }
+    private void ShootBullet(Transform shooting)
+    {
+        var newBullet = Instantiate(bullet, shooting.position, bulletHolder.rotation, bulletHolder);
+
+        newBullet.SetStartPosition(shooting);
+        newBullet.SetActiveState(true);
+        newBullet.ResetBulletTimer();
     }
 }

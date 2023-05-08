@@ -26,6 +26,7 @@ public class EnemyBaseStats : MonoBehaviour
         boom.enableEmission = false;
         bc = GetComponent<BoxCollider>();
         CurrentHealth = maxHealth;
+        boom.Stop();
     }
 
     void Update()
@@ -41,7 +42,7 @@ public class EnemyBaseStats : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
     
-        if (other.gameObject.tag == "Bullet" && isActive)
+        if (other.gameObject.tag == "PlayerBullet" && isActive)
         {
             other.gameObject.GetComponent<Bullet>().ResetBulletTimer();
             other.gameObject.GetComponent<Bullet>().SetStartPosition(Vector3.zero);

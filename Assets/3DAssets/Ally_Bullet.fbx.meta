@@ -3,7 +3,17 @@ guid: 5704494a01c5b304598cce6149525893
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ally bullet.png
+    second: {fileID: 2100000, guid: 280f8f124e8281d4aac1924f0c4cc352, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Ally bullet
+    second: {fileID: 2800000, guid: 3bd77faf2fea0084493643da2232cd59, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
