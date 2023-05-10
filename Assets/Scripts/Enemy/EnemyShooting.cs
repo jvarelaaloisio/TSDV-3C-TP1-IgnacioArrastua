@@ -49,4 +49,8 @@ public class EnemyShooting : MonoBehaviour
         newBullet.SetActiveState(true);
         newBullet.ResetBulletTimer();
     }
+    public void SetBulletHolder(Transform holder)
+    {
+        bulletHolder = holder;
+    }
 }

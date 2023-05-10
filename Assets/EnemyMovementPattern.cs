@@ -4,12 +4,15 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyMovementPatern : MonoBehaviour
+public class EnemyMovementPattern : MonoBehaviour
 {
     [SerializeField] private EnemyMovement[] enemyTypes;
     [SerializeField] private int defaultEnemyCount = 0;
     [SerializeField] private int specialEnemyCount = 0;
     private List<EnemyMovement> enemysToSpawn;
+    [SerializeField]
+    private Transform bulletHolder;
+    private bool isActive = false;
 
     [SerializeField] private float speed;
     [SerializeField] Transform[] points;
@@ -27,6 +30,12 @@ public class EnemyMovementPatern : MonoBehaviour
         points = transform.Cast<Transform>().ToArray();
     }
     void Start()
+    {
+        if (isActive)
+            StartPattern();
+    }
+
+    public void StartPattern()
     {
         enemyCounter = 0;
         enemysToSpawn = new List<EnemyMovement>();
@@ -47,6 +56,7 @@ public class EnemyMovementPatern : MonoBehaviour
         foreach (var enemy in enemysToSpawn)
         {
             enemy.SetStartParameters(speed, shouldLoop, loopTimes, startLoop, endLoop, false, points);
+            enemy.gameObject.GetComponent<EnemyShooting>().SetBulletHolder(bulletHolder);
         }
         for (int i = 0; i < enemysToSpawn.Count; i++)
         {
@@ -57,16 +67,20 @@ public class EnemyMovementPatern : MonoBehaviour
         }
 
         maxEnemysInScene = enemysToSpawn.Count;
+        isActive = true;
     }
 
     void Update()
     {
-        spawnTimer += Time.deltaTime;
-        if (spawnTimer > spawnDelay && enemyCounter < maxEnemysInScene)
+        if (isActive)
         {
-            spawnTimer = 0.0f;
-            enemysToSpawn[enemyCounter].SetActive();
-            enemyCounter++;
+            spawnTimer += Time.deltaTime;
+            if (spawnTimer > spawnDelay && enemyCounter < maxEnemysInScene)
+            {
+                spawnTimer = 0.0f;
+                enemysToSpawn[enemyCounter].SetActive();
+                enemyCounter++;
+            }
         }
     }
     private void OnDrawGizmosSelected()
