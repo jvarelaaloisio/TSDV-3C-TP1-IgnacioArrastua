@@ -7,6 +7,7 @@ using UnityEngine;
 public class EnemyMovementPattern : MonoBehaviour
 {
     [SerializeField] private EnemyMovement[] enemyTypes;
+    [SerializeField] private Transform enemyHolder ;
     [SerializeField] private int defaultEnemyCount = 0;
     [SerializeField] private int specialEnemyCount = 0;
     private List<EnemyMovement> enemysToSpawn;
@@ -44,12 +45,12 @@ public class EnemyMovementPattern : MonoBehaviour
 
         for (int i = 0; i < defaultEnemyCount; i++)
         {
-            var aux = Instantiate(enemyTypes[0]);
+            var aux = Instantiate(enemyTypes[0],enemyHolder);
             enemysToSpawn.Add(aux);
         }
         for (int i = 0; i < specialEnemyCount; i++)
         {
-            var aux = Instantiate(enemyTypes[1]);
+            var aux = Instantiate(enemyTypes[1], enemyHolder);
             enemysToSpawn.Add(aux);
         }
 

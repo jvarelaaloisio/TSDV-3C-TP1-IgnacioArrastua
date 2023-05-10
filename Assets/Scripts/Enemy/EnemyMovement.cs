@@ -44,8 +44,14 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         if (!isActive || hasEnded) return;
-        transform.position = Vector2.MoveTowards(transform.position, movementPoints[currentPoint].position, speed * Time.deltaTime);
-        if (!(Vector2.Distance(transform.position, movementPoints[currentPoint].position) < minDistance)) return;
+
+
+        Vector3 localPosition = movementPoints[currentPoint].localPosition - transform.parent.localPosition;
+
+        Vector2 vector2Position = Vector2.MoveTowards(transform.localPosition, localPosition, speed * Time.deltaTime);
+
+        transform.localPosition =new Vector3(vector2Position.x, vector2Position.y, transform.localPosition.z);
+        if (!(Vector2.Distance(transform.localPosition, localPosition) < minDistance)) return;
         if (!shouldLoop)
         {
             currentPoint++;

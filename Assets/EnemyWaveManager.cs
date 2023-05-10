@@ -7,7 +7,7 @@ public class EnemyWaveManager : MonoBehaviour
 {
     [SerializeField] private EnemyMovementPattern[] pattern;
     [SerializeField] private float[] activationPoint;
-    [SerializeField] private int nextPoint = 0;
+     private int nextPoint = 0;
 
 
     [SerializeField] private CinemachineDollyCart dollyCart;
@@ -22,7 +22,7 @@ public class EnemyWaveManager : MonoBehaviour
     void Update()
     {
          currentPosition= dollyCart.m_Position;
-        if (currentPosition >= activationPoint[nextPoint] && nextPoint < activationPoint.Length-1) 
+        if (nextPoint < activationPoint.Length && currentPosition >= activationPoint[nextPoint]) 
         {
             pattern[nextPoint].StartPattern();
             nextPoint++;
