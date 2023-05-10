@@ -77,7 +77,6 @@ public class PlayerMovement : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, -minPositionBeforeClamp.x, maxPositionBeforeClamp.x);
         // pos.x = Mathf.Clamp01(pos.x);
         // pos.y = Mathf.Clamp01(pos.y);
-        Debug.Log(pos);
         transform.localPosition = new Vector3(pos.x, pos.y, transform.localPosition.z);
     }
     void RotationLook(float h, float v, float speed)

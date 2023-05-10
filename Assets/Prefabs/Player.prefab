@@ -143,6 +143,8 @@ GameObject:
   - component: {fileID: 4561208014810438879}
   - component: {fileID: 4561208014810438864}
   - component: {fileID: 8492530721915205002}
+  - component: {fileID: 2115284895}
+  - component: {fileID: 9065621869916247657}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -179,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46020200e761403409d0c55ae4ca2206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 11400000, guid: e64f707767407f34587f76abbb141f4f, type: 2}
   playerModel: {fileID: 1384327598977671451}
   aimTarget: {fileID: 0}
   dolly: {fileID: 0}
@@ -186,8 +189,6 @@ MonoBehaviour:
   lookSpeed: 100
   cartSpeed: 0
   leanLimit: 80
-  minPositionBeforeClamp: {x: 8, y: 3.5}
-  maxPositionBeforeClamp: {x: 8, y: 8}
 --- !u!114 &4561208014810438864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,15 +324,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7322c2be5e74bf54e8d8c0ec477d51b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 11400000, guid: e64f707767407f34587f76abbb141f4f, type: 2}
   rayPosition: {fileID: 2741220430394713321}
   bullet: {fileID: 2672014167870166261, guid: f68c23854dd0056458ab89c9fca7be22, type: 3}
   prefire: {fileID: 599008557134133571}
   fireLaser: {fileID: 3039957664254663823}
   raycastDistance: 19
-  specialBeanTimer: 1.2
-  specialBeanActiveTime: 1.2
-  minHoldShootTimer: 0.2
-  minShootTimer: 0.08
+  bulletHolder: {fileID: 0}
+--- !u!114 &2115284895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4561208014810438877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5af2842cfa35944382d00a6fe9ddaf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealthPoints: 100
+  isInvincible: 0
+--- !u!65 &9065621869916247657
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4561208014810438877}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.1863854, y: 0.8818307, z: 1.9066243}
+  m_Center: {x: 0.017058969, y: 0.17133462, z: 0.11035025}
 --- !u!1001 &3550435980627892701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -348,6 +374,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CFXR4 Firework HDR Shoot Single (Random Color)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1978689737715041618, guid: afa54037ffe627545886e2741abb365d,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1978689737715041618, guid: afa54037ffe627545886e2741abb365d,
         type: 3}
@@ -439,6 +470,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4594683968869090911, guid: afa54037ffe627545886e2741abb365d,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927358954164068249, guid: afa54037ffe627545886e2741abb365d,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afa54037ffe627545886e2741abb365d, type: 3}
 --- !u!4 &3039957664254663816 stripped
@@ -463,17 +504,17 @@ PrefabInstance:
     - target: {fileID: 1034700375001605414, guid: f6fd568b816c64943a44efc3add3a881,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.26737964
+      value: 0.285319
       objectReference: {fileID: 0}
     - target: {fileID: 1034700375001605414, guid: f6fd568b816c64943a44efc3add3a881,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.76470584
+      value: 0.6549647
       objectReference: {fileID: 0}
     - target: {fileID: 1034700375001605414, guid: f6fd568b816c64943a44efc3add3a881,
         type: 3}
       propertyPath: m_Intensity
-      value: 0
+      value: 2.9126122
       objectReference: {fileID: 0}
     - target: {fileID: 2990870103442498292, guid: f6fd568b816c64943a44efc3add3a881,
         type: 3}
@@ -488,6 +529,11 @@ PrefabInstance:
     - target: {fileID: 4382795560878698138, guid: f6fd568b816c64943a44efc3add3a881,
         type: 3}
       propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824670795371433368, guid: f6fd568b816c64943a44efc3add3a881,
+        type: 3}
+      propertyPath: moveWithTransform
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5824670795371433373, guid: f6fd568b816c64943a44efc3add3a881,

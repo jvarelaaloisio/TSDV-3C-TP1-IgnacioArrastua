@@ -9,12 +9,22 @@ public class Bullet : MonoBehaviour
     private static float damage = 30f;
     public static float maxAliveTime = 3f;
     private float timer;
-    private Transform CameraHolder;
+
+    private Vector3 direction;
     // Start is called before the first frame update
     void Start()
     {
         isActive = true;
         timer = 0.0f;
+        switch (gameObject.tag)
+        {
+            case "PlayerBullet":
+                direction = Vector3.forward;
+                break; 
+            case "EnemyBullet":
+                direction = Vector3.back;
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -25,7 +35,7 @@ public class Bullet : MonoBehaviour
             timer += Time.deltaTime;
             if (timer <= maxAliveTime)
             {
-                transform.localPosition += Time.deltaTime * velocity * Vector3.forward;
+                transform.localPosition += Time.deltaTime * velocity * direction;
             }
             else
             {

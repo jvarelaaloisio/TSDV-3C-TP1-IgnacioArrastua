@@ -31,11 +31,11 @@ public class EnemyBaseStats : MonoBehaviour
 
     void Update()
     {
-        CheckEnemyStatus();
     }
     public void StartObject()
     {
         model.SetActive(true);
+        CurrentHealth = maxHealth;
         isActive = true;
       
     }
@@ -48,6 +48,7 @@ public class EnemyBaseStats : MonoBehaviour
             other.gameObject.GetComponent<Bullet>().SetStartPosition(Vector3.zero);
             other.gameObject.GetComponent<Bullet>().SetActiveState(false);
             CurrentHealth -= other.gameObject.GetComponent<Bullet>().GetDamage();
+            CheckEnemyStatus();
         }
     }
     void CheckEnemyStatus()
@@ -58,10 +59,14 @@ public class EnemyBaseStats : MonoBehaviour
             if (boom.isPlaying == false)
             {
                 boom.Play();
-                CurrentHealth = maxHealth;
                 Invoke("StartObject", 3f);
             }
         }
+    }
+
+    public bool isAlive()
+    {
+        return (CurrentHealth > 0);
     }
     void KillEnemy()
     {

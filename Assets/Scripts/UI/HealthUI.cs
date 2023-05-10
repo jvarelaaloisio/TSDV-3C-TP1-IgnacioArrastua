@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LaserUI : MonoBehaviour
+public class HealthUI : MonoBehaviour
 {
     [SerializeField]
-    private PlayerShooting playerShooting;
+    private PlayerHealthStats playerHealthStats;
 
     private Slider slider;
 
@@ -17,13 +14,13 @@ public class LaserUI : MonoBehaviour
     {
         slider = GetComponent<Slider>();
     }
-    private void Update()
+
+    void Update()
     {
-        sliderMaxTimer = playerShooting.GetSpecialBeanCooldown();
-        sliderCurrentTimer = playerShooting.GetSpecialBeanCooldownTimer();
+        sliderMaxTimer = playerHealthStats.GetMaxHealthPoints();
+        sliderCurrentTimer = playerHealthStats.GetCurrentHealthPoints();
         var currentTime = sliderCurrentTimer / sliderMaxTimer;
         currentTime = Mathf.Clamp01(currentTime);
-        Debug.Log(currentTime);
         slider.value = currentTime;
     }
 }

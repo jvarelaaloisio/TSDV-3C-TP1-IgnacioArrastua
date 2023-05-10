@@ -15,8 +15,10 @@ public class EnemyShooting : MonoBehaviour
     [SerializeField] private float shootBulletCooldown = 0.2f;
     private float currentShootBulletColdown = 0.0f;
     private bool isActive = false;
+    private bool isAlive;
     void Start()
     {
+        
         bulletPoint = shootingPoints.transform.Cast<Transform>().ToArray();
         isActive = true;
     }
@@ -24,7 +26,8 @@ public class EnemyShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isActive)
+        isAlive = GetComponent<EnemyBaseStats>().isAlive();
+        if (isActive && isAlive)
         {
             currentShootBulletColdown += Time.deltaTime;
             if (currentShootBulletColdown > shootBulletCooldown)
@@ -40,7 +43,7 @@ public class EnemyShooting : MonoBehaviour
     }
     private void ShootBullet(Transform shooting)
     {
-        var newBullet = Instantiate(bullet, shooting.position, bulletHolder.rotation, bulletHolder);
+        var newBullet = Instantiate(bullet, shooting.position, shooting.rotation, bulletHolder);
 
         newBullet.SetStartPosition(shooting);
         newBullet.SetActiveState(true);
