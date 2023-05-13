@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Quaternion = UnityEngine.Quaternion;
@@ -8,12 +8,19 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private static readonly int IsRolling = Animator.StringToHash("IsRolling");
+    public static event Action<bool> OnRoll;
+
+    private bool canRoll = false;
+    private bool canMove = false;
     [Header("GameObjects")]
     [SerializeField]
     private PlayerSettings player;
     [SerializeField]
     Transform playerModel;
 
+    [SerializeField]
+    private Animator animator;
     [SerializeField]
     private Transform aimTarget;
     [SerializeField]
@@ -29,13 +36,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float leanLimit;
 
+
+
     [Header("ClampValues")] 
     private Vector2 minPositionBeforeClamp;
     private Vector2 maxPositionBeforeClamp;
 
 
-    private void Awake()
+
+    private void Start()
     {
+        canRoll = true;
+        canMove = true;
         dolly.m_Speed = cartSpeed;
         xySpeed = player.xySpeed;
         lookSpeed = player.lookSpeed;
@@ -44,14 +56,11 @@ public class PlayerMovement : MonoBehaviour
         minPositionBeforeClamp = player.minPositionBeforeClamp;
     }
 
-
     void Update()
     {
         Movement();
     }
-
-
-
+    
     private void Movement()
     {
         LocalMove(movevementValue.x, movevementValue.y);
@@ -62,8 +71,23 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext ctx)
     {
-
         movevementValue = ctx.ReadValue<Vector2>();
+    }
+    public void OnRollInput(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && canRoll)
+        {
+            canRoll = false;
+            animator.SetFloat("MovementX", movevementValue.x);
+            animator.SetTrigger(IsRolling);
+        }
+    }
+
+    public void RollMovement(bool state)
+    {
+        OnRoll?.Invoke(state);
+        canRoll = !state;
+    
     }
 
     private void LocalMove(float x, float y)

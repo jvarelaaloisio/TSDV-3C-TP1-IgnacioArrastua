@@ -62,6 +62,15 @@ public partial class @Test: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RollInput"",
+                    ""type"": ""Button"",
+                    ""id"": ""81925d43-5b35-4834-9b8b-d71e9dd1798c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -315,6 +324,17 @@ public partial class @Test: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Fire2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""934820fe-86fc-480c-8bfc-5804bf24154f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RollInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -906,6 +926,7 @@ public partial class @Test: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Fire2 = m_Player.FindAction("Fire2", throwIfNotFound: true);
+        m_Player_RollInput = m_Player.FindAction("RollInput", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -983,6 +1004,7 @@ public partial class @Test: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Fire2;
+    private readonly InputAction m_Player_RollInput;
     public struct PlayerActions
     {
         private @Test m_Wrapper;
@@ -991,6 +1013,7 @@ public partial class @Test: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Fire2 => m_Wrapper.m_Player_Fire2;
+        public InputAction @RollInput => m_Wrapper.m_Player_RollInput;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1012,6 +1035,9 @@ public partial class @Test: IInputActionCollection2, IDisposable
             @Fire2.started += instance.OnFire2;
             @Fire2.performed += instance.OnFire2;
             @Fire2.canceled += instance.OnFire2;
+            @RollInput.started += instance.OnRollInput;
+            @RollInput.performed += instance.OnRollInput;
+            @RollInput.canceled += instance.OnRollInput;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1028,6 +1054,9 @@ public partial class @Test: IInputActionCollection2, IDisposable
             @Fire2.started -= instance.OnFire2;
             @Fire2.performed -= instance.OnFire2;
             @Fire2.canceled -= instance.OnFire2;
+            @RollInput.started -= instance.OnRollInput;
+            @RollInput.performed -= instance.OnRollInput;
+            @RollInput.canceled -= instance.OnRollInput;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1214,6 +1243,7 @@ public partial class @Test: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnFire2(InputAction.CallbackContext context);
+        void OnRollInput(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

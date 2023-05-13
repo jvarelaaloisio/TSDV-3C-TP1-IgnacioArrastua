@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
 public class PlayerShooting : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerSettings player;
-    private List<Bullet> _bullets;
-    [SerializeField]
-    Transform rayPosition;
-    [SerializeField]
-    private Bullet bullet;
-    [SerializeField]
-    private ParticleSystem prefire;
-    [SerializeField]
-    private ParticleSystem fireLaser;
+    private bool canShoot;
+
+    [SerializeField] private PlayerSettings player;
+    [SerializeField] Transform rayPosition;
+    [SerializeField] private Bullet bullet;
+    [SerializeField] private ParticleSystem prefire;
+    [SerializeField] private ParticleSystem fireLaser;
+
     public int raycastDistance;
     private bool isPressingButton;
+
     [Header("Cooldowns Presets")]
     private float currentBeanTimer;
     private bool canFireSpecialBean;
@@ -35,16 +34,34 @@ public class PlayerShooting : MonoBehaviour
 
     private void Awake()
     {
+ 
+    }
+
+    private void Start()
+    {
+        canShoot = true;
         specialBeanCooldown = player.specialBeanCooldown;
         minShootTimer = player.minShootTimer;
         minHoldShootTimer = player.minHoldShootTimer;
+        PlayerMovement.OnRoll += PlayerMovement_OnRoll; 
     }
+
+    private void PlayerMovement_OnRoll(bool isOnRoll)
+    {
+        canShoot = !isOnRoll;
+    }
+    private void OnDestroy()
+    {
+        PlayerMovement.OnRoll -= PlayerMovement_OnRoll;
+    }
+
     private void Update()
     {
         AttackLogic();
     }
     private void AttackLogic()
     {
+        if (!canShoot) return;
 
         SpecialBeanCooldownTimers();
         currentHoldShootTimer += Time.deltaTime;
