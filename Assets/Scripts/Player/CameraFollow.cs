@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -14,6 +15,8 @@ public class CameraFollow : MonoBehaviour
     public float smoothTime;
     private Vector3 velocity = Vector3.zero;
 
+ 
+
     void Update()
     {
   
@@ -21,7 +24,6 @@ public class CameraFollow : MonoBehaviour
         {
             transform.localPosition = offset;
         }
-
         FollowTarget(target);
     }
 

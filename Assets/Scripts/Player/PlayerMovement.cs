@@ -1,47 +1,38 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Quaternion = UnityEngine.Quaternion;
-using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
+
 
 public class PlayerMovement : MonoBehaviour
 {
-    private static readonly int IsRolling = Animator.StringToHash("IsRolling");
     public static event Action<bool> OnRoll;
 
     private bool canRoll = false;
     private bool canMove = false;
-    [Header("GameObjects")]
-    [SerializeField]
-    private PlayerSettings player;
-    [SerializeField]
-    Transform playerModel;
 
-    [SerializeField]
-    private Animator animator;
-    [SerializeField]
-    private Transform aimTarget;
-    [SerializeField]
-    Cinemachine.CinemachineDollyCart dolly;
+    [Header("GameObjects")]
+
+    [SerializeField] private PlayerSettings player;
+    [SerializeField] Transform playerModel;
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private Transform aimTarget;
+    [SerializeField] Cinemachine.CinemachineDollyCart dolly;
+    
     [Header("Values")]
-    [SerializeField]
-    private float xySpeed;
-    [SerializeField]
-    private float lookSpeed;
-    [SerializeField]
-    private float cartSpeed;
+
+    [SerializeField] private float xySpeed;
+    [SerializeField] private float lookSpeed;
+    [SerializeField] private float cartSpeed;
+    [SerializeField] private float leanLimit;
     private Vector2 movevementValue;
-    [SerializeField]
-    float leanLimit;
 
 
 
     [Header("ClampValues")] 
     private Vector2 minPositionBeforeClamp;
     private Vector2 maxPositionBeforeClamp;
-
+    private static readonly int IsRolling = Animator.StringToHash("IsRolling");
 
 
     private void Start()

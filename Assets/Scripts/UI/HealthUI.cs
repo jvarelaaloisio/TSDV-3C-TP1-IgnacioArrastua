@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class HealthUI : MonoBehaviour
 {
     [SerializeField]
-    private PlayerHealthStats playerHealthStats;
+    private PlayerController playerHealthStats;
 
     private Slider slider;
 
@@ -15,7 +15,7 @@ public class HealthUI : MonoBehaviour
         slider = GetComponent<Slider>();
     }
 
-    void Update()
+    private void Update()
     {
         sliderMaxTimer = playerHealthStats.GetMaxHealthPoints();
         sliderCurrentTimer = playerHealthStats.GetCurrentHealthPoints();

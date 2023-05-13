@@ -16,6 +16,13 @@ public class EnemyShooting : MonoBehaviour
     private float currentShootBulletColdown = 0.0f;
     private bool isActive = false;
     private bool isAlive;
+    private EnemyBaseStats _enemyBaseStats;
+
+    private void Awake()
+    {
+        _enemyBaseStats = GetComponent<EnemyBaseStats>();
+    }
+
     void Start()
     {
         
@@ -26,7 +33,7 @@ public class EnemyShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isAlive = GetComponent<EnemyBaseStats>().isAlive();
+        isAlive = _enemyBaseStats.IsAlive();
         if (isActive && isAlive)
         {
             currentShootBulletColdown += Time.deltaTime;

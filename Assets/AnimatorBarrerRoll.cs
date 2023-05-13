@@ -12,7 +12,6 @@ public class AnimatorBarrerRoll : StateMachineBehaviour
 
         playerMovement.RollMovement(true);
 
-
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

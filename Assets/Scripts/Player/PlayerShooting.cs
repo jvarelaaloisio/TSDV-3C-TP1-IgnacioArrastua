@@ -22,6 +22,7 @@ public class PlayerShooting : MonoBehaviour
     private bool canFireSpecialBean;
     private float specialBeanCooldown;
     private float specialBeanCooldownTimer = 0.0f;
+    private bool isChargingSpecialBean = false;
     private float specialBeanTimer = 1.2f;
     private float minHoldShootTimer = 0.2f;
     private float currentHoldShootTimer;
@@ -34,7 +35,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Awake()
     {
- 
+
     }
 
     private void Start()
@@ -43,7 +44,7 @@ public class PlayerShooting : MonoBehaviour
         specialBeanCooldown = player.specialBeanCooldown;
         minShootTimer = player.minShootTimer;
         minHoldShootTimer = player.minHoldShootTimer;
-        PlayerMovement.OnRoll += PlayerMovement_OnRoll; 
+        PlayerMovement.OnRoll += PlayerMovement_OnRoll;
     }
 
     private void PlayerMovement_OnRoll(bool isOnRoll)
@@ -68,22 +69,24 @@ public class PlayerShooting : MonoBehaviour
         currentSingleShootTimer += Time.deltaTime;
         if (isPressingButton)
         {
-            currentBeanTimer += Time.deltaTime;
-            if (currentSingleShootTimer > minShootTimer && !singleBulletShoot)
+            if (!isChargingSpecialBean)
             {
-                singleBulletShoot = true;
-                ShootBullet();
+                currentBeanTimer += Time.deltaTime;
+                if (currentSingleShootTimer > minShootTimer && !singleBulletShoot)
+                {
+                    singleBulletShoot = true;
+                    ShootBullet();
+                }
+                else if (currentHoldShootTimer > minHoldShootTimer && singleBulletShoot && currentSingleShootTimer > minHoldShootTimer)
+                {
+                    ShootBullet();
+                    currentHoldShootTimer -= minHoldShootTimer;
+                }
             }
-            else if (currentHoldShootTimer > minHoldShootTimer && singleBulletShoot && currentSingleShootTimer > minHoldShootTimer)
-            {
-                ShootBullet();
-                currentHoldShootTimer -= minHoldShootTimer;
-            }
-
             if (currentBeanTimer > specialBeanTimer && canFireSpecialBean)
             {
                 prefire.Play();
-
+                isChargingSpecialBean = true;
             }
             else
             {
@@ -104,6 +107,7 @@ public class PlayerShooting : MonoBehaviour
             currentSingleShootTimer = 0.0f;
             currentBeanTimer = 0.0f;
             currentHoldShootTimer = minHoldShootTimer;
+            isChargingSpecialBean = false;
             prefire.Stop();
         }
 

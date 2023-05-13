@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -19,11 +20,13 @@ public class EnemyMovement : MonoBehaviour
 
     void Start()
     {
-      //  movementPoints = determinedMovement.transform.Cast<Transform>().ToArray();
-        transform.position = movementPoints[0].position;
+        if (movementPoints.Length != 0)
+        {
+            transform.position = movementPoints[0].position;
+        }
+
+        isActive = false;
         hasEnded = false;
-        // endLoop = Mathf.Clamp(endLoop, startLoop, movementPoints.Length - 1);
-       // startLoop = Mathf.Clamp(startLoop, 0, endLoop - 1);
     }
 
     public void SetStartParameters(float speed, bool shouldLoop, float loopTimes, int startLoop, int endLoop, bool isActive, Transform[] determinedMovement)
@@ -50,7 +53,7 @@ public class EnemyMovement : MonoBehaviour
 
         Vector2 vector2Position = Vector2.MoveTowards(transform.localPosition, localPosition, speed * Time.deltaTime);
 
-        transform.localPosition =new Vector3(vector2Position.x, vector2Position.y, transform.localPosition.z);
+        transform.localPosition = new Vector3(vector2Position.x, vector2Position.y, transform.localPosition.z);
         if (!(Vector2.Distance(transform.localPosition, localPosition) < minDistance)) return;
         if (!shouldLoop)
         {

@@ -10,6 +10,7 @@ public class EnemyBaseStats : MonoBehaviour
     private float maxHealth;
     private float _currentHealth;
     private ParticleSystem boom;
+    [SerializeField] private int scoreValue;
 
     public float CurrentHealth
     {
@@ -25,7 +26,10 @@ public class EnemyBaseStats : MonoBehaviour
         bc = GetComponent<BoxCollider>();
         CurrentHealth = maxHealth;
         boom.Stop();
+
     }
+
+   
 
     public void StartObject()
     {
@@ -54,12 +58,13 @@ public class EnemyBaseStats : MonoBehaviour
             if (boom.isPlaying == false)
             {
                 boom.Play();
+                PlayerController.Score += scoreValue;
                 Invoke("StartObject", 3f);
             }
         }
     }
 
-    public bool isAlive()
+    public bool IsAlive()
     {
         return (CurrentHealth > 0);
     }
