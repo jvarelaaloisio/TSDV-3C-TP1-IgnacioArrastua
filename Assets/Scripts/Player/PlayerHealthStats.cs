@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealthStats : MonoBehaviour
 {
 
-   [SerializeField] private int maxHealthPoints;
+    [SerializeField] private int maxHealthPoints;
     private float currentHealth;
     private BoxCollider bc;
     [SerializeField] private bool isDamageable = true;

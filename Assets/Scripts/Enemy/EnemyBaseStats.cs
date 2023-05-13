@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBaseStats : MonoBehaviour
@@ -29,9 +27,6 @@ public class EnemyBaseStats : MonoBehaviour
         boom.Stop();
     }
 
-    void Update()
-    {
-    }
     public void StartObject()
     {
         model.SetActive(true);
