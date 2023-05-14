@@ -6,9 +6,10 @@ public class Bullet : MonoBehaviour
 {
     private bool isActive;
     public static float velocity = 50f;
-    private static float damage = 30f;
+    private float damage = 30f;
     public static float maxAliveTime = 3f;
     private float timer;
+    private Transform world;
 
     private Vector3 direction;
     // Start is called before the first frame update
@@ -19,22 +20,41 @@ public class Bullet : MonoBehaviour
         switch (gameObject.tag)
         {
             case "PlayerBullet":
-                direction = Vector3.forward;
-                break; 
+                direction = Vector3.zero;
+
+                break;
             case "EnemyBullet":
                 direction = Vector3.back;
                 break;
         }
     }
 
+    public void SetDirection(Vector3 dir)
+    {
+        var aux = transform.InverseTransformDirection(dir);
+        direction = aux;
+        direction.z = 1;
+        Debug.Log(dir);
+    }
+    public void SetDirection(Transform dir)
+    {
+        world = dir;
+        direction = world.transform.InverseTransformDirection(transform.forward);
+        //  transform.
+    }
     // Update is called once per frame
     void Update()
     {
+        if (gameObject.CompareTag("PlayerBullet"))
+        {
+            direction = world.transform.InverseTransformDirection(transform.forward);
+        }
         if (isActive)
         {
             timer += Time.deltaTime;
             if (timer <= maxAliveTime)
             {
+                Debug.Log(direction);
                 transform.localPosition += Time.deltaTime * velocity * direction;
             }
             else

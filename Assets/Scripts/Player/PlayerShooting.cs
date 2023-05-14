@@ -12,6 +12,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] Transform rayPosition;
     [SerializeField] private Bullet bullet;
     [SerializeField] private Transform bulletDirection;
+    [SerializeField] private Transform World;
     [SerializeField] private ParticleSystem prefire;
     [SerializeField] private ParticleSystem fireLaser;
 
@@ -136,13 +137,14 @@ public class PlayerShooting : MonoBehaviour
     }
     private void ShootBullet()
     {
-        var newBullet = Instantiate(bullet, rayPosition.position, bulletHolder.rotation, bulletHolder);
-        var bulletDirection = transform.TransformDirection(rayPosition.forward);
-        Debug.Log(bulletDirection);
-        newBullet.SetDirection(bulletDirection);
+        var newBullet = Instantiate(bullet, rayPosition.position, transform.rotation, bulletHolder);
+        var currentDirection = (World.transform.InverseTransformDirection(rayPosition.forward));
+        
         newBullet.SetStartPosition(transform);
         newBullet.SetActiveState(true);
         newBullet.ResetBulletTimer();
+        newBullet.SetDirection(World);
+        newBullet.SetDirection(currentDirection);
     }
 
     public float GetSpecialBeanCooldown() => specialBeanCooldown;

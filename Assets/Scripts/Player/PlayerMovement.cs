@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     {
         canRoll = true;
         canMove = true;
-        dolly.m_Speed = cartSpeed;
+       
         xySpeed = player.xySpeed;
         lookSpeed = player.lookSpeed;
         cartSpeed = player.cartSpeed;

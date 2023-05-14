@@ -63,7 +63,7 @@ public class EnemyMovement : MonoBehaviour
 
         Vector2 vector2Position = Vector2.MoveTowards(transform.localPosition, localPosition, speed * Time.deltaTime);
 
-        transform.localPosition = new Vector3(vector2Position.x, vector2Position.y, transform.localPosition.z);
+        transform.localPosition = new Vector3(vector2Position.x, vector2Position.y, transform.localPosition.z + localPosition.z);
         if (!(Vector2.Distance(transform.localPosition, localPosition) < minDistance)) return;
         if (!shouldLoop)
         {

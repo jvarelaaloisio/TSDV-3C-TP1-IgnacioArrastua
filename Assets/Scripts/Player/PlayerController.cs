@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
         set
         {
             _score = value;
-            Debug.Log(_score);
             OnScoreUp?.Invoke(_score);
         }
     }
@@ -51,7 +50,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("EnemyBullet") && !isDamageable)
+        if (other.gameObject.CompareTag("EnemyBullet") && isDamageable)
         {
             Debug.Log("EnemyBulletHit");
             other.gameObject.GetComponent<Bullet>().ResetBulletTimer();
