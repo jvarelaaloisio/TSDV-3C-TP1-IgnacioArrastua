@@ -54,6 +54,7 @@ MonoBehaviour:
   isActive: 0
   model: {fileID: 3370636802635875393}
   maxHealth: 100
+  scoreValue: 0
 --- !u!65 &5601018050240335099
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -98,23 +99,14 @@ MonoBehaviour:
   speed: 2
   minDistance: 2
   movementPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6925684373854351459}
   currentPoint: 0
   shouldLoop: 0
   loopTimes: 3
   startLoop: 2
   endLoop: 5
   isActive: 0
+  hasEnded: 0
   currentLoopTimes: 0
 --- !u!114 &5735335209664070165
 MonoBehaviour:

@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 minPositionBeforeClamp;
     private Vector2 maxPositionBeforeClamp;
     private static readonly int IsRolling = Animator.StringToHash("IsRolling");
+    private static readonly int MovementX = Animator.StringToHash("MovementX");
 
 
     private void Start()
@@ -69,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         if (ctx.performed && canRoll)
         {
             canRoll = false;
-            animator.SetFloat("MovementX", movevementValue.x);
+            animator.SetFloat(MovementX, movevementValue.x);
             animator.SetTrigger(IsRolling);
         }
     }
@@ -90,10 +91,9 @@ public class PlayerMovement : MonoBehaviour
         var pos = transform.localPosition;
         pos.y = Mathf.Clamp(pos.y, -minPositionBeforeClamp.y, maxPositionBeforeClamp.y);
         pos.x = Mathf.Clamp(pos.x, -minPositionBeforeClamp.x, maxPositionBeforeClamp.x);
-        // pos.x = Mathf.Clamp01(pos.x);
-        // pos.y = Mathf.Clamp01(pos.y);
         transform.localPosition = new Vector3(pos.x, pos.y, transform.localPosition.z);
     }
+
     void RotationLook(float h, float v, float speed)
     {
         aimTarget.parent.position = Vector3.zero;
@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 targetEulerAngels = target.localEulerAngles;
         target.localEulerAngles = new Vector3(targetEulerAngels.x, targetEulerAngels.y, Mathf.LerpAngle(targetEulerAngels.z, -axis * leanLimit, lerpTime));
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(aimTarget.position, .5f);

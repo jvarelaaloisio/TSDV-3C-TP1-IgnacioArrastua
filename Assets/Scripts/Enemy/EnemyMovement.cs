@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,13 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private bool isActive = false;
     [SerializeField] private bool hasEnded = false;
     [SerializeField] private float currentLoopTimes;
+    private bool isAlive;
+    private EnemyBaseStats _enemyBaseStats;
+
+    private void Awake()
+    {
+        _enemyBaseStats = GetComponent<EnemyBaseStats>();
+    }
 
     void Start()
     {
@@ -27,6 +35,7 @@ public class EnemyMovement : MonoBehaviour
 
         isActive = false;
         hasEnded = false;
+        isAlive = true;
     }
 
     public void SetStartParameters(float speed, bool shouldLoop, float loopTimes, int startLoop, int endLoop, bool isActive, Transform[] determinedMovement)
@@ -46,8 +55,9 @@ public class EnemyMovement : MonoBehaviour
     }
     void Update()
     {
-        if (!isActive || hasEnded) return;
 
+        isAlive = _enemyBaseStats.IsAlive();
+        if (!isActive || hasEnded || !isAlive) return;
 
         Vector3 localPosition = movementPoints[currentPoint].localPosition - transform.parent.localPosition;
 

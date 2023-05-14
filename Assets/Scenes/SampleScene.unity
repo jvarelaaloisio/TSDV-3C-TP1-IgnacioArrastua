@@ -771,6 +771,7 @@ GameObject:
   - component: {fileID: 358628722}
   - component: {fileID: 358628724}
   - component: {fileID: 358628723}
+  - component: {fileID: 358628725}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -896,6 +897,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358628721}
   m_CullTransparentMesh: 1
+--- !u!114 &358628725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358628721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a7f8970591c9984d9f45763fdadcb2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textComponent: {fileID: 0}
+  scoreText: 'Score:'
+  scoreValue: 0
 --- !u!1 &396866634
 GameObject:
   m_ObjectHideFlags: 0
@@ -2827,7 +2843,7 @@ GameObject:
   - component: {fileID: 1957260424}
   - component: {fileID: 1957260426}
   m_Layer: 5
-  m_Name: UI
+  m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
