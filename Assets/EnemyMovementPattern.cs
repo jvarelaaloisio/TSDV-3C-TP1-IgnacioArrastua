@@ -14,7 +14,7 @@ public class EnemyMovementPattern : MonoBehaviour
     [SerializeField]
     private Transform bulletHolder;
     private bool isActive = false;
-
+    [SerializeField] private Color color;
     [SerializeField] private float speed;
     [SerializeField] Transform[] points;
     [SerializeField] private bool shouldLoop = false;
@@ -29,9 +29,11 @@ public class EnemyMovementPattern : MonoBehaviour
     private void OnValidate()
     {
         points = transform.Cast<Transform>().ToArray();
+
     }
     void Start()
     {
+
         if (isActive)
             StartPattern();
     }
@@ -86,6 +88,7 @@ public class EnemyMovementPattern : MonoBehaviour
     }
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = color;
         for (int i = 0; i < points.Length; i++)
         {
             if (i == points.Length - 1) return;
@@ -96,7 +99,7 @@ public class EnemyMovementPattern : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(1, 1, 1, 0.1f);
+        Gizmos.color = new Color(color.r, color.g, color.b, 0.1f);
         for (int i = 0; i < points.Length; i++)
         {
             if (i == points.Length - 1) return;

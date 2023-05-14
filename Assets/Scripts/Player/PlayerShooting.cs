@@ -11,6 +11,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private PlayerSettings player;
     [SerializeField] Transform rayPosition;
     [SerializeField] private Bullet bullet;
+    [SerializeField] private Transform bulletDirection;
     [SerializeField] private ParticleSystem prefire;
     [SerializeField] private ParticleSystem fireLaser;
 
@@ -136,7 +137,9 @@ public class PlayerShooting : MonoBehaviour
     private void ShootBullet()
     {
         var newBullet = Instantiate(bullet, rayPosition.position, bulletHolder.rotation, bulletHolder);
-
+        var bulletDirection = transform.TransformDirection(rayPosition.forward);
+        Debug.Log(bulletDirection);
+        newBullet.SetDirection(bulletDirection);
         newBullet.SetStartPosition(transform);
         newBullet.SetActiveState(true);
         newBullet.ResetBulletTimer();
