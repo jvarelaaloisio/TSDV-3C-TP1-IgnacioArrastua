@@ -131,6 +131,71 @@ Transform:
   m_Father: {fileID: 4561208014810438878}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &152454284068347015
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 73715071620731139}
+  m_Layer: 0
+  m_Name: BulletPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &73715071620731139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152454284068347015}
+  m_LocalRotation: {x: 0.0000000074505797, y: -0.121223494, z: 0.0000000037252899,
+    w: 0.99262524}
+  m_LocalPosition: {x: 1.3280003, y: -0.0000021755695, z: 1.2579999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6168236011001517408}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -13.925, z: 0}
+--- !u!1 &4438046800793276796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6168236011001517408}
+  m_Layer: 0
+  m_Name: Cannon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6168236011001517408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4438046800793276796}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 73715071620731139}
+  - {fileID: 8148462475129768995}
+  m_Father: {fileID: 4561208014810438878}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4561208014810438877
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,6 +232,7 @@ Transform:
   m_Children:
   - {fileID: 7398290410856364838}
   - {fileID: 2741220430394713321}
+  - {fileID: 6168236011001517408}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -191,6 +257,7 @@ MonoBehaviour:
   lookSpeed: 100
   cartSpeed: 0
   leanLimit: 80
+  isFocusActivate: 0
 --- !u!114 &4561208014810438864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +392,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 81925d43-5b35-4834-9b8b-d71e9dd1798c
     m_ActionName: Player/RollInput[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 420a907a-263e-4250-88a7-393c5d656e48
+    m_ActionName: Player/Pause[/Keyboard/escape,/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -349,6 +420,8 @@ MonoBehaviour:
   World: {fileID: 0}
   prefire: {fileID: 599008557134133571}
   fireLaser: {fileID: 3039957664254663823}
+  shootingPoints: []
+  cannon: {fileID: 6168236011001517408}
   raycastDistance: 19
   bulletHolder: {fileID: 0}
 --- !u!114 &2115284895
@@ -394,6 +467,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &7312943972449882230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8148462475129768995}
+  m_Layer: 0
+  m_Name: BulletPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8148462475129768995
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7312943972449882230}
+  m_LocalRotation: {x: -0, y: 0.11852571, z: 9.313226e-10, w: 0.99295104}
+  m_LocalPosition: {x: -1.3599998, y: -0.00000031292439, z: 1.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6168236011001517408}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 13.614, z: 0}
 --- !u!1001 &3550435980627892701
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18,18 +18,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Transform aimTarget;
     [SerializeField] Cinemachine.CinemachineDollyCart dolly;
-    
+
     [Header("Values")]
 
     [SerializeField] private float xySpeed;
     [SerializeField] private float lookSpeed;
     [SerializeField] private float cartSpeed;
     [SerializeField] private float leanLimit;
+    [SerializeField] private bool isFocusActivate = false;
     private Vector2 movevementValue;
 
 
 
-    [Header("ClampValues")] 
+    [Header("ClampValues")]
     private Vector2 minPositionBeforeClamp;
     private Vector2 maxPositionBeforeClamp;
     private static readonly int IsRolling = Animator.StringToHash("IsRolling");
@@ -40,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     {
         canRoll = true;
         canMove = true;
-       
+        isFocusActivate = false;
         xySpeed = player.xySpeed;
         lookSpeed = player.lookSpeed;
         cartSpeed = player.cartSpeed;
@@ -52,10 +53,13 @@ public class PlayerMovement : MonoBehaviour
     {
         Movement();
     }
-    
+
     private void Movement()
     {
-        LocalMove(movevementValue.x, movevementValue.y);
+        if (!isFocusActivate)
+        {
+            LocalMove(movevementValue.x, movevementValue.y);
+        }
         RotationLook(movevementValue.x, movevementValue.y, lookSpeed);
         HorizontalLean(playerModel, -movevementValue.x, leanLimit, .1f);
         ClampPosition();
@@ -75,11 +79,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void OnFocusMode(InputAction.CallbackContext ctx)
+    {
+        isFocusActivate = ctx.performed;
+    }
     public void RollMovement(bool state)
     {
         OnRoll?.Invoke(state);
         canRoll = !state;
-    
+
     }
 
     private void LocalMove(float x, float y)

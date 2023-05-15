@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,7 +16,8 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private Transform World;
     [SerializeField] private ParticleSystem prefire;
     [SerializeField] private ParticleSystem fireLaser;
-
+    [SerializeField] private Transform[] shootingPoints;
+    [SerializeField] private Transform cannon;
     public int raycastDistance;
     private bool isPressingButton;
 
@@ -37,7 +39,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Awake()
     {
-
+        shootingPoints = cannon.transform.Cast<Transform>().ToArray();
     }
 
     private void Start()
@@ -137,14 +139,17 @@ public class PlayerShooting : MonoBehaviour
     }
     private void ShootBullet()
     {
-        var newBullet = Instantiate(bullet, rayPosition.position, transform.rotation, bulletHolder);
-        var currentDirection = (World.transform.InverseTransformDirection(rayPosition.forward));
-        
-        newBullet.SetStartPosition(transform);
-        newBullet.SetActiveState(true);
-        newBullet.ResetBulletTimer();
-        newBullet.SetDirection(World);
-        newBullet.SetDirection(currentDirection);
+        foreach (Transform shootingPos in shootingPoints)
+        {
+            var newBullet = Instantiate(bullet, shootingPos.position, transform.rotation, bulletHolder);
+            var currentDirection = (World.transform.InverseTransformDirection(shootingPos.forward));
+
+            newBullet.SetStartPosition(shootingPos);
+            newBullet.SetActiveState(true);
+            newBullet.ResetBulletTimer();
+            newBullet.SetDirection(World);
+            newBullet.SetDirection(currentDirection);
+        }
     }
 
     public float GetSpecialBeanCooldown() => specialBeanCooldown;
