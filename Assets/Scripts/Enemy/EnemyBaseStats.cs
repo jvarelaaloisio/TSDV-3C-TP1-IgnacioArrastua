@@ -59,7 +59,7 @@ public class EnemyBaseStats : MonoBehaviour
             {
                 boom.Play();
                 PlayerController.Score += scoreValue;
-                Invoke("StartObject", 3f);
+               
             }
         }
     }
