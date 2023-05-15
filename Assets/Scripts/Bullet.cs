@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
         var aux = transform.InverseTransformDirection(dir);
         direction = aux;
         direction.z = 1;
-        Debug.Log(dir);
+    
     }
     public void SetDirection(Transform dir)
     {
@@ -54,7 +54,7 @@ public class Bullet : MonoBehaviour
             timer += Time.deltaTime;
             if (timer <= maxAliveTime)
             {
-                Debug.Log(direction);
+              
                 transform.localPosition += Time.deltaTime * velocity * direction;
             }
             else
