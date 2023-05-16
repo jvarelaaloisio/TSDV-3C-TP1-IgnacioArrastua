@@ -1895,8 +1895,24 @@ PrefabInstance:
       objectReference: {fileID: 2119088296}
     - target: {fileID: 707988716586685001, guid: e32d506b9cdf0024892e291f9fec0819,
         type: 3}
+      propertyPath: impactPrefab
+      value: 
+      objectReference: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7,
+        type: 3}
+    - target: {fileID: 707988716586685001, guid: e32d506b9cdf0024892e291f9fec0819,
+        type: 3}
+      propertyPath: explosionSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4cedceaf8b5c979439a0a34f61192892, type: 3}
+    - target: {fileID: 707988716586685001, guid: e32d506b9cdf0024892e291f9fec0819,
+        type: 3}
+      propertyPath: explosionVolume
+      value: 0.409
+      objectReference: {fileID: 0}
+    - target: {fileID: 707988716586685001, guid: e32d506b9cdf0024892e291f9fec0819,
+        type: 3}
       propertyPath: maxHealthPoints
-      value: 0
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 3471451916634479446, guid: e32d506b9cdf0024892e291f9fec0819,
         type: 3}
@@ -2098,6 +2114,11 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8937604905261992028, guid: e32d506b9cdf0024892e291f9fec0819,
+        type: 3}
+      propertyPath: shootClip
+      value: 
+      objectReference: {fileID: 8300000, guid: bbec4c70f6006b54fa1cc827283e7f92, type: 3}
     m_RemovedComponents:
     - {fileID: 707988716377256595, guid: e32d506b9cdf0024892e291f9fec0819, type: 3}
     - {fileID: 707988716377256594, guid: e32d506b9cdf0024892e291f9fec0819, type: 3}
