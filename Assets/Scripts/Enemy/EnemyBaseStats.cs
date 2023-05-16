@@ -13,7 +13,9 @@ public class EnemyBaseStats : MonoBehaviour
     [SerializeField] private ParticleSystem impactPrefab;
     [SerializeField] private int scoreValue;
     [SerializeField] private AudioClip explosionSound;
-    [SerializeField][Range(0, 1)] private float explosionVolume;
+    [SerializeField] [Range(0, 1)] private float explosionVolume;
+    [SerializeField] private AudioClip inpactSound;
+    [SerializeField] [Range(0, 1)] private float inpactVolume;
 
 
     public float CurrentHealth
@@ -51,11 +53,12 @@ public class EnemyBaseStats : MonoBehaviour
             other.gameObject.GetComponent<Bullet>().SetStartPosition(Vector3.zero);
             other.gameObject.GetComponent<Bullet>().SetActiveState(false);
             CurrentHealth -= other.gameObject.GetComponent<Bullet>().GetDamage();
-            Instantiate(impactPrefab,transform.position, Quaternion.identity, this.transform);
+            Instantiate(impactPrefab, transform.position, Quaternion.identity, this.transform);
+            SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
             CheckEnemyStatus();
         }
     }
-    void CheckEnemyStatus()
+    public void CheckEnemyStatus()
     {
         if (CurrentHealth <= 0)
         {
@@ -64,7 +67,7 @@ public class EnemyBaseStats : MonoBehaviour
             if (boom.isPlaying == false)
             {
                 boom.Play();
-                Invoke(nameof(DeActivateEnemy),1f);
+                Invoke(nameof(DeActivateEnemy), 1f);
                 SoundManager.Instance.PlaySound(explosionSound, explosionVolume);
             }
         }

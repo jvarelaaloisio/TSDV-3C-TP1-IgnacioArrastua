@@ -12,14 +12,16 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private PlayerSettings player;
     [SerializeField] Transform rayPosition;
     [SerializeField] private Bullet bullet;
-    [SerializeField] private Transform bulletDirection;
     [SerializeField] private Transform World;
     [SerializeField] private ParticleSystem prefire;
-    [SerializeField] private ParticleSystem fireLaser;
     [SerializeField] private Transform[] shootingPoints;
     [SerializeField] private Transform cannon;
     [SerializeField] private AudioClip shootClip;
     [SerializeField] [Range(0, 1)] private float shootVolume;
+    [SerializeField] private AudioClip laserClip;
+    [SerializeField] [Range(0, 1)] private float laserVolume;
+    [SerializeField] private AudioClip prepareLaserClip;
+    [SerializeField] [Range(0, 1)] private float prepareLaserVolume;
     public int raycastDistance;
     private bool isPressingButton;
 
@@ -39,6 +41,8 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField]
     private Transform bulletHolder;
 
+    [SerializeField] private GameObject rayObject;
+
     private void Awake()
     {
         shootingPoints = cannon.transform.Cast<Transform>().ToArray();
@@ -51,6 +55,7 @@ public class PlayerShooting : MonoBehaviour
         minShootTimer = player.minShootTimer;
         minHoldShootTimer = player.minHoldShootTimer;
         PlayerMovement.OnRoll += PlayerMovement_OnRoll;
+    
     }
 
     private void PlayerMovement_OnRoll(bool isOnRoll)
@@ -93,6 +98,10 @@ public class PlayerShooting : MonoBehaviour
             if (currentBeanTimer > specialBeanTimer && canFireSpecialBean)
             {
                 prefire.Play();
+                if (!isChargingSpecialBean)
+                {
+                    SoundManager.Instance.PlaySound(prepareLaserClip, prepareLaserVolume);
+                }
                 isChargingSpecialBean = true;
             }
             else
@@ -161,14 +170,17 @@ public class PlayerShooting : MonoBehaviour
 
     public void ShootRay()
     {
-        fireLaser.Play();
+
+        var newRay = Instantiate(rayObject, rayPosition.position, transform.rotation, transform);
+        SoundManager.Instance.PlaySound(laserClip, laserVolume);
+        newRay.transform.localPosition += new Vector3(0, 0, 45f);
         if (CheckLaserHitBox(out var hit) && hit.collider.CompareTag("Enemy") && hit.collider.GetComponent<EnemyBaseStats>().isActive)
         {
             hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth -= hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth;
+            hit.collider.GetComponent<EnemyBaseStats>().CheckEnemyStatus();
 
-            Debug.Log("RayoLaser");
         }
-
+        Destroy(newRay, 0.2f);
     }
     private bool CheckLaserHitBox(out RaycastHit hit)
     {
@@ -183,6 +195,10 @@ public class PlayerShooting : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(rayPosition.position, rayPosition.forward * raycastDistance);
+        Gizmos.DrawRay(rayPosition.position + Vector3.up / 2, rayPosition.forward * raycastDistance);
+        Gizmos.DrawRay(rayPosition.position + Vector3.down / 2, rayPosition.forward * raycastDistance);
+        Gizmos.DrawRay(rayPosition.position + Vector3.right / 2, rayPosition.forward * raycastDistance);
+        Gizmos.DrawRay(rayPosition.position + Vector3.left / 2, rayPosition.forward * raycastDistance);
     }
 }
 

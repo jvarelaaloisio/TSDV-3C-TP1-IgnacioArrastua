@@ -14,7 +14,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ParticleSystem impactPrefab;
     [SerializeField] private ParticleSystem boom;
     [SerializeField] private AudioClip explosionSound;
-    [SerializeField][Range(0, 1)] private float explosionVolume;
+    [SerializeField] [Range(0, 1)] private float explosionVolume;
+    [SerializeField] private AudioClip inpactSound;
+    [SerializeField] [Range(0, 1)] private float inpactVolume;
+
 
     public static int Score
     {
@@ -23,18 +26,19 @@ public class PlayerController : MonoBehaviour
         {
             _score = value;
             OnScoreUp?.Invoke(_score);
+            SoundManager.Instance.PlaySoundScore();
         }
     }
 
     private void Awake()
     {
-      
+        bc = GetComponent<BoxCollider>();
+
     }
 
     void Start()
     {
         currentHealth = maxHealthPoints;
-        bc = GetComponent<BoxCollider>();
         PlayerMovement.OnRoll += PlayerMovement_OnRoll;
         isDamageable = true;
         Score = 0;
@@ -56,9 +60,9 @@ public class PlayerController : MonoBehaviour
         {
             IsAlive = false;
 
-            var explosion =Instantiate(boom,transform.position, transform.rotation);
+            var explosion = Instantiate(boom, transform.position, transform.rotation);
             explosion.Play();
-            SoundManager.Instance.PlaySound(explosionSound,explosionVolume);
+            SoundManager.Instance.PlaySound(explosionSound, explosionVolume);
             DeactivatePlayer();
 
         }
@@ -76,8 +80,9 @@ public class PlayerController : MonoBehaviour
             other.gameObject.GetComponent<Bullet>().ResetBulletTimer();
             other.gameObject.GetComponent<Bullet>().SetStartPosition(Vector3.zero);
             other.gameObject.GetComponent<Bullet>().SetActiveState(false);
+            Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
+            SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
             ReceiveDamage(other.gameObject.GetComponent<Bullet>().GetDamage());
-            Instantiate(impactPrefab, transform.position, Quaternion.identity,this.transform);
         }
     }
     public float GetMaxHealthPoints()

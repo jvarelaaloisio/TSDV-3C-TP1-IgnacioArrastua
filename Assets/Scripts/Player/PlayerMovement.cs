@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Transform aimTarget;
     [SerializeField] Cinemachine.CinemachineDollyCart dolly;
+    [SerializeField] private AudioClip barrelRollClip;
+    [SerializeField] [Range(0, 1)] private float barrelRollVolume;
 
     [Header("Values")]
 
@@ -68,15 +70,18 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext ctx)
     {
+        if (Time.timeScale == 0) return;
         movevementValue = ctx.ReadValue<Vector2>();
     }
     public void OnRollInput(InputAction.CallbackContext ctx)
     {
+        if (Time.timeScale == 0) return;
         if (ctx.performed && canRoll)
         {
             canRoll = false;
             animator.SetFloat(MovementX, movevementValue.x);
             animator.SetTrigger(IsRolling);
+            SoundManager.Instance.PlaySound(barrelRollClip,barrelRollVolume);
         }
     }
 
@@ -117,9 +122,9 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(aimTarget.position, .5f);
-        Gizmos.DrawSphere(aimTarget.position, .15f);
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawWireSphere(aimTarget.position, .5f);
+        //Gizmos.DrawSphere(aimTarget.position, .15f);
     }
 
 }

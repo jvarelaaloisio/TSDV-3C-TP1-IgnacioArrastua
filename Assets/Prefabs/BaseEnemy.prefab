@@ -59,6 +59,8 @@ MonoBehaviour:
   scoreValue: 100
   explosionSound: {fileID: 8300000, guid: 4cedceaf8b5c979439a0a34f61192892, type: 3}
   explosionVolume: 0.145
+  inpactSound: {fileID: 8300000, guid: d3d81d7184e428345b0fa8e25047eba7, type: 3}
+  inpactVolume: 0.576
 --- !u!65 &5601018050240335099
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Path: {fileID: 0}
   m_UpdateMethod: 0
   m_PositionUnits: 0
-  m_Speed: 0.2
+  m_Speed: 0.3
   m_Position: 0
 --- !u!114 &899837566
 MonoBehaviour:
@@ -67,9 +67,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2de386e36ff9940b05d60f616653c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   levelDolly: {fileID: 0}
   path: {fileID: 0}
-  scene: MainMenu
+  end: {fileID: 0}
+  gameOver: {fileID: 0}
 --- !u!1 &3936125703866330643
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,16 +214,16 @@ MonoBehaviour:
   - {fileID: 2243982181952945088}
   - {fileID: 3577082225032504296}
   activationPoint:
-  - 2
+  - 0
   - 3
   - 5
-  - 7
-  - 9
-  - 12
+  - 8
+  - 10
+  - 13
   - 14
-  - 16
   - 18
-  - 19
+  - 20
+  - 25
   dollyCart: {fileID: 3936125703432919137}
 --- !u!1 &3936125704415154509
 GameObject:
@@ -351,17 +353,101 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1670401857, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1670401858, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
       propertyPath: m_LocalPosition.z
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 2115284895, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
+      propertyPath: boom
+      value: 
+      objectReference: {fileID: 3673983498433305408}
+    - target: {fileID: 2115284895, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
+      propertyPath: inpactSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0f9fd9f44b7a37d44a8770a03f465686, type: 3}
+    - target: {fileID: 2115284895, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
+      propertyPath: impactPrefab
+      value: 
+      objectReference: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7,
+        type: 3}
+    - target: {fileID: 2115284895, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
+      propertyPath: inpactVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115284895, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
+      propertyPath: explosionSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4cedceaf8b5c979439a0a34f61192892, type: 3}
+    - target: {fileID: 2115284895, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
+      propertyPath: explosionVolume
+      value: 0.676
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115284895, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
+      propertyPath: maxHealthPoints
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 599008557134133571, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 599008557134133571, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: moveWithCustomTransform
+      value: 
+      objectReference: {fileID: 3936125703397187848}
     - target: {fileID: 3039957664254663823, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}
       propertyPath: moveWithCustomTransform
       value: 
       objectReference: {fileID: 3936125703432919136}
+    - target: {fileID: 4069281487213168802, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: OnlyDeactivate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4178870811386324608, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 4178870811386324608, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 4178870811386324608, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264101555849992076, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264453159981761288, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264578629861181268, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264680285652727518, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264868690752005782, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4561208014810438864, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}
       propertyPath: m_ActionEvents.Array.size
@@ -570,7 +656,7 @@ PrefabInstance:
     - target: {fileID: 4561208014810438864, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4561208014810438864, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}
@@ -797,6 +883,16 @@ PrefabInstance:
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 3936125704653974481}
+    - target: {fileID: 4561208014810438879, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: barrelRollClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f626a89c4a2c12b43b4d82a62b687716, type: 3}
+    - target: {fileID: 4561208014810438879, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: barrelRollVolume
+      value: 0.455
+      objectReference: {fileID: 0}
     - target: {fileID: 6259588570994823677, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}
       propertyPath: m_Color.g
@@ -824,6 +920,27 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: bbec4c70f6006b54fa1cc827283e7f92, type: 3}
     - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
         type: 3}
+      propertyPath: laserClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 532d97b9b01ea3247b1bbacd55944d6f, type: 3}
+    - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: rayObject
+      value: 
+      objectReference: {fileID: 2804110858878954457, guid: 845cc55330f813348b45e1c436c44cce,
+        type: 3}
+    - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: shootClip
+      value: 
+      objectReference: {fileID: 8300000, guid: bbec4c70f6006b54fa1cc827283e7f92, type: 3}
+    - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: laserVolume
+      value: 0.659
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
       propertyPath: shootVolume
       value: 0.651
       objectReference: {fileID: 0}
@@ -832,8 +949,32 @@ PrefabInstance:
       propertyPath: bulletHolder
       value: 
       objectReference: {fileID: 3936125704485979060}
-    m_RemovedComponents: []
+    - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: raycastDistance
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: prepareLaserClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 42434474876ee4d449160b85d5ce21c8, type: 3}
+    - target: {fileID: 8492530721915205002, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+        type: 3}
+      propertyPath: prepareLaserVolume
+      value: 0.593
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1670401861, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
+    - {fileID: 1670401860, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
+    - {fileID: 1670401859, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8a103cee92a2ec049bcecb61ad8a3e8b, type: 3}
+--- !u!198 &3673983498433305408 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4264868690752005782, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
+    type: 3}
+  m_PrefabInstance: {fileID: 707988718030880214}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3936125703397187848 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4561208014810438878, guid: 8a103cee92a2ec049bcecb61ad8a3e8b,
