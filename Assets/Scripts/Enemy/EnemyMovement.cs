@@ -92,6 +92,7 @@ public class EnemyMovement : MonoBehaviour
         {
             isActive = false;
             hasEnded = true;
+            _enemyBaseStats.DeActivateEnemy();
         }
     }
 

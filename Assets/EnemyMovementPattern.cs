@@ -33,7 +33,6 @@ public class EnemyMovementPattern : MonoBehaviour
     }
     void Start()
     {
-
         if (isActive)
             StartPattern();
     }

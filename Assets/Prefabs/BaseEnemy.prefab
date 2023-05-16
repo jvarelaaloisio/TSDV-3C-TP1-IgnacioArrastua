@@ -53,8 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 0
   model: {fileID: 3370636802635875393}
-  maxHealth: 100
-  scoreValue: 0
+  maxHealth: 200
+  scoreValue: 100
 --- !u!65 &5601018050240335099
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -66,8 +66,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.034508, y: 1.6963296, z: 4.9685445}
-  m_Center: {x: 0.25937223, y: 0.3481648, z: 1.1397412}
+  m_Size: {x: 11.76, y: 5.55, z: 4.9685445}
+  m_Center: {x: -0.09211923, y: 0.60277724, z: 1.1397214}
 --- !u!54 &4057954605430488525
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   bullet: {fileID: 2672014167870166261, guid: f56f646d8415a2f46bde1e85bcb05095, type: 3}
   bulletHolder: {fileID: 0}
   shootingPoints: {fileID: 5543777277399325048}
-  shootBulletCooldown: 0.5
+  shootBulletCooldown: 0.8
 --- !u!1 &4576383066759067178
 GameObject:
   m_ObjectHideFlags: 0

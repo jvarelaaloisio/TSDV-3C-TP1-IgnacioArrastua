@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private bool isActive;
-    public static float velocity = 50f;
+    public float velocity = 50f;
     private float damage = 30f;
     public static float maxAliveTime = 3f;
     private float timer;
@@ -40,9 +40,9 @@ public class Bullet : MonoBehaviour
     {
         world = dir;
         direction = world.transform.InverseTransformDirection(transform.forward);
-        //  transform.
+        
     }
-    // Update is called once per frame
+   
     void Update()
     {
         if (gameObject.CompareTag("PlayerBullet"))

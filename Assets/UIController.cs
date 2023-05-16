@@ -1,26 +1,99 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class UIController : MonoBehaviour
 {
-    private static bool isPaused = false;
-   [SerializeField] private CanvasGroup InGameUi;
-   [SerializeField] private CanvasGroup PauseUI;
-    
+    private bool isPaused = false;
+    [SerializeField] private CanvasGroup InGameUi;
+    [SerializeField] private CanvasGroup pauseUI;
+    private int pauseCounter = 0;
+
     void Start()
     {
+        Time.timeScale = 1;
         isPaused = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
+
+
+    }
+
+    public void SetPause(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        isPaused = !isPaused;
+        pauseCounter++;
+        Debug.Log(pauseCounter);
+        if (isPaused)
+        {
+            UpdateCanvas();
+            pauseUI.GetComponent<SlideMenu>().OpenSlide();
+            Invoke(nameof(ChangeTimeScale), 0.7f);
+        }
+        else
+        {
+            ChangeTimeScale();
+            pauseUI.GetComponent<SlideMenu>().ReturnToGame();
+            Invoke(nameof(UpdateCanvas), 0.7f);
+
+        }
+
+    } 
+    public void SetPause()
+    {
+       
+        isPaused = !isPaused;
+        pauseCounter++;
+        Debug.Log(pauseCounter);
+        if (isPaused)
+        {
+            UpdateCanvas();
+            pauseUI.GetComponent<SlideMenu>().OpenSlide();
+            Invoke(nameof(ChangeTimeScale), 0.7f);
+        }
+        else
+        {
+            ChangeTimeScale();
+            pauseUI.GetComponent<SlideMenu>().ReturnToGame();
+            Invoke(nameof(UpdateCanvas), 0.7f);
+
+        }
+
+    }
+
+
+    public void ChangeTimeScale()
+    {
         Time.timeScale = isPaused ? 0 : 1;
     }
 
-    public static void SetPause()
+    public void UpdateCanvas()
     {
-        isPaused = !isPaused;
+        pauseUI.alpha = isPaused ? 1 : 0;
+        pauseUI.blocksRaycasts = isPaused;
+        pauseUI.interactable = isPaused;
+
+        InGameUi.alpha = !isPaused ? 1 : 0;
+        InGameUi.blocksRaycasts = !isPaused;
+        InGameUi.interactable = !isPaused;
     }
+    public void EndScreenSecuence()
+    {
+        InGameUi.alpha = 0;
+        InGameUi.blocksRaycasts = false;
+        InGameUi.interactable = false;
+        isPaused = false;
+        pauseUI.alpha = 0;
+        pauseUI.blocksRaycasts = false;
+        pauseUI.interactable = false;
+    }
+
 }

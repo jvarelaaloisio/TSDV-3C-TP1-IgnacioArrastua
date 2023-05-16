@@ -51,7 +51,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Movement();
+       if (LevelController.levelStatus != LevelController.LevelState.playing) return;
+            Movement();
     }
 
     private void Movement()

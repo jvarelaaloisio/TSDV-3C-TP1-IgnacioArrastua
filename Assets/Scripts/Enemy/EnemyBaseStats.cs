@@ -29,18 +29,18 @@ public class EnemyBaseStats : MonoBehaviour
 
     }
 
-   
+
 
     public void StartObject()
     {
         model.SetActive(true);
         CurrentHealth = maxHealth;
         isActive = true;
-      
+
     }
     private void OnTriggerEnter(Collider other)
     {
-    
+
         if (other.gameObject.tag == "PlayerBullet" && isActive)
         {
             other.gameObject.GetComponent<Bullet>().ResetBulletTimer();
@@ -55,15 +55,19 @@ public class EnemyBaseStats : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             KillEnemy();
+            PlayerController.Score += scoreValue;
             if (boom.isPlaying == false)
             {
                 boom.Play();
-                PlayerController.Score += scoreValue;
-               
+                Invoke(nameof(DeActivateEnemy),1f);
             }
         }
     }
 
+    public void DeActivateEnemy()
+    {
+        transform.gameObject.SetActive(false);
+    }
     public bool IsAlive()
     {
         return (CurrentHealth > 0);

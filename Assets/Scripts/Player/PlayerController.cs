@@ -9,7 +9,9 @@ public class PlayerController : MonoBehaviour
     private float currentHealth;
     private BoxCollider bc;
     [SerializeField] private bool isDamageable = true;
+    [field: SerializeField] public bool IsAlive { get; private set; } = true;
     private static int _score = 0;
+    [SerializeField] private ParticleSystem boom;
 
     public static int Score
     {
@@ -47,6 +49,20 @@ public class PlayerController : MonoBehaviour
     public void ReceiveDamage(float damage)
     {
         currentHealth -= damage;
+        if (currentHealth < 0.0f)
+        {
+            IsAlive = false;
+
+            var explosion =Instantiate(boom,transform.position, transform.rotation);
+            explosion.Play();
+            DeactivatePlayer();
+
+        }
+    }
+
+    public void DeactivatePlayer()
+    {
+        transform.gameObject.SetActive(false);
     }
     private void OnTriggerEnter(Collider other)
     {

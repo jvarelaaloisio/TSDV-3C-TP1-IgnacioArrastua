@@ -33,6 +33,7 @@ public class EnemyShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (LevelController.levelStatus != LevelController.LevelState.playing) return;
         isAlive = _enemyBaseStats.IsAlive();
         if (isActive && isAlive)
         {
