@@ -8,6 +8,7 @@ TagManager:
   - FxTemporaire
   - PlayerBullet
   - EnemyBullet
+  - EndScreen
   layers:
   - Default
   - TransparentFX
