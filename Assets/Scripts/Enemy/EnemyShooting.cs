@@ -18,6 +18,7 @@ public class EnemyShooting : MonoBehaviour
     private bool isAlive;
     private EnemyBaseStats _enemyBaseStats;
 
+
     private void Awake()
     {
         _enemyBaseStats = GetComponent<EnemyBaseStats>();
@@ -40,6 +41,7 @@ public class EnemyShooting : MonoBehaviour
             currentShootBulletColdown += Time.deltaTime;
             if (currentShootBulletColdown > shootBulletCooldown)
             {
+
                 foreach (var shoot in bulletPoint)
                 {
                     ShootBullet(shoot);

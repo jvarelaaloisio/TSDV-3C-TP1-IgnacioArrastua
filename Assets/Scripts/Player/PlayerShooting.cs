@@ -18,7 +18,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private ParticleSystem fireLaser;
     [SerializeField] private Transform[] shootingPoints;
     [SerializeField] private Transform cannon;
-    [SerializeField] private AudioClip shoot;
+    [SerializeField] private AudioClip shootClip;
     [SerializeField] [Range(0, 1)] private float shootVolume;
     public int raycastDistance;
     private bool isPressingButton;
@@ -142,7 +142,7 @@ public class PlayerShooting : MonoBehaviour
     }
     private void ShootBullet()
     {
-        SoundManager.Instance.PlaySound(shoot, shootVolume);
+        SoundManager.Instance.PlaySound(shootClip, shootVolume);
         foreach (Transform shootingPos in shootingPoints)
         {
             var newBullet = Instantiate(bullet, shootingPos.position, transform.rotation, bulletHolder);

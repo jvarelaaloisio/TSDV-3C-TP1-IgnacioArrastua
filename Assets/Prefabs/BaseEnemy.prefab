@@ -54,7 +54,11 @@ MonoBehaviour:
   isActive: 0
   model: {fileID: 3370636802635875393}
   maxHealth: 200
+  impactPrefab: {fileID: 5880797563141009103, guid: 265d3a5ba69981a4698ceabcedf368b0,
+    type: 3}
   scoreValue: 100
+  explosionSound: {fileID: 8300000, guid: 4cedceaf8b5c979439a0a34f61192892, type: 3}
+  explosionVolume: 0.145
 --- !u!65 &5601018050240335099
 BoxCollider:
   m_ObjectHideFlags: 0
