@@ -3,7 +3,12 @@ guid: bd52b94229fd944408621bfde4928861
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - textMesh: {instanceID: 0}
+  - currentbutton: {instanceID: 0}
+  - screen: {instanceID: 0}
+  - screenCanvas: {instanceID: 0}
+  - openSlideSound: {fileID: 8300000, guid: 0645b1bdc86237944a04b1ba136b9548, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

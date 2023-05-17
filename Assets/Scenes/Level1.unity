@@ -431,18 +431,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -944628639613478452, guid: ec62774ed4a9bfe41b20333ceb0a6f84, type: 3}
   m_ActionId: 8899f352-0d7e-49c2-801f-0ced1179f6c2
---- !u!114 &505603319 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5986609720819336749, guid: c49e61c99fc5fa645bdc365d396e34ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 5986609722239691431}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f22ad7547438cc94597ee65c18fd2f1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &524132732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1775,16 +1763,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -5380043191878018059, guid: 59426dd6ac2a6124296519aafc2451cc,
-        type: 3}
-      propertyPath: scoreSound
-      value: 
-      objectReference: {fileID: 8300000, guid: f82f9073df8ba604999a93a45720affd, type: 3}
-    - target: {fileID: -5380043191878018059, guid: 59426dd6ac2a6124296519aafc2451cc,
-        type: 3}
-      propertyPath: scoreVolume
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 3157794998552900530, guid: 59426dd6ac2a6124296519aafc2451cc,
         type: 3}
       propertyPath: m_RootOrder
@@ -1845,16 +1823,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
-    - target: {fileID: 3157794998792814413, guid: 59426dd6ac2a6124296519aafc2451cc,
-        type: 3}
-      propertyPath: m_Volume
-      value: 0.507
-      objectReference: {fileID: 0}
-    - target: {fileID: 3157794998792814413, guid: 59426dd6ac2a6124296519aafc2451cc,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: afa8754710002824f8a416d7fe9d2ddf, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59426dd6ac2a6124296519aafc2451cc, type: 3}
 --- !u!1001 &3936125703512013470
@@ -1876,6 +1844,10 @@ PrefabInstance:
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 560658272}
+    - target: {fileID: 899837566, guid: e32d506b9cdf0024892e291f9fec0819, type: 3}
+      propertyPath: inGameMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: afa8754710002824f8a416d7fe9d2ddf, type: 3}
     - target: {fileID: 3936125703397187846, guid: e32d506b9cdf0024892e291f9fec0819,
         type: 3}
       propertyPath: m_Actions
@@ -1976,24 +1948,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 862429798, guid: c49e61c99fc5fa645bdc365d396e34ff, type: 3}
-      propertyPath: openSlideSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 0645b1bdc86237944a04b1ba136b9548, type: 3}
-    - target: {fileID: 1478970619, guid: c49e61c99fc5fa645bdc365d396e34ff, type: 3}
-      propertyPath: openSlideSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 0645b1bdc86237944a04b1ba136b9548, type: 3}
-    - target: {fileID: 2093486271105489221, guid: c49e61c99fc5fa645bdc365d396e34ff,
-        type: 3}
-      propertyPath: openSlideSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 0645b1bdc86237944a04b1ba136b9548, type: 3}
-    - target: {fileID: 5986609720819336737, guid: c49e61c99fc5fa645bdc365d396e34ff,
-        type: 3}
-      propertyPath: m_Name
-      value: CrossHair
-      objectReference: {fileID: 0}
     - target: {fileID: 5986609720819336749, guid: c49e61c99fc5fa645bdc365d396e34ff,
         type: 3}
       propertyPath: aimParent
@@ -2168,56 +2122,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6917872921489711776, guid: c49e61c99fc5fa645bdc365d396e34ff,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6917872921489711776, guid: c49e61c99fc5fa645bdc365d396e34ff,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6917872921489711776, guid: c49e61c99fc5fa645bdc365d396e34ff,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 505603319}
-    - target: {fileID: 6917872921489711776, guid: c49e61c99fc5fa645bdc365d396e34ff,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6917872921489711776, guid: c49e61c99fc5fa645bdc365d396e34ff,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ResetCrosshair
-      objectReference: {fileID: 0}
-    - target: {fileID: 6917872921489711776, guid: c49e61c99fc5fa645bdc365d396e34ff,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: MoveCrosshair, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6917872921489711776, guid: c49e61c99fc5fa645bdc365d396e34ff,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 7698065241067857803, guid: c49e61c99fc5fa645bdc365d396e34ff,
-        type: 3}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7698065241067857803, guid: c49e61c99fc5fa645bdc365d396e34ff,
-        type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7698065241067857803, guid: c49e61c99fc5fa645bdc365d396e34ff,
-        type: 3}
-      propertyPath: m_BlocksRaycasts
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c49e61c99fc5fa645bdc365d396e34ff, type: 3}

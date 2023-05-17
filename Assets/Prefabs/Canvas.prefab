@@ -482,6 +482,7 @@ MonoBehaviour:
   currentbutton: {fileID: 8970851469957345420}
   screen: {fileID: 6894241330913443914}
   screenCanvas: {fileID: 2318595482574015384}
+  openSlideSound: {fileID: 8300000, guid: 0645b1bdc86237944a04b1ba136b9548, type: 3}
 --- !u!1 &3103909022026545450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,7 +1440,6 @@ GameObject:
   - component: {fileID: 6368856600964017736}
   - component: {fileID: 530432084812884665}
   - component: {fileID: 8491612869978098423}
-  - component: {fileID: 1004935785}
   m_Layer: 5
   m_Name: EndMenuSecuence
   m_TagString: Untagged
@@ -1544,20 +1544,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1004935785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4705643262143679033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bb04529a7fb53b429eb8b9cb0dd55e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  isActive: 0
 --- !u!1 &4846012078834682709
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,7 +1827,6 @@ GameObject:
   - component: {fileID: 4476834730427328458}
   - component: {fileID: 7262050994248539109}
   - component: {fileID: 371237307779153860}
-  - component: {fileID: 754231811198310542}
   m_Layer: 5
   m_Name: EndMenuSecuence
   m_TagString: Untagged
@@ -1946,20 +1931,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &754231811198310542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5544419850358044430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bb04529a7fb53b429eb8b9cb0dd55e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  isActive: 0
 --- !u!1 &5557053011791245889
 GameObject:
   m_ObjectHideFlags: 0
@@ -2036,6 +2007,7 @@ MonoBehaviour:
   currentbutton: {fileID: 3103909022026545450}
   screen: {fileID: 7308192252695899572}
   screenCanvas: {fileID: 1741121717619483707}
+  openSlideSound: {fileID: 8300000, guid: 0645b1bdc86237944a04b1ba136b9548, type: 3}
 --- !u!1 &5583831770895920545
 GameObject:
   m_ObjectHideFlags: 0
@@ -2298,7 +2270,7 @@ GameObject:
   - component: {fileID: 5986609720819336751}
   - component: {fileID: 5986609720819336749}
   m_Layer: 5
-  m_Name: Crosshair
+  m_Name: CrossHair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3927,9 +3899,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6108611947442080179}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &2093486271105489221
 MonoBehaviour:
@@ -3947,6 +3919,7 @@ MonoBehaviour:
   currentbutton: {fileID: 3728466545817930200}
   screen: {fileID: 3173380256708560990}
   screenCanvas: {fileID: 7698065241067857803}
+  openSlideSound: {fileID: 8300000, guid: 0645b1bdc86237944a04b1ba136b9548, type: 3}
 --- !u!1 &6243630023241257162
 GameObject:
   m_ObjectHideFlags: 0

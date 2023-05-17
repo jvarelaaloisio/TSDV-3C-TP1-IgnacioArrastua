@@ -44,7 +44,10 @@ public class SlideMenu : MonoBehaviour
         EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(currentbutton);
         screen.ActiveBox();
         playerScore = PlayerController.Score;
-        textMesh.text = "Score:" + playerScore;
+        if (textMesh)
+        {
+            textMesh.text = "Score:" + playerScore;
+        }
         screenCanvas.interactable = true;
         screenCanvas.alpha = 1;
         screenCanvas.blocksRaycasts = true;

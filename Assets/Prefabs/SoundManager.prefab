@@ -50,6 +50,8 @@ MonoBehaviour:
   effectSource: {fileID: 3157794999900803678}
   button: {fileID: 8300000, guid: ebf0bd875c19ccb40af6af62e8789a8d, type: 3}
   mainMenu: {fileID: 0}
+  scoreSound: {fileID: 8300000, guid: f82f9073df8ba604999a93a45720affd, type: 3}
+  scoreVolume: 0.4
 --- !u!1 &3157794998792814415
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,9 +94,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8990859f4b5cb2e40abadf0908ea02ef, type: 3}
+  m_audioClip: {fileID: 8300000, guid: afa8754710002824f8a416d7fe9d2ddf, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.231
+  m_Volume: 0.507
   m_Pitch: 1
   Loop: 1
   Mute: 0

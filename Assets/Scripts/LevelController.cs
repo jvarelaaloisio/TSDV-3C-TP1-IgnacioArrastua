@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
+    [SerializeField] private AudioClip inGameMusic;
     public enum LevelState
     {
         playing, 
@@ -31,9 +32,14 @@ public class LevelController : MonoBehaviour
         levelStatus = LevelState.playing;
         levelDolly = GetComponent<CinemachineDollyCart>();
         player = GetComponentInChildren<PlayerController>();
-
+   
     }
-
+    private void Start()
+    {
+        var soundManager = SoundManager.Instance.GetMusicSource();
+        soundManager.clip = inGameMusic;
+        soundManager.Play();
+    }
     // Update is called once per frame
     void Update()
     {
