@@ -32,6 +32,7 @@ public class BossAttacks : MonoBehaviour
     private void Awake()
     {
         _enemyBaseStats = GetComponent<EnemyBaseStats>();
+        bossMovement = GetComponent<BossMovement>();
     }
 
     void Start()
@@ -43,61 +44,33 @@ public class BossAttacks : MonoBehaviour
         attackNumber = -1;
     }
 
-    // Update is called once per frame
+  
     void Update()
     {
         if (LevelController.levelStatus != LevelController.LevelState.playing) return;
         isAlive = _enemyBaseStats.IsAlive();
         if (isActive && isAlive)
         {
-            if (!isAttacking)
-            {
-                currentChooseAttack += Time.deltaTime;
-                if (currentChooseAttack > chooseAttackCooldown)
-                {
-                    ChooseAttack();
-                }
-            }
-            else
-            {
-                switch (attackNumber)
-                {
-                    case 0:
-                        {
-                            ShootBulletAttack();
-                        }
-                        break;
-                    case 1:
-                    {
-                        ShootLaserAttack();
-                    }
-                        break;
-                }
-            }
+            ShootBulletAttack();
+
         }
     }
 
     private void ShootBulletAttack()
     {
-        currentBulletAttack += Time.deltaTime;
-        if (currentBulletAttack < bulletAttackMaxDuration)
-        {
-            currentShootBulletCooldown += Time.deltaTime;
-            if (currentShootBulletCooldown > shootBulletCooldown)
-            {
-                foreach (var shoot in bulletPoint)
-                {
-                    shoot.LookAt(playerTransforms.position);
-                    ShootBullet(shoot);
-                }
 
-                currentShootBulletCooldown -= shootBulletCooldown;
-            }
-        }
-        else
+        currentShootBulletCooldown += Time.deltaTime;
+        if (currentShootBulletCooldown > shootBulletCooldown)
         {
-            isAttacking = false;
+            foreach (var shoot in bulletPoint)
+            {
+                shoot.LookAt(playerTransforms.position);
+                ShootBullet(shoot);
+            }
+
+            currentShootBulletCooldown -= shootBulletCooldown;
         }
+
     }
 
     private void ShootLaserAttack()
@@ -111,7 +84,7 @@ public class BossAttacks : MonoBehaviour
     }
     private void ChooseAttack()
     {
-        attackNumber = Random.Range(0, 1);
+        attackNumber = Random.Range(0, 2);
         switch (attackNumber)
         {
             case 0:
@@ -122,6 +95,7 @@ public class BossAttacks : MonoBehaviour
                 break;
         }
 
+        isAttacking = true;
         currentChooseAttack = 0;
     }
 

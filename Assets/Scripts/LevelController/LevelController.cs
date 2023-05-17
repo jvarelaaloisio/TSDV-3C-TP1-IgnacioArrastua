@@ -21,6 +21,7 @@ public class LevelController : MonoBehaviour
     }
 
     [SerializeField] private PlayerController player;
+    [SerializeField] private EnemyBaseStats enemy;
     [SerializeField] private CinemachineDollyCart levelDolly;
     [SerializeField] private CinemachinePathBase path;
     [SerializeField] private SlideMenu end;
@@ -36,6 +37,7 @@ public class LevelController : MonoBehaviour
     }
     private void Start()
     {
+        SoundManager.Instance.GetMusicSource().Stop();
         var soundManager = SoundManager.Instance.GetMusicSource();
         soundManager.clip = inGameMusic;
         soundManager.Play();
@@ -49,6 +51,11 @@ public class LevelController : MonoBehaviour
             levelDolly.m_Speed = 0;
             gameOver.OpenSlide();
 
+        }
+        else if (enemy&& !enemy.IsAlive())
+        {
+            LevelController.levelStatus = LevelController.LevelState.Complete;
+            end.OpenSlide();
         }
         if (!(levelDolly.m_Position >= path.MaxPos && LevelController.levelStatus == LevelController.LevelState.playing)) return;
         LevelController.levelStatus = LevelController.LevelState.Complete;

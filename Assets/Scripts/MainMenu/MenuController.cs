@@ -17,6 +17,8 @@ public class MenuController : MonoBehaviour
         SetCanvasState(MainMenu, true);
         SetCanvasState(Options, false);
         SetCanvasState(Credits, false);
+        SoundManager.Instance.GetMusicSource().Stop();
+
         SoundManager.Instance.GetMusicSource().clip = SoundManager.Instance.mainMenu;
         SoundManager.Instance.GetMusicSource().Play();
     }

@@ -93,8 +93,11 @@ public class SlideMenu : MonoBehaviour
 
     private void LoadNextScene()
     {
+        int nextScene = SceneManager.GetActiveScene().buildIndex + 1 >= SceneManager.sceneCount
+            ? 0
+            : SceneManager.GetActiveScene().buildIndex + 1;
         SoundManager.Instance.PlaySound(SoundManager.Instance.button);
-        SceneManager.LoadScene(SceneManager.sceneCount + 1);
+        SceneManager.LoadScene(nextScene);
         cross.ResetCrosshair();
     }
     private void ResetScene()

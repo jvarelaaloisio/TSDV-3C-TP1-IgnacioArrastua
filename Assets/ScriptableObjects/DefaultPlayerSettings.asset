@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a348f673ae0ac264f8313ec526f9a401, type: 3}
   m_Name: DefaultPlayerSettings
   m_EditorClassIdentifier: 
-  specialBeanCooldown: 1
+  specialBeanCooldown: 10
   minHoldShootTimer: 0.2
   minShootTimer: 0.02
   xySpeed: 20
