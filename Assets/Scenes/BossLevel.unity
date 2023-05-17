@@ -1590,6 +1590,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5086913188714163566, guid: 70914dd50ebe48a45bc29b2aa99cd03f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoBackToMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 7908990175146245481, guid: 70914dd50ebe48a45bc29b2aa99cd03f,
         type: 3}
       propertyPath: m_IsActive
