@@ -18,6 +18,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private Transform cannon;
     [SerializeField] private AudioClip shootClip;
     [SerializeField] [Range(0, 1)] private float shootVolume;
+    [SerializeField] private float laserDamage = 200f;
     [SerializeField] private AudioClip laserClip;
     [SerializeField] [Range(0, 1)] private float laserVolume;
     [SerializeField] private AudioClip prepareLaserClip;
@@ -179,6 +180,12 @@ public class PlayerShooting : MonoBehaviour
             hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth -= hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth;
             hit.collider.GetComponent<EnemyBaseStats>().CheckEnemyStatus();
 
+        }
+
+        if (CheckLaserHitBox(out hit) && hit.collider.CompareTag("Boss") && hit.collider.GetComponent<EnemyBaseStats>().isActive)
+        {
+            hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth -= laserDamage;
+            hit.collider.GetComponent<EnemyBaseStats>().CheckEnemyStatus();
         }
         Destroy(newRay, 0.2f);
     }

@@ -86,5 +86,14 @@ public class EnemyBaseStats : MonoBehaviour
         model.SetActive(false);
         isActive = false;
     }
+    public float GetMaxHealthPoints()
+    {
+        return maxHealth;
+    }
+
+    public float GetCurrentHealthPoints()
+    {
+        return CurrentHealth;
+    }
 }
 

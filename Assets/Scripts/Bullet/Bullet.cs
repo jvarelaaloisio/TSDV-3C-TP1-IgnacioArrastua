@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private bool isActive;
     public float velocity = 50f;
-    private float damage = 30f;
+   [SerializeField] private float damage = 30f;
     public static float maxAliveTime = 3f;
     private float timer;
     private Transform world;
@@ -20,6 +20,7 @@ public class Bullet : MonoBehaviour
         switch (gameObject.tag)
         {
             case "PlayerBullet":
+            case "BossBullet":
                 direction = Vector3.zero;
 
                 break;
@@ -45,7 +46,7 @@ public class Bullet : MonoBehaviour
    
     void Update()
     {
-        if (gameObject.CompareTag("PlayerBullet"))
+        if (gameObject.CompareTag("PlayerBullet") || gameObject.CompareTag("BossBullet"))
         {
             direction = world.transform.InverseTransformDirection(transform.forward);
         }
