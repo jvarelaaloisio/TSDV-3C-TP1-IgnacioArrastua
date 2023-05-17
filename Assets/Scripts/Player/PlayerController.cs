@@ -86,13 +86,20 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.CompareTag("BossBullet") && isDamageable)
         {
-            Debug.Log("EnemyBulletHit");
+          
             other.gameObject.GetComponent<Bullet>().ResetBulletTimer();
             other.gameObject.GetComponent<Bullet>().SetStartPosition(Vector3.zero);
             other.gameObject.GetComponent<Bullet>().SetActiveState(false);
             Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
             SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
             ReceiveDamage(other.gameObject.GetComponent<Bullet>().GetDamage());
+        }
+        if (other.gameObject.CompareTag("BossRay") && isDamageable)
+        {
+            
+            Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
+            SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
+            ReceiveDamage(currentHealth*0.87f);
         }
     }
     public float GetMaxHealthPoints()
