@@ -1,7 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// Class for the OptionsMenu
+/// </summary>
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -9,10 +10,13 @@ public class OptionsMenu : MonoBehaviour
 
     private void Start()
     {
-        isFullScreen = false;
-        Screen.SetResolution(1920,1080, FullScreenMode.Windowed);
+  
+        isFullScreen = Screen.fullScreenMode == FullScreenMode.FullScreenWindow ? true : false;
+ 
     }
-
+    /// <summary>
+    /// Toggle Screen mode
+    /// </summary>
     public void ChangeScreenMode()
     {
         SoundManager.Instance.PlayButtonSound();
@@ -20,11 +24,17 @@ public class OptionsMenu : MonoBehaviour
         var fullsScreenMode = isFullScreen? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
         Screen.SetResolution(1920, 1080,fullsScreenMode );
     }
+    /// <summary>
+    /// Toggle SFX mute state
+    /// </summary>
     public void ChangeSFX()
     {
         SoundManager.Instance.PlayButtonSound();
         SoundManager.Instance.ToggleEffects();
     }
+    /// <summary>
+    /// Toggle Music mute state
+    /// </summary>
     public void ChangeMusic()
     {
         SoundManager.Instance.PlayButtonSound();

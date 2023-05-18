@@ -1,5 +1,8 @@
 using System;
 using UnityEngine;
+/// <summary>
+/// Class for the PlayerController
+/// </summary>
 
 public class PlayerController : MonoBehaviour
 {
@@ -49,10 +52,18 @@ public class PlayerController : MonoBehaviour
     {
         PlayerMovement.OnRoll -= PlayerMovement_OnRoll;
     }
+    /// <summary>
+    /// Change is Damageable if player is Rolling
+    /// </summary>
+    /// <param name="isOnRoll"></param>
     private void PlayerMovement_OnRoll(bool isOnRoll)
     {
         isDamageable = !isOnRoll;
     }
+    /// <summary>
+    /// Set the damage that the player received and starts the player deactivation 
+    /// </summary>
+    /// <param name="damage"></param>
     public void ReceiveDamage(float damage)
     {
         currentHealth -= damage;
@@ -60,9 +71,7 @@ public class PlayerController : MonoBehaviour
         {
             IsAlive = false;
 
-            var explosion = Instantiate(boom, transform.position, transform.rotation);
-            explosion.Play();
-            SoundManager.Instance.PlaySound(explosionSound, explosionVolume);
+          
             DeactivatePlayer();
 
         }
@@ -70,8 +79,13 @@ public class PlayerController : MonoBehaviour
 
     public void DeactivatePlayer()
     {
+        IsAlive = false;
+        var explosion = Instantiate(boom, transform.position, transform.rotation);
+        explosion.Play();
+        SoundManager.Instance.PlaySound(explosionSound, explosionVolume);
         transform.gameObject.SetActive(false);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("EnemyBullet") && isDamageable)
@@ -102,10 +116,20 @@ public class PlayerController : MonoBehaviour
             ReceiveDamage(currentHealth*0.87f);
         }
     }
+    /// <summary>
+    /// Gets maxHealthPoints
+    /// Used for the PlayerHealthBar
+    /// </summary>
+    /// <returns></returns>
     public float GetMaxHealthPoints()
     {
         return maxHealthPoints;
     }
+    /// <summary>
+    /// Gets currentHealthPoints
+    /// Used for the PlayerHealthBar
+    /// </summary>
+    /// <returns></returns>
     public float GetCurrentHealthPoints()
     {
         return currentHealth;

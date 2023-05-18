@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class for the BossHealthBar
+/// </summary>
 public class BossHealthBar : MonoBehaviour
 {
-    // Start is called before the first frame update
+  
     [SerializeField]
     private EnemyBaseStats bossHealthBar;
 

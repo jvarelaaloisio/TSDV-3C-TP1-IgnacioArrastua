@@ -1,6 +1,10 @@
 using System.Linq;
 using UnityEngine;
 
+
+/// <summary>
+/// Class for the EnemyShooting
+/// </summary>
 public class EnemyShooting : MonoBehaviour
 {
 
@@ -31,26 +35,39 @@ public class EnemyShooting : MonoBehaviour
         isActive = true;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         if (LevelController.levelStatus != LevelController.LevelState.playing) return;
         isAlive = _enemyBaseStats.IsAlive();
+        ShootBulletAttack();
+    }
+    /// <summary>
+    /// Logic for shooting bullets according to the timer
+    /// One bullet for each bulletPoint
+    /// Bullets spawn lookit at the player
+    /// </summary>
+    private void ShootBulletAttack()
+    {
         if (isActive && isAlive)
         {
             currentShootBulletColdown += Time.deltaTime;
             if (currentShootBulletColdown > shootBulletCooldown)
             {
-
                 foreach (var shoot in bulletPoint)
                 {
                     ShootBullet(shoot);
                 }
+
                 currentShootBulletColdown -= shootBulletCooldown;
             }
-
         }
     }
+
+    /// <summary>
+    /// Intantiate a Bullet in the <paramref name="shooting"/> position
+    /// </summary>
+    /// <param name="shooting">Transform from where the bullet spawn</param>
     private void ShootBullet(Transform shooting)
     {
         var newBullet = Instantiate(bullet, shooting.position, shooting.rotation, bulletHolder);

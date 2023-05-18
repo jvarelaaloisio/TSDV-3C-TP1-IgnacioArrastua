@@ -1,5 +1,8 @@
-
 using UnityEngine;
+
+/// <summary>
+/// Class for the AnimatorBarrerRoll
+/// </summary>
 
 public class AnimatorBarrerRoll : StateMachineBehaviour
 {

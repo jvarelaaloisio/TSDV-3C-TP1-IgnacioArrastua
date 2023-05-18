@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Class for the PlayerMovement
+/// </summary>
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -56,7 +59,10 @@ public class PlayerMovement : MonoBehaviour
        if (LevelController.levelStatus != LevelController.LevelState.playing) return;
             Movement();
     }
-
+    /// <summary>
+    /// Logic to make the playerMove
+    /// If is Focus is Activated the player will not move but rotate
+    /// </summary>
     private void Movement()
     {
         if (!isFocusActivate)
@@ -67,12 +73,20 @@ public class PlayerMovement : MonoBehaviour
         HorizontalLean(playerModel, -movevementValue.x, leanLimit, .1f);
         ClampPosition();
     }
-
+    /// <summary>
+    /// Changes movevementValue to Input
+    /// </summary>
+    /// <param name="ctx">Input</param>
     public void OnMove(InputAction.CallbackContext ctx)
     {
         if (Time.timeScale == 0) return;
         movevementValue = ctx.ReadValue<Vector2>();
     }
+    /// <summary>
+    /// Logic for the RollMovement
+    /// Actiavtes the animation
+    /// </summary>
+    /// <param name="ctx">Input</param>
     public void OnRollInput(InputAction.CallbackContext ctx)
     {
         if (Time.timeScale == 0) return;
@@ -84,22 +98,37 @@ public class PlayerMovement : MonoBehaviour
             SoundManager.Instance.PlaySound(barrelRollClip,barrelRollVolume);
         }
     }
-
+    /// <summary>
+    /// Activates focusMode
+    /// </summary>
+    /// <param name="ctx">Input</param>
     public void OnFocusMode(InputAction.CallbackContext ctx)
     {
         isFocusActivate = ctx.performed;
     }
+    /// <summary>
+    /// Toggle RollState according to bool
+    /// </summary>
+    /// <param name="state">Bool State</param>
     public void RollMovement(bool state)
     {
         OnRoll?.Invoke(state);
         canRoll = !state;
 
     }
-
+    /// <summary>
+    /// Do Local Move according to the parameters
+    /// Can be modifidied with xySpeed and depends on deltaTime
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     private void LocalMove(float x, float y)
     {
         transform.localPosition += new Vector3(x, y, 0) * xySpeed * Time.deltaTime;
     }
+    /// <summary>
+    /// Clamps the position of the plauer to not go offlimits
+    /// </summary>
     private void ClampPosition()
     {
         var pos = transform.localPosition;
@@ -107,7 +136,12 @@ public class PlayerMovement : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, -minPositionBeforeClamp.x, maxPositionBeforeClamp.x);
         transform.localPosition = new Vector3(pos.x, pos.y, transform.localPosition.z);
     }
-
+    /// <summary>
+    /// Changes the rotation of the model
+    /// </summary>
+    /// <param name="h"></param>
+    /// <param name="v"></param>
+    /// <param name="speed"></param>
     void RotationLook(float h, float v, float speed)
     {
         aimTarget.parent.position = Vector3.zero;
@@ -115,16 +149,18 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(aimTarget.position), Mathf.Deg2Rad * speed);
 
     }
+    /// <summary>
+    /// Leans the player horizontally
+    /// </summary>
+    /// <param name="target">Target to lean</param>
+    /// <param name="axis">Axis to lean</param>
+    /// <param name="leanLimit">Limit of the lean</param>
+    /// <param name="lerpTime">Time until lean is complete</param>
     void HorizontalLean(Transform target, float axis, float leanLimit, float lerpTime)
     {
         Vector3 targetEulerAngels = target.localEulerAngles;
         target.localEulerAngles = new Vector3(targetEulerAngels.x, targetEulerAngels.y, Mathf.LerpAngle(targetEulerAngels.z, -axis * leanLimit, lerpTime));
     }
-    private void OnDrawGizmosSelected()
-    {
-        //Gizmos.color = Color.blue;
-        //Gizmos.DrawWireSphere(aimTarget.position, .5f);
-        //Gizmos.DrawSphere(aimTarget.position, .15f);
-    }
+
 
 }

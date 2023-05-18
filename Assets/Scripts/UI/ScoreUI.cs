@@ -1,8 +1,8 @@
-﻿
-using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-
+/// <summary>
+/// Class for the ScoreUI
+/// </summary>
 
 public class ScoreUI : MonoBehaviour
 {
@@ -25,7 +25,10 @@ public class ScoreUI : MonoBehaviour
     {
         PlayerController.OnScoreUp -= OnScoreUp;
     }
-
+    /// <summary>
+    /// Changes the ScoreValue and Text
+    /// </summary>
+    /// <param name="obj"></param>
     private void OnScoreUp(int obj)
     {
         scoreValue = obj;

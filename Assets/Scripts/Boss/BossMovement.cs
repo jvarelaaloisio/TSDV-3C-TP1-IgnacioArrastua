@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class for the BossMovement
+/// </summary>
 public class BossMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
@@ -37,7 +38,16 @@ public class BossMovement : MonoBehaviour
         hasEnded = false;
         isAlive = true;
     }
-
+    /// <summary>
+    /// Set the parameters to replicate the pattern
+    /// </summary>
+    /// <param name="speed"></param>
+    /// <param name="shouldLoop"></param>
+    /// <param name="loopTimes"></param>
+    /// <param name="startLoop"></param>
+    /// <param name="endLoop"></param>
+    /// <param name="isActive"></param>
+    /// <param name="determinedMovement"></param>
     public void SetStartParameters(float speed, bool shouldLoop, float loopTimes, int startLoop, int endLoop, bool isActive, Transform[] determinedMovement)
     {
         this.speed = speed;
@@ -93,7 +103,9 @@ public class BossMovement : MonoBehaviour
             transform.localPosition = new Vector3(vector2Position.x, vector2Position.y, transform.localPosition.z + localPosition.z);
         }
     }
-
+    /// <summary>
+    /// Sets the hasEnded variable when the enemy reaches his 
+    /// </summary>
     private void EndMovement()
     {
         if (currentPoint >= movementPoints.Length)
@@ -102,17 +114,27 @@ public class BossMovement : MonoBehaviour
             hasEnded = true;
         }
     }
-
+    /// <summary>
+    /// Returns hasEnded
+    /// </summary>
+    /// <returns></returns>
     public bool hasMovementEnded()
     {
         return hasEnded;
     }
-
+    /// <summary>
+    /// Sets a new Pattern randomly from an Array
+    /// </summary>
     public void StartNewPattern()
     {
         var pattern = patterns[Random.Range(0, patterns.Length)];
         SetStartParameters(pattern.speed, pattern.shouldLoop, pattern.loopTimes, pattern.startLoop, pattern.endLoop, true, pattern.points);
     }
+
+    /// <summary>
+    /// Set the Movement Active and moves to the default position
+    /// </summary>
+    /// <param name="activeStatus">Sets the player ActiveState</param>
     public void SetActive(bool activeStatus = true)
     {
         isActive = activeStatus;

@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Class for the MoveCrosshair
+/// </summary>
 public class MoveCrosshair : MonoBehaviour
 {
     [SerializeField]
@@ -27,7 +27,9 @@ public class MoveCrosshair : MonoBehaviour
     {
         FollowTarget();
     }
-
+    /// <summary>
+    /// Makes the CrossHair localPosition follow the target relative to the screen point 
+    /// </summary>
     void FollowTarget()
     {
         if (Camera.main != null)
@@ -39,7 +41,9 @@ public class MoveCrosshair : MonoBehaviour
             );
         }
     }
-
+    /// <summary>
+    /// Resets Crosshair Position to Initalpos and resets velocity
+    /// </summary>
     public void ResetCrosshair()
     {
         transform.position = initialCrosshairPosition;

@@ -1,11 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
+/// <summary>
+/// Class for the SlideMenu
+/// </summary>
 public class SlideMenu : MonoBehaviour
 {
     [SerializeField]
@@ -31,7 +30,9 @@ public class SlideMenu : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Activates the PopUpText and activates the CanvasGroup
+    /// </summary>
     public void OpenSlide()
     {
         if (isActive) return;
@@ -52,7 +53,9 @@ public class SlideMenu : MonoBehaviour
         screenCanvas.alpha = 1;
         screenCanvas.blocksRaycasts = true;
     }
-
+    /// <summary>
+    /// Loads the menu scene after 0.5f, set Time.timeScale to 1 and resets the crosshair 
+    /// </summary>
     public void GoBackToMenu()
     {
         Time.timeScale = 1;
@@ -60,6 +63,9 @@ public class SlideMenu : MonoBehaviour
         Invoke(nameof(LoadMenu), 0.5f);
         cross.ResetCrosshair();
     }
+    /// <summary>
+    /// Resets the current scene after 0.5f, set Time.timeScale to 1 and resets the crosshair 
+    /// </summary>
     public void ResetGame()
     {
         Time.timeScale = 1;
@@ -67,7 +73,9 @@ public class SlideMenu : MonoBehaviour
         Invoke(nameof(ResetScene), 0.5f);
         cross.ResetCrosshair();
     }
-
+    /// <summary>
+    /// Loads the next scene after 0.5f, set Time.timeScale to 1 and resets the crosshair 
+    /// </summary>
     public void ContinueToNextGame()
     {
         Time.timeScale = 1;
@@ -75,7 +83,9 @@ public class SlideMenu : MonoBehaviour
         Invoke(nameof(LoadNextScene), 0.5f);
         cross.ResetCrosshair();
     }
-
+    /// <summary>
+    /// Close this screen
+    /// </summary>
     public void ReturnToGame()
     {
         isActive = false;
@@ -83,14 +93,18 @@ public class SlideMenu : MonoBehaviour
         Debug.Log("Return");
         screen.DeactivateBox();
     }
-
+    /// <summary>
+    /// Loads MenuScene
+    /// </summary>
     private void LoadMenu()
     {
         SoundManager.Instance.PlaySound(SoundManager.Instance.button);
         SceneManager.LoadScene("MainMenu");
         cross.ResetCrosshair();
     }
-
+    /// <summary>
+    /// Loads next Scene
+    /// </summary>
     private void LoadNextScene()
     {
         int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
@@ -98,6 +112,9 @@ public class SlideMenu : MonoBehaviour
         SceneManager.LoadScene(nextScene);
         cross.ResetCrosshair();
     }
+    /// <summary>
+    /// Reset CurrentScene
+    /// </summary>
     private void ResetScene()
     {
         SoundManager.Instance.PlaySound(SoundManager.Instance.button);

@@ -1,9 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Class for the TutorialSecuence
+/// </summary>
 public class TutorialSecuence : MonoBehaviour
 {
     [SerializeField] private GameObject enemy;
@@ -19,7 +20,6 @@ public class TutorialSecuence : MonoBehaviour
         maxCounter = popUpText.Count-1;
     }
 
-    // Update is called once per frame
     void Update()
     {
         currentTime += Time.deltaTime;
@@ -27,7 +27,9 @@ public class TutorialSecuence : MonoBehaviour
         currentTime = 0;
         ShowMessage();
     }
-
+    /// <summary>
+    /// Show a PopUpText according to time
+    /// </summary>
     private void ShowMessage()
     {
 
@@ -43,14 +45,23 @@ public class TutorialSecuence : MonoBehaviour
         }
         else
         {
-            if (!enemy.GetComponent<EnemyBaseStats>().IsAlive())
-            {
-                Invoke(nameof(GoBackToMenu),2f);
-            } 
+            CheckIfGameShouldEnd();
         }
        
     }
-
+    /// <summary>
+    /// Check if the condition to end the tutorial is fullfil and changes scene
+    /// </summary>
+    private void CheckIfGameShouldEnd()
+    {
+        if (!enemy.GetComponent<EnemyBaseStats>().IsAlive())
+        {
+            Invoke(nameof(GoBackToMenu), 2f);
+        }
+    }
+    /// <summary>
+    /// Load MenuScene
+    /// </summary>
     private void GoBackToMenu()
     {
         SceneManager.LoadScene($"Scenes/MainMenu");

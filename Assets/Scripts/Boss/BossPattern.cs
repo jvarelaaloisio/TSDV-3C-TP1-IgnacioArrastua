@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 
+/// <summary>
+/// Class for the BossPattern
+/// </summary>
 public class BossPattern : MonoBehaviour
 {
 
@@ -29,7 +30,9 @@ public class BossPattern : MonoBehaviour
         if (isActive)
             StartPattern();
     }
-
+    /// <summary>
+    /// Start Pattern and clamp values
+    /// </summary>
     public void StartPattern()
     {
 

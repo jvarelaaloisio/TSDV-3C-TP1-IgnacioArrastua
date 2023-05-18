@@ -1,8 +1,9 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class for the EnemyWaveManager
+/// </summary>
 public class EnemyWaveManager : MonoBehaviour
 {
     [SerializeField] private EnemyMovementPattern[] pattern;
@@ -13,24 +14,22 @@ public class EnemyWaveManager : MonoBehaviour
     [SerializeField] private CinemachineDollyCart dollyCart;
     private float currentPosition;
 
-    void Start()
-    {
-        
-    }
+ 
 
-    // Update is called once per frame
     void Update()
     {
-         currentPosition= dollyCart.m_Position;
-        if (nextPoint < activationPoint.Length && currentPosition >= activationPoint[nextPoint]) 
+        ActivatePattern();
+    }
+    /// <summary>
+    /// Activates the enemy pattern according to the dollyCart position
+    /// </summary>
+    private void ActivatePattern()
+    {
+        currentPosition = dollyCart.m_Position;
+        if (nextPoint < activationPoint.Length && currentPosition >= activationPoint[nextPoint])
         {
             pattern[nextPoint].StartPattern();
             nextPoint++;
         }
-    }
-
-    private void ActivatePattern()
-    {
-
     }
 }

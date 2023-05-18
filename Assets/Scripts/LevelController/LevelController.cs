@@ -1,13 +1,15 @@
-using System;
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Class for the LevelController
+/// </summary>
 public class LevelController : MonoBehaviour
 {
     [SerializeField] private AudioClip inGameMusic;
+    /// <summary>
+    /// Enum for the level state
+    /// </summary>
     public enum LevelState
     {
         playing, 
@@ -42,22 +44,30 @@ public class LevelController : MonoBehaviour
         soundManager.clip = inGameMusic;
         soundManager.Play();
     }
-    // Update is called once per frame
+ 
     void Update()
+    {
+        LevelCompletionLogic();
+    }
+    /// <summary>
+    /// Checks if the Level should end because of loseTime or condition
+    /// </summary>
+    private void LevelCompletionLogic()
     {
         if (!player.IsAlive)
         {
             LevelController.levelStatus = LevelController.LevelState.failed;
             levelDolly.m_Speed = 0;
             gameOver.OpenSlide();
-
         }
-        else if (enemy&& !enemy.IsAlive())
+        else if (enemy && !enemy.IsAlive())
         {
             LevelController.levelStatus = LevelController.LevelState.Complete;
             end.OpenSlide();
         }
-        if (!(levelDolly.m_Position >= path.MaxPos && LevelController.levelStatus == LevelController.LevelState.playing)) return;
+
+        if (!(levelDolly.m_Position >= path.MaxPos &&
+              LevelController.levelStatus == LevelController.LevelState.playing)) return;
         LevelController.levelStatus = LevelController.LevelState.Complete;
         end.OpenSlide();
     }

@@ -1,6 +1,7 @@
-using System;
 using UnityEngine;
-
+/// <summary>
+/// Class for the CameraFollow
+/// </summary>
 [ExecuteInEditMode]
 public class CameraFollow : MonoBehaviour
 {
@@ -32,7 +33,10 @@ public class CameraFollow : MonoBehaviour
         Vector3 localPos = transform.localPosition;
         transform.localPosition = new Vector3(Mathf.Clamp(localPos.x, -limits.x, limits.x), Mathf.Clamp(localPos.y, -limits.y, limits.y), localPos.z);
     }
-
+    /// <summary>
+    /// Makes the camera follo the target LocalPosition with an offset and Smooth
+    /// </summary>
+    /// <param name="target">Transform to follow</param>
     public void FollowTarget(Transform target)
     {
         Vector3 localPos = transform.localPosition;

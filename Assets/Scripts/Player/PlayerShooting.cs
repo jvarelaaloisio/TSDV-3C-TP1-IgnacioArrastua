@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Class for the PlayerShooting
+/// </summary>
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -73,6 +74,9 @@ public class PlayerShooting : MonoBehaviour
         if (LevelController.levelStatus != LevelController.LevelState.playing) return;
         AttackLogic();
     }
+    /// <summary>
+    /// Player AttackLogic
+    /// </summary>
     private void AttackLogic()
     {
         if (!canShoot) return;
@@ -113,23 +117,41 @@ public class PlayerShooting : MonoBehaviour
         }
         else
         {
-            if (currentBeanTimer > specialBeanTimer && canFireSpecialBean)
-            {
-                Debug.Log("Disparo");
-                ShootRay();
-                canFireSpecialBean = false;
-                specialBeanCooldownTimer = 0.0f;
-            }
-            singleBulletShoot = false;
-            currentSingleShootTimer = 0.0f;
-            currentBeanTimer = 0.0f;
-            currentHoldShootTimer = minHoldShootTimer;
-            isChargingSpecialBean = false;
-            prefire.Stop();
+            CheckIfCanFireLaser();
+            ResetTimers();
         }
 
     }
+    /// <summary>
+    /// Resets variables for shooting 
+    /// </summary>
+    private void ResetTimers()
+    {
+        singleBulletShoot = false;
+        currentSingleShootTimer = 0.0f;
+        currentBeanTimer = 0.0f;
+        currentHoldShootTimer = minHoldShootTimer;
+        isChargingSpecialBean = false;
+        prefire.Stop();
+    }
+    /// <summary>
+    /// Checks if player can fireLaser
+    /// If true ShootsLaser
+    /// </summary>
+    private void CheckIfCanFireLaser()
+    {
+        if (currentBeanTimer > specialBeanTimer && canFireSpecialBean)
+        {
+            Debug.Log("Disparo");
+            ShootRay();
+            canFireSpecialBean = false;
+            specialBeanCooldownTimer = 0.0f;
+        }
+    }
 
+    /// <summary>
+    /// Logic of the timers for the SpecialBean
+    /// </summary>
     private void SpecialBeanCooldownTimers()
     {
         if (!canFireSpecialBean) specialBeanCooldownTimer += Time.deltaTime;
@@ -137,7 +159,9 @@ public class PlayerShooting : MonoBehaviour
         canFireSpecialBean = true;
 
     }
-
+    /// <summary>
+    /// InputAction for the ShootInput
+    /// </summary>
     public void OnFire(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
@@ -150,6 +174,10 @@ public class PlayerShooting : MonoBehaviour
             isPressingButton = false;
         }
     }
+    /// <summary>
+    /// Logic to Instantiate bullets
+    /// The method shoots one bullet for each ShootingPoint
+    /// </summary>
     private void ShootBullet()
     {
         SoundManager.Instance.PlaySound(shootClip, shootVolume);
@@ -161,14 +189,24 @@ public class PlayerShooting : MonoBehaviour
             newBullet.SetStartPosition(shootingPos);
             newBullet.SetActiveState(true);
             newBullet.ResetBulletTimer();
-            newBullet.SetDirection(World);
+            newBullet.SetWorld(World);
             newBullet.SetDirection(currentDirection);
         }
     }
-
+    /// <summary>
+    /// Gets the SpecialBeanCooldown max Cooldown
+    /// </summary>
+    /// <returns></returns>
     public float GetSpecialBeanCooldown() => specialBeanCooldown;
+    /// <summary>
+    /// Gets the SpecialBean current cooldown
+    /// </summary>
+    /// <returns></returns>
     public float GetSpecialBeanCooldownTimer() => specialBeanCooldownTimer;
 
+    /// <summary>
+    /// Instantiate the Shoot Ray Logic
+    /// </summary>
     public void ShootRay()
     {
 
@@ -189,6 +227,11 @@ public class PlayerShooting : MonoBehaviour
         }
         Destroy(newRay, 0.2f);
     }
+    /// <summary>
+    /// Check if Ray hit Something
+    /// </summary>
+    /// <param name="hit"></param>
+    /// <returns></returns>
     private bool CheckLaserHitBox(out RaycastHit hit)
     {
         return Physics.Raycast(rayPosition.position, rayPosition.forward, out hit, raycastDistance) ||

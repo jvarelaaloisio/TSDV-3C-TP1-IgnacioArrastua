@@ -1,8 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+
+/// <summary>
+/// Class for the UIController
+/// </summary>
+
 
 public class UIController : MonoBehaviour
 {
@@ -15,7 +17,10 @@ public class UIController : MonoBehaviour
         isPaused = false;
     }
 
-
+    /// <summary>
+    /// Toggle Pause depending on Input
+    /// </summary>
+    /// <param name="ctx">Input</param>
 
     public void SetPause(InputAction.CallbackContext ctx)
     {
@@ -35,7 +40,11 @@ public class UIController : MonoBehaviour
 
         }
 
-    } 
+    }
+    /// <summary>
+    /// Toggle Pause depending on Input
+    /// </summary>
+
     public void SetPause()
     {
        
@@ -56,12 +65,16 @@ public class UIController : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Change the timeScale according to isPaused
+    /// </summary>
     public void ChangeTimeScale()
     {
         Time.timeScale = isPaused ? 0 : 1;
     }
-
+    /// <summary>
+    /// Updates the pauseUi and InGameUi according to isPaused
+    /// </summary>
     public void UpdateCanvas()
     {
         pauseUI.alpha = isPaused ? 1 : 0;
@@ -72,6 +85,9 @@ public class UIController : MonoBehaviour
         InGameUi.blocksRaycasts = !isPaused;
         InGameUi.interactable = !isPaused;
     }
+    /// <summary>
+    /// Set the InGameUi and PauseUI to not be visible or interactable
+    /// </summary>
     public void EndScreenSecuence()
     {
         InGameUi.alpha = 0;

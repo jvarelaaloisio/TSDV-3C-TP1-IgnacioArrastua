@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class for the LaserUI
+/// </summary>
 public class LaserUI : MonoBehaviour
 {
     [SerializeField]
@@ -17,6 +18,11 @@ public class LaserUI : MonoBehaviour
         slider = GetComponent<Slider>();
     }
     private void Update()
+    {
+        UpdateLaserUI();
+    }
+
+    private void UpdateLaserUI()
     {
         sliderMaxTimer = playerShooting.GetSpecialBeanCooldown();
         sliderCurrentTimer = playerShooting.GetSpecialBeanCooldownTimer();

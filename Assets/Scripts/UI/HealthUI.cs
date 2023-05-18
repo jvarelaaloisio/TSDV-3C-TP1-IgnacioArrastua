@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class for the HealthUI
+/// </summary>
+
 public class HealthUI : MonoBehaviour
 {
     [SerializeField]
@@ -16,6 +20,13 @@ public class HealthUI : MonoBehaviour
     }
 
     private void Update()
+    {
+        UpdateHealthBar();
+    }
+    /// <summary>
+    /// Updates the player HealthBar
+    /// </summary>
+    private void UpdateHealthBar()
     {
         sliderMaxTimer = playerHealthStats.GetMaxHealthPoints();
         sliderCurrentTimer = playerHealthStats.GetCurrentHealthPoints();

@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Class for the BulletClass
+/// </summary>
 public class Bullet : MonoBehaviour
 {
     private bool isActive;
@@ -12,8 +12,15 @@ public class Bullet : MonoBehaviour
     private Transform world;
 
     private Vector3 direction;
-    // Start is called before the first frame update
+    
     void Start()
+    {
+        SetBulletDefaultDirection();
+    }
+    /// <summary>
+    /// Set the default direction of the bullet depending of the BulletGameObject Tag
+    /// </summary>
+    private void SetBulletDefaultDirection()
     {
         isActive = true;
         timer = 0.0f;
@@ -29,7 +36,11 @@ public class Bullet : MonoBehaviour
                 break;
         }
     }
-
+    /// <summary>
+    /// Set the bullet direction
+    /// The direction is change form world to local
+    /// </summary>
+    /// <param name="dir">Direction of the bullet</param>
     public void SetDirection(Vector3 dir)
     {
         var aux = transform.InverseTransformDirection(dir);
@@ -37,9 +48,13 @@ public class Bullet : MonoBehaviour
         direction.z = 1;
     
     }
-    public void SetDirection(Transform dir)
+    /// <summary>
+    /// Set the World of the bullet
+    /// </summary>
+    /// <param name="worldTransform">World to use calculations</param>
+    public void SetWorld(Transform worldTransform)
     {
-        world = dir;
+        world = worldTransform;
         direction = world.transform.InverseTransformDirection(transform.forward);
         
     }
@@ -68,23 +83,46 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    /// <summary>
+    /// Set bullet active status
+    /// </summary>
+    /// <param name="status">Bullet active state</param>
     public void SetActiveState(bool status)
     {
         isActive = status;
     }
+    /// <summary>
+    /// Set bullet spawnPosition
+    /// </summary>
+    /// <param name="spawnPosition">Spawn position of the bullet</param>
     public void SetStartPosition(Transform spawnPosition)
     {
         transform.position = spawnPosition.position;
     }
+    /// <summary>
+    /// Set bullet spawnPosition
+    /// </summary>
+    /// <param name="spawnPosition">Spawn position of the bullet</param>
     public void SetStartPosition(Vector3 spawnPosition)
     {
         transform.position = spawnPosition;
     }
+
+    /// <summary>
+    /// Reset bullet timer
+    /// </summary>
     public void ResetBulletTimer()
     {
         timer = 0.0f;
     }
+    /// <summary>
+    /// Get Bullet Damage
+    /// </summary>
+    /// <returns></returns>
     public float GetDamage() => damage;
-
+    /// <summary>
+    /// Get Active State
+    /// </summary>
+    /// <returns></returns>
     public bool GetActiveState() => isActive;
 }

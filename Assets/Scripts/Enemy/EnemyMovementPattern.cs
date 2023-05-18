@@ -1,9 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
+
+/// <summary>
+/// Class for the EnemyMovementPattern
+/// </summary>
 public class EnemyMovementPattern : MonoBehaviour
 {
     [SerializeField] private EnemyMovement[] enemyTypes;
@@ -36,19 +38,46 @@ public class EnemyMovementPattern : MonoBehaviour
         if (isActive)
             StartPattern();
     }
-
+    /// <summary>
+    /// Initialize Pattern
+    /// </summary>
     public void StartPattern()
+    {
+        endLoop = Mathf.Clamp(endLoop, startLoop, points.Length - 1);
+        startLoop = Mathf.Clamp(startLoop, 0, endLoop - 1);
+        SetMaxEnemiesInScreen();
+        SetRandomEnemies();
+
+        maxEnemysInScene = enemysToSpawn.Count;
+        isActive = true;
+    }
+    /// <summary>
+    /// Randomize enemies from list
+    /// </summary>
+    private void SetRandomEnemies()
+    {
+        for (int i = 0; i < enemysToSpawn.Count; i++)
+        {
+            var temp = enemysToSpawn[i];
+            int randomIndex = Random.Range(i, enemysToSpawn.Count);
+            enemysToSpawn[i] = enemysToSpawn[randomIndex];
+            enemysToSpawn[randomIndex] = temp;
+        }
+    }
+    /// <summary>
+    /// Creates enemies according to type and sets their properties
+    /// </summary>
+    private void SetMaxEnemiesInScreen()
     {
         enemyCounter = 0;
         enemysToSpawn = new List<EnemyMovement>();
-        endLoop = Mathf.Clamp(endLoop, startLoop, points.Length - 1);
-        startLoop = Mathf.Clamp(startLoop, 0, endLoop - 1);
 
         for (int i = 0; i < defaultEnemyCount; i++)
         {
-            var aux = Instantiate(enemyTypes[0],enemyHolder);
+            var aux = Instantiate(enemyTypes[0], enemyHolder);
             enemysToSpawn.Add(aux);
         }
+
         for (int i = 0; i < specialEnemyCount; i++)
         {
             var aux = Instantiate(enemyTypes[1], enemyHolder);
@@ -60,19 +89,16 @@ public class EnemyMovementPattern : MonoBehaviour
             enemy.SetStartParameters(speed, shouldLoop, loopTimes, startLoop, endLoop, false, points);
             enemy.gameObject.GetComponent<EnemyShooting>().SetBulletHolder(bulletHolder);
         }
-        for (int i = 0; i < enemysToSpawn.Count; i++)
-        {
-            var temp = enemysToSpawn[i];
-            int randomIndex = Random.Range(i, enemysToSpawn.Count);
-            enemysToSpawn[i] = enemysToSpawn[randomIndex];
-            enemysToSpawn[randomIndex] = temp;
-        }
-
-        maxEnemysInScene = enemysToSpawn.Count;
-        isActive = true;
     }
 
     void Update()
+    {
+        ActiveEnemies();
+    }
+    /// <summary>
+    /// Activate Enemies in scene according to spawnTimer and enemy count
+    /// </summary>
+    private void ActiveEnemies()
     {
         if (isActive)
         {
@@ -85,6 +111,7 @@ public class EnemyMovementPattern : MonoBehaviour
             }
         }
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = color;

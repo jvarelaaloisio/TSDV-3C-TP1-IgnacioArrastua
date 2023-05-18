@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Class for the Boss attacks
+/// </summary>
 public class BossAttacks : MonoBehaviour
 {
     [SerializeField]
@@ -55,7 +56,11 @@ public class BossAttacks : MonoBehaviour
 
         }
     }
-
+    /// <summary>
+    /// Logic for shooting bullets
+    /// One bullet for each bulletPoint
+    /// Bullets spawn lookit at the player
+    /// </summary>
     private void ShootBulletAttack()
     {
 
@@ -72,7 +77,9 @@ public class BossAttacks : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// Logic for the Laser Attack 
+    /// </summary>
     private void ShootLaserAttack()
     {
         ShootRay();
@@ -82,6 +89,9 @@ public class BossAttacks : MonoBehaviour
             ray.SetActive(false);
         }
     }
+    /// <summary>
+    /// Choose between different attacks
+    /// </summary>
     private void ChooseAttack()
     {
         attackNumber = Random.Range(0, 2);
@@ -98,7 +108,10 @@ public class BossAttacks : MonoBehaviour
         isAttacking = true;
         currentChooseAttack = 0;
     }
-
+    /// <summary>
+    /// Intantiate a Bullet in the <paramref name="shooting"/> position
+    /// </summary>
+    /// <param name="shooting">Transform from where the bullet spawn</param>
     private void ShootBullet(Transform shooting)
     {
         var newBullet = Instantiate(bullet, shooting.position, shooting.rotation, bulletHolder);
@@ -107,14 +120,20 @@ public class BossAttacks : MonoBehaviour
         newBullet.SetStartPosition(shooting);
         newBullet.SetActiveState(true);
         newBullet.ResetBulletTimer();
-        newBullet.SetDirection(World);
+        newBullet.SetWorld(World);
         newBullet.SetDirection(currentDirection);
     }
-
+    /// <summary>
+    /// Sets the ray prefab to active
+    /// </summary>
     private void ShootRay()
     {
         ray.SetActive(true);
     }
+    /// <summary>
+    /// Sets the parent of the bullets created in ShootBullet
+    /// </summary>
+    /// <param name="holder">Transform parent for the bullets</param>
     public void SetBulletHolder(Transform holder)
     {
         bulletHolder = holder;

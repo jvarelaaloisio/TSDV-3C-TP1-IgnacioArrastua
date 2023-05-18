@@ -1,8 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+/// <summary>
+/// Class for the MenuController
+/// </summary>
 public class MenuController : MonoBehaviour
 {
     [SerializeField] private CanvasGroup MainMenu;
@@ -23,17 +24,25 @@ public class MenuController : MonoBehaviour
         SoundManager.Instance.GetMusicSource().Play();
     }
 
-
+    /// <summary>
+    /// Loads GameScene
+    /// </summary>
     public void GoToGame()
     {
         SceneManager.LoadScene("Level1");
         SoundManager.Instance.PlayButtonSound();
     }
+    /// <summary>
+    /// Loads TutorialScene
+    /// </summary>
     public void GoToTutorial()
     {
         SceneManager.LoadScene("Tutorial");
         SoundManager.Instance.PlayButtonSound();
     }
+    /// <summary>
+    /// Activate OptionsCanvas
+    /// </summary>
     public void GoToOptions()
     {
         SetCanvasState(currentCanvas, false);
@@ -41,6 +50,9 @@ public class MenuController : MonoBehaviour
         currentCanvas = Options;
         SoundManager.Instance.PlayButtonSound();
     }
+    /// <summary>
+    /// Activate CreditsCanvas
+    /// </summary>
     public void GoToCredits()
     {
         SetCanvasState(currentCanvas, false);
@@ -48,6 +60,9 @@ public class MenuController : MonoBehaviour
         currentCanvas = Credits;
         SoundManager.Instance.PlayButtonSound();
     }
+    /// <summary>
+    /// Deactivate currentCanvas and goes Back To Menu
+    /// </summary>
     public void GoBackToMenu()
     {
         SetCanvasState(currentCanvas, false);
@@ -55,6 +70,10 @@ public class MenuController : MonoBehaviour
         currentCanvas = MainMenu;
         SoundManager.Instance.PlayButtonSound();
     }
+    /// <summary>
+    /// Exits the game
+    /// If activate in Unity Editor exits playmode
+    /// </summary>
 
     public void ExitAplication()
     {
@@ -66,6 +85,11 @@ public class MenuController : MonoBehaviour
    	    Application.Quit();
 #endif
     }
+    /// <summary>
+    /// Set the canvas interactable, block raycas and alpha according to the bool
+    /// </summary>
+    /// <param name="canvas"></param>
+    /// <param name="state"></param>
     private void SetCanvasState(CanvasGroup canvas, bool state)
     {
         canvas.interactable = state;

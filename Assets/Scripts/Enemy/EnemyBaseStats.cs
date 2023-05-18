@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Class for the EnemyBaseStats
+/// </summary>
 public class EnemyBaseStats : MonoBehaviour
 {
     public bool isActive;
@@ -36,7 +39,10 @@ public class EnemyBaseStats : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Start enemy object with mesh
+    /// Sets current Health to maxHealth and isActive to true
+    /// </summary>
     public void StartObject()
     {
         model.SetActive(true);
@@ -44,6 +50,8 @@ public class EnemyBaseStats : MonoBehaviour
         isActive = true;
 
     }
+
+
     private void OnTriggerEnter(Collider other)
     {
 
@@ -58,9 +66,12 @@ public class EnemyBaseStats : MonoBehaviour
             CheckEnemyStatus();
         }
     }
+    /// <summary>
+    /// Check if enemy is Dead
+    /// </summary>
     public void CheckEnemyStatus()
     {
-        if (CurrentHealth <= 0)
+        if (!IsAlive())
         {
             KillEnemy();
             PlayerController.Score += scoreValue;
@@ -72,25 +83,43 @@ public class EnemyBaseStats : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Deactivates the gameObject
+    /// </summary>
     public void DeActivateEnemy()
     {
         transform.gameObject.SetActive(false);
     }
+    /// <summary>
+    /// Returns true if Enemy is Alive
+    /// </summary>
+    /// <returns></returns>
     public bool IsAlive()
     {
         return (CurrentHealth > 0);
     }
+    /// <summary>
+    /// Deactivates the model and the active state
+    /// </summary>
     void KillEnemy()
     {
         model.SetActive(false);
         isActive = false;
     }
+    /// <summary>
+    /// Get maxHealth Points
+    /// Used for the Boss HealthBar
+    /// </summary>
+    /// <returns></returns>
     public float GetMaxHealthPoints()
     {
         return maxHealth;
     }
-
+    /// <summary>
+    /// Get currentHealth points
+    /// Used for the Boss HealthBar
+    /// </summary>
+    /// <returns></returns>
     public float GetCurrentHealthPoints()
     {
         return CurrentHealth;

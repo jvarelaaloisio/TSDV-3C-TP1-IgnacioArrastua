@@ -1,8 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class for the DebugManager
+/// </summary>
 public class DebugManager : MonoBehaviour
 {
     PlayerMovement player;
@@ -33,6 +33,11 @@ public class DebugManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    /// <summary>
+    /// LogWarning method controller
+    /// </summary>
+    /// <param name="tag"></param>
+    /// <param name="text"></param>
     public void LogWarning(string tag, string text)
     {
         if (!isDebugActive) return;
@@ -56,6 +61,11 @@ public class DebugManager : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// LogError method controller
+    /// </summary>
+    /// <param name="tag"></param>
+    /// <param name="text"></param>
     public void LogError(string tag, string text)
     {
 
@@ -80,6 +90,11 @@ public class DebugManager : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// Log method controller
+    /// </summary>
+    /// <param name="tag"></param>
+    /// <param name="text"></param>
     public void Log(string tag, string text)
     {
         if (!isDebugActive) return;
