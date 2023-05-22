@@ -20,7 +20,7 @@ public class BossMovement : MonoBehaviour
     [SerializeField] private float currentLoopTimes;
     private bool isAlive;
     private EnemyBaseStats _enemyBaseStats;
-
+    private Vector3 zOffSet;
     private void Awake()
     {
         _enemyBaseStats = GetComponent<EnemyBaseStats>();
@@ -29,6 +29,7 @@ public class BossMovement : MonoBehaviour
     private void Start()
     {
         initialLocalPos = transform.localPosition;
+        zOffSet = new Vector3(0,0,initialLocalPos.z);
         if (movementPoints.Length != 0)
         {
             transform.position = movementPoints[0].position;
@@ -69,7 +70,7 @@ public class BossMovement : MonoBehaviour
         {
 
 
-            Vector3 localPosition = movementPoints[currentPoint].localPosition - transform.parent.localPosition;
+            Vector3 localPosition = movementPoints[currentPoint].localPosition - transform.parent.localPosition + zOffSet;
 
             Vector2 vector2Position = Vector2.MoveTowards(transform.localPosition, localPosition, speed * Time.deltaTime);
 
@@ -97,7 +98,7 @@ public class BossMovement : MonoBehaviour
         }
         else if (hasEnded)
         {
-            var localPosition = initialLocalPos - transform.parent.localPosition;
+            var localPosition = initialLocalPos - transform.parent.localPosition + zOffSet;
 
             var vector2Position = Vector2.MoveTowards(transform.localPosition, localPosition, speed * Time.deltaTime);
             transform.localPosition = new Vector3(vector2Position.x, vector2Position.y, transform.localPosition.z + localPosition.z);
