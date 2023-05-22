@@ -52,15 +52,6 @@ public class BossAttacks : MonoBehaviour
         isAlive = _enemyBaseStats.IsAlive();
         if (isActive && isAlive)
         {
-            currentChooseAttack += Time.deltaTime;
-            if (currentChooseAttack > chooseAttackCooldown)
-            {
-                
-            }
-            if (isAttacking)
-            {
-                
-            }
             ShootBulletAttack();
 
         }
