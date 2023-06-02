@@ -10,6 +10,8 @@ public class BossPattern : MonoBehaviour
 
 
 
+    //TODO: TP2 - Syntax - Fix formatting
+    //TODO: TP2 - Syntax - Fix declaration order
     private bool isActive = false;
     [SerializeField] private Color color;
     [SerializeField] public Transform[] points;
@@ -25,6 +27,7 @@ public class BossPattern : MonoBehaviour
 
     }
 
+    //TODO: TP2 - Syntax - Consistency in naming convention
     void Start()
     {
         if (isActive)
@@ -46,6 +49,7 @@ public class BossPattern : MonoBehaviour
         Gizmos.color = color;
         for (int i = 0; i < points.Length; i++)
         {
+            //TODO - Fix - "i < points.Length - 1" in the for declaration
             if (i == points.Length - 1) return;
             Transform t = points[i];
             Transform next = points[i + 1];
@@ -58,6 +62,7 @@ public class BossPattern : MonoBehaviour
         Gizmos.color = new Color(color.r, color.g, color.b, 0.1f);
         for (int i = 0; i < points.Length; i++)
         {
+            //TODO - Fix - "i < points.Length - 1" in the for declaration
             if (i == points.Length - 1) return;
             Transform t = points[i];
             Transform next = points[i + 1];

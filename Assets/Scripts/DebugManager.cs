@@ -5,6 +5,8 @@ using UnityEngine;
 /// </summary>
 public class DebugManager : MonoBehaviour
 {
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
+    //TODO: TP2 - Syntax - Fix declaration order
     PlayerMovement player;
     public static DebugManager _instance;
     public static DebugManager Instance
@@ -21,6 +23,7 @@ public class DebugManager : MonoBehaviour
     [SerializeField] bool isRayActive;
     [SerializeField] string[] activeTags;
 
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     void Awake()
     {
         if (Instance == null)
@@ -42,6 +45,7 @@ public class DebugManager : MonoBehaviour
     {
         if (!isDebugActive) return;
         if (!isLogWarningActive) return;
+        //TODO: TP2 - SOLID
         switch (tag)
         {
             case "Player":
@@ -71,6 +75,7 @@ public class DebugManager : MonoBehaviour
 
         if (!isDebugActive) return;
         if (!isLogErrorActive) return;
+        //TODO: TP2 - SOLID
         switch (tag)
         {
             case "Player":
@@ -99,6 +104,7 @@ public class DebugManager : MonoBehaviour
     {
         if (!isDebugActive) return;
         if (!isLogActive) return;     
+        //TODO: TP2 - SOLID
         switch (tag)
         {
             case "Player":

@@ -16,6 +16,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private bool isActive = false;
     [SerializeField] private bool hasEnded = false;
     [SerializeField] private float currentLoopTimes;
+    //TODO: TP2 - Syntax - Consistency in naming convention
     private bool isAlive;
     private EnemyBaseStats _enemyBaseStats;
 
@@ -24,6 +25,7 @@ public class EnemyMovement : MonoBehaviour
         _enemyBaseStats = GetComponent<EnemyBaseStats>();
     }
 
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     void Start()
     {
         if (movementPoints.Length != 0)
@@ -31,10 +33,12 @@ public class EnemyMovement : MonoBehaviour
             transform.position = movementPoints[0].position;
         }
 
+        //TODO: TP2 - FSM
         isActive = false;
         hasEnded = false;
         isAlive = true;
     }
+    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Set the parameters to replicate the pattern
     /// </summary>
@@ -56,6 +60,7 @@ public class EnemyMovement : MonoBehaviour
         this.movementPoints = determinedMovement;
         transform.position = movementPoints[0].position;
     }
+    //TODO: TP2 - Remove unused methods
     private void OnValidate()
     {
 
@@ -92,6 +97,7 @@ public class EnemyMovement : MonoBehaviour
             }
         }
     }
+    //TODO - Fix - Summary
     /// <summary>
     /// Sets the hasEnded variable when the enemy reaches his 
     /// </summary>

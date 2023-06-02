@@ -5,6 +5,8 @@ using UnityEngine;
 /// </summary>
 public class EnemyBaseStats : MonoBehaviour
 {
+    //TODO: TP2 - Syntax - Consistency in naming convention
+    //TODO: TP2 - Syntax - Fix declaration order
     public bool isActive;
     private BoxCollider bc;
     [SerializeField]
@@ -27,6 +29,7 @@ public class EnemyBaseStats : MonoBehaviour
         set => _currentHealth = value;
     }
 
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     void Start()
     {
         isActive = true;
@@ -39,6 +42,7 @@ public class EnemyBaseStats : MonoBehaviour
     }
 
 
+    //TODO: TP2 - Remove unused methods
     /// <summary>
     /// Start enemy object with mesh
     /// Sets current Health to maxHealth and isActive to true
@@ -57,6 +61,7 @@ public class EnemyBaseStats : MonoBehaviour
 
         if (other.gameObject.tag == "PlayerBullet" && isActive)
         {
+            //TODO - Fix - "var temp = other.gameObject.TryGetComponent(out Bullet bullet)"
             other.gameObject.GetComponent<Bullet>().ResetBulletTimer();
             other.gameObject.GetComponent<Bullet>().SetStartPosition(Vector3.zero);
             other.gameObject.GetComponent<Bullet>().SetActiveState(false);
@@ -66,6 +71,7 @@ public class EnemyBaseStats : MonoBehaviour
             CheckEnemyStatus();
         }
     }
+    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Check if enemy is Dead
     /// </summary>
@@ -78,6 +84,7 @@ public class EnemyBaseStats : MonoBehaviour
             if (boom.isPlaying == false)
             {
                 boom.Play();
+                //TODO - Fix - Hardcoded value
                 Invoke(nameof(DeActivateEnemy), 1f);
                 SoundManager.Instance.PlaySound(explosionSound, explosionVolume);
             }
@@ -106,6 +113,7 @@ public class EnemyBaseStats : MonoBehaviour
         model.SetActive(false);
         isActive = false;
     }
+    //TODO - Fix - Should be native getter
     /// <summary>
     /// Get maxHealth Points
     /// Used for the Boss HealthBar

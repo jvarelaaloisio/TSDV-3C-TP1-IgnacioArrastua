@@ -10,6 +10,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private CanvasGroup Options;
     [SerializeField] private CanvasGroup Credits;
     [SerializeField] private List<CanvasGroup> totalCanvas;
+    //TODO: TP2 - Syntax - Consistency in naming convention
     private CanvasGroup currentCanvas;
     void Start()
     {
@@ -29,6 +30,7 @@ public class MenuController : MonoBehaviour
     /// </summary>
     public void GoToGame()
     {
+        //TODO - Fix - Hardcoded value - Receive as param
         SceneManager.LoadScene("Level1");
         SoundManager.Instance.PlayButtonSound();
     }
@@ -37,6 +39,7 @@ public class MenuController : MonoBehaviour
     /// </summary>
     public void GoToTutorial()
     {
+        //TODO - Fix - Hardcoded value - Receive as param
         SceneManager.LoadScene("Tutorial");
         SoundManager.Instance.PlayButtonSound();
     }
@@ -70,6 +73,7 @@ public class MenuController : MonoBehaviour
         currentCanvas = MainMenu;
         SoundManager.Instance.PlayButtonSound();
     }
+    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Exits the game
     /// If activate in Unity Editor exits playmode

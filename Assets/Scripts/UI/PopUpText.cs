@@ -4,6 +4,7 @@ using UnityEngine;
 /// </summary>
 public class PopUpText : MonoBehaviour
 {
+    //TODO: TP2 - Syntax - Fix declaration order
     [SerializeField]private Animator animator;
     public bool isActive = false;
 
@@ -19,6 +20,7 @@ public class PopUpText : MonoBehaviour
     {
         if (isActive) return;
             isActive = true;
+        //TODO - Fix - Hardcoded value
         animator.SetTrigger("Pop");
     } 
     /// <summary>
@@ -27,6 +29,7 @@ public class PopUpText : MonoBehaviour
     public void DeactivateBox()
     {
         isActive = false;
+        //TODO - Fix - Hardcoded value
         animator.SetTrigger("Close");
     }
   

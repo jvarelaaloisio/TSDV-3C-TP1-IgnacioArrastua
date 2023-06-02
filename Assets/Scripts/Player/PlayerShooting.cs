@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
+    //TODO: TP2 - Syntax - Fix declaration order
+    //TODO: TP2 - Syntax - Consistency in naming convention
     private bool canShoot;
 
     [SerializeField] private PlayerSettings player;
@@ -79,11 +81,13 @@ public class PlayerShooting : MonoBehaviour
     /// </summary>
     private void AttackLogic()
     {
+        //TODO: TP2 - SOLID
         if (!canShoot) return;
 
         SpecialBeanCooldownTimers();
         currentHoldShootTimer += Time.deltaTime;
         currentSingleShootTimer += Time.deltaTime;
+        //TODO: TP2 - SOLID
         if (isPressingButton)
         {
             if (!isChargingSpecialBean)
@@ -142,6 +146,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if (currentBeanTimer > specialBeanTimer && canFireSpecialBean)
         {
+            //TODO - Fix - Code is in Spanish or is trash code
             Debug.Log("Disparo");
             ShootRay();
             canFireSpecialBean = false;
@@ -159,6 +164,7 @@ public class PlayerShooting : MonoBehaviour
         canFireSpecialBean = true;
 
     }
+    //TODO - Fix - Using Input related logic outside of an input responsible class
     /// <summary>
     /// InputAction for the ShootInput
     /// </summary>

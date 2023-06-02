@@ -4,6 +4,7 @@ using UnityEngine;
 /// </summary>
 public class Bullet : MonoBehaviour
 {
+    //TODO: TP2 - Syntax - Fix declaration order
     private bool isActive;
     public float velocity = 50f;
    [SerializeField] private float damage = 30f;
@@ -13,6 +14,7 @@ public class Bullet : MonoBehaviour
 
     private Vector3 direction;
     
+    //TODO: TP2 - Syntax - Consistency in naming convention
     void Start()
     {
         SetBulletDefaultDirection();
@@ -24,6 +26,7 @@ public class Bullet : MonoBehaviour
     {
         isActive = true;
         timer = 0.0f;
+        //TODO: TP2 - SOLID
         switch (gameObject.tag)
         {
             case "PlayerBullet":
@@ -59,12 +62,15 @@ public class Bullet : MonoBehaviour
         
     }
    
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     void Update()
     {
+        //TODO: TP2 - SOLID
         if (gameObject.CompareTag("PlayerBullet") || gameObject.CompareTag("BossBullet"))
         {
             direction = world.transform.InverseTransformDirection(transform.forward);
         }
+        //TODO: TP2 - FSM
         if (isActive)
         {
             timer += Time.deltaTime;
