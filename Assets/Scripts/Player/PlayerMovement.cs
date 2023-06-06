@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //TODO - Documentation - Add summary
     public static event Action<bool> OnRoll;
 
     private bool canRoll = false;
@@ -73,12 +74,14 @@ public class PlayerMovement : MonoBehaviour
         HorizontalLean(playerModel, -movevementValue.x, leanLimit, .1f);
         ClampPosition();
     }
+    //TODO - Fix - Using Input related logic outside of an input responsible class
     /// <summary>
     /// Changes movevementValue to Input
     /// </summary>
     /// <param name="ctx">Input</param>
     public void OnMove(InputAction.CallbackContext ctx)
     {
+        //TODO: TP2 - SOLID
         if (Time.timeScale == 0) return;
         movevementValue = ctx.ReadValue<Vector2>();
     }

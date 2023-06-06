@@ -6,6 +6,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
+    //TODO: TP2 - SOLID
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource effectSource;
     [SerializeField] public AudioClip button;
@@ -26,6 +27,7 @@ public class SoundManager : MonoBehaviour
         }
 
     }
+    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Plays a <paramref name="clip"/> with PlayOneShot
     /// </summary>

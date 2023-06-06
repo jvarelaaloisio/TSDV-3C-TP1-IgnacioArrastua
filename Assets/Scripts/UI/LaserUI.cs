@@ -22,6 +22,7 @@ public class LaserUI : MonoBehaviour
         UpdateLaserUI();
     }
 
+    //TODO - Documentation - Add summary
     private void UpdateLaserUI()
     {
         sliderMaxTimer = playerShooting.GetSpecialBeanCooldown();
@@ -30,4 +31,5 @@ public class LaserUI : MonoBehaviour
         currentTime = Mathf.Clamp01(currentTime);
         slider.value = currentTime;
     }
+}
 }

@@ -18,6 +18,7 @@ public class CameraFollow : MonoBehaviour
 
  
 
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     void Update()
     {
   
@@ -31,6 +32,7 @@ public class CameraFollow : MonoBehaviour
     void LateUpdate()
     {
         Vector3 localPos = transform.localPosition;
+        //TODO: TP2 - Syntax - Fix formatting
         transform.localPosition = new Vector3(Mathf.Clamp(localPos.x, -limits.x, limits.x), Mathf.Clamp(localPos.y, -limits.y, limits.y), localPos.z);
     }
     /// <summary>

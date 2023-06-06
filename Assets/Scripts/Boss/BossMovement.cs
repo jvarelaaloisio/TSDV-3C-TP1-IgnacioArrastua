@@ -18,6 +18,7 @@ public class BossMovement : MonoBehaviour
     [SerializeField] private bool isActive = false;
     [SerializeField] private bool hasEnded = false;
     [SerializeField] private float currentLoopTimes;
+    //TODO: TP2 - Syntax - Consistency in naming convention
     private bool isAlive;
     private EnemyBaseStats _enemyBaseStats;
 
@@ -38,6 +39,7 @@ public class BossMovement : MonoBehaviour
         hasEnded = false;
         isAlive = true;
     }
+    //TODO: TP2 - Syntax - Fix declaration order
     /// <summary>
     /// Set the parameters to replicate the pattern
     /// </summary>
@@ -64,6 +66,7 @@ public class BossMovement : MonoBehaviour
     {
 
         isAlive = _enemyBaseStats.IsAlive();
+        //TODO: TP2 - FSM
         if (isActive & !hasEnded & isAlive)
 
         {
@@ -131,6 +134,7 @@ public class BossMovement : MonoBehaviour
         SetStartParameters(pattern.speed, pattern.shouldLoop, pattern.loopTimes, pattern.startLoop, pattern.endLoop, true, pattern.points);
     }
 
+    //TODO: TP2 - Remove unused methods
     /// <summary>
     /// Set the Movement Active and moves to the default position
     /// </summary>

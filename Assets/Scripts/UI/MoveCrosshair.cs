@@ -4,6 +4,7 @@ using UnityEngine;
 /// </summary>
 public class MoveCrosshair : MonoBehaviour
 {
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     [SerializeField]
     Transform aimParent;
     Transform initialPosition;
@@ -27,6 +28,7 @@ public class MoveCrosshair : MonoBehaviour
     {
         FollowTarget();
     }
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     /// <summary>
     /// Makes the CrossHair localPosition follow the target relative to the screen point 
     /// </summary>
@@ -37,6 +39,7 @@ public class MoveCrosshair : MonoBehaviour
             Vector3 targetLocalPos = Camera.main.WorldToScreenPoint(aimParent.position);
             Vector3 crossHairPos = transform.position;
 
+            //TODO: TP2 - Syntax - Fix formatting
             transform.position = Vector3.SmoothDamp(crossHairPos, new Vector3(targetLocalPos.x + offset.x, targetLocalPos.y + offset.y, crossHairPos.z), ref velocity, smoothTime
             );
         }

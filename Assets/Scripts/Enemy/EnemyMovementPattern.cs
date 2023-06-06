@@ -33,11 +33,13 @@ public class EnemyMovementPattern : MonoBehaviour
         points = transform.Cast<Transform>().ToArray();
 
     }
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     void Start()
     {
         if (isActive)
             StartPattern();
     }
+    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Initialize Pattern
     /// </summary>
@@ -95,6 +97,7 @@ public class EnemyMovementPattern : MonoBehaviour
     {
         ActiveEnemies();
     }
+    //TODO: TP2 - Syntax - Consistency in naming convention
     /// <summary>
     /// Activate Enemies in scene according to spawnTimer and enemy count
     /// </summary>
@@ -117,6 +120,7 @@ public class EnemyMovementPattern : MonoBehaviour
         Gizmos.color = color;
         for (int i = 0; i < points.Length; i++)
         {
+            //TODO - Fix - "i < points.Length - 1" in the for declaration
             if (i == points.Length - 1) return;
             Transform t = points[i];
             Transform next = points[i + 1];
@@ -128,6 +132,7 @@ public class EnemyMovementPattern : MonoBehaviour
         Gizmos.color = new Color(color.r, color.g, color.b, 0.1f);
         for (int i = 0; i < points.Length; i++)
         {
+            //TODO - Fix - "i < points.Length - 1" in the for declaration
             if (i == points.Length - 1) return;
             Transform t = points[i];
             Transform next = points[i + 1];

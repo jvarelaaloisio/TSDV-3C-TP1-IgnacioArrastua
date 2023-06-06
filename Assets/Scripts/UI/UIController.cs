@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//TODO: TP2 - Syntax - Fix formatting
 /// <summary>
 /// Class for the UIController
 /// </summary>
@@ -8,15 +9,19 @@ using UnityEngine.InputSystem;
 
 public class UIController : MonoBehaviour
 {
+    //TODO: TP2 - Syntax - Fix declaration order
+    //TODO: TP2 - Syntax - Consistency in naming convention
     private bool isPaused = false;
     [SerializeField] private CanvasGroup InGameUi;
     [SerializeField] private CanvasGroup pauseUI;
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     void Start()
     {
         Time.timeScale = 1;
         isPaused = false;
     }
 
+    //TODO - Fix - Using Input related logic outside of an input responsible class
     /// <summary>
     /// Toggle Pause depending on Input
     /// </summary>
@@ -65,6 +70,7 @@ public class UIController : MonoBehaviour
 
     }
 
+    //TODO: TP2 - Syntax - Consistency in naming convention
     /// <summary>
     /// Change the timeScale according to isPaused
     /// </summary>

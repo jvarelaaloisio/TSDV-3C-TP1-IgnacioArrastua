@@ -22,6 +22,7 @@ public class OptionsMenu : MonoBehaviour
         SoundManager.Instance.PlayButtonSound();
         isFullScreen = !isFullScreen;
         var fullsScreenMode = isFullScreen? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
+        //TODO: TP2 - Syntax - Fix formatting
         Screen.SetResolution(1920, 1080,fullsScreenMode );
     }
     /// <summary>
@@ -29,6 +30,7 @@ public class OptionsMenu : MonoBehaviour
     /// </summary>
     public void ChangeSFX()
     {
+        //BUG: Could it be that the button sound will never play because it'll be muted immediately?
         SoundManager.Instance.PlayButtonSound();
         SoundManager.Instance.ToggleEffects();
     }

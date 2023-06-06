@@ -22,6 +22,7 @@ public class SlideMenu : MonoBehaviour
         cross = GameObject.Find("CrossHair").GetComponent<MoveCrosshair>();
     }
 
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     void Start()
     {
         screenCanvas.interactable = false;
@@ -70,6 +71,7 @@ public class SlideMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         screen.DeactivateBox();
+        //TODO - Fix - Hardcoded value
         Invoke(nameof(ResetScene), 0.5f);
         cross.ResetCrosshair();
     }
@@ -80,6 +82,7 @@ public class SlideMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         screen.DeactivateBox();
+        //TODO - Fix - Hardcoded value
         Invoke(nameof(LoadNextScene), 0.5f);
         cross.ResetCrosshair();
     }
@@ -90,6 +93,7 @@ public class SlideMenu : MonoBehaviour
     {
         isActive = false;
         SoundManager.Instance.PlaySound(SoundManager.Instance.button);
+        //TODO - Fix - Bad log/Log out of context
         Debug.Log("Return");
         screen.DeactivateBox();
     }
@@ -99,6 +103,7 @@ public class SlideMenu : MonoBehaviour
     private void LoadMenu()
     {
         SoundManager.Instance.PlaySound(SoundManager.Instance.button);
+        //TODO - Fix - Hardcoded value
         SceneManager.LoadScene("MainMenu");
         cross.ResetCrosshair();
     }

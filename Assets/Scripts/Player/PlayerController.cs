@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //TODO - Documentation - Add summary
     public static event Action<int> OnScoreUp;
 
     [SerializeField] private int maxHealthPoints;
     private float currentHealth;
+    //TODO: TP2 - Remove unused methods/variables
     private BoxCollider bc;
     [SerializeField] private bool isDamageable = true;
     [field: SerializeField] public bool IsAlive { get; private set; } = true;
@@ -39,6 +41,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     void Start()
     {
         currentHealth = maxHealthPoints;
@@ -52,6 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerMovement.OnRoll -= PlayerMovement_OnRoll;
     }
+    //TODO - Fix - Should be Setter/Getter
     /// <summary>
     /// Change is Damageable if player is Rolling
     /// </summary>
@@ -77,6 +81,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //TODO - Documentation - Add summary
     public void DeactivatePlayer()
     {
         IsAlive = false;
@@ -88,6 +93,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //TODO: TP2 - SOLID
         if (other.gameObject.CompareTag("EnemyBullet") && isDamageable)
         {
             Debug.Log("EnemyBulletHit");
@@ -116,6 +122,7 @@ public class PlayerController : MonoBehaviour
             ReceiveDamage(currentHealth*0.87f);
         }
     }
+    //TODO - Fix - Should be Setter/Getter
     /// <summary>
     /// Gets maxHealthPoints
     /// Used for the PlayerHealthBar
@@ -125,6 +132,7 @@ public class PlayerController : MonoBehaviour
     {
         return maxHealthPoints;
     }
+    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Gets currentHealthPoints
     /// Used for the PlayerHealthBar

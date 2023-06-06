@@ -6,7 +6,9 @@ using UnityEngine;
 /// </summary>
 public class LevelController : MonoBehaviour
 {
+    //TODO: TP2 - Syntax - Fix declaration order
     [SerializeField] private AudioClip inGameMusic;
+    //TODO: TP2 - FSM
     /// <summary>
     /// Enum for the level state
     /// </summary>
@@ -49,6 +51,7 @@ public class LevelController : MonoBehaviour
     {
         LevelCompletionLogic();
     }
+    //TODO: TP2 - Syntax - Consistency in naming convention
     /// <summary>
     /// Checks if the Level should end because of loseTime or condition
     /// </summary>

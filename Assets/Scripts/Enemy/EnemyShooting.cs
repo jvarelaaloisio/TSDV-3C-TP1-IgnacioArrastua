@@ -8,6 +8,7 @@ using UnityEngine;
 public class EnemyShooting : MonoBehaviour
 {
 
+    //TODO: TP2 - Syntax - Fix formatting
     [SerializeField]
     private Bullet bullet;
     [SerializeField]
@@ -23,6 +24,7 @@ public class EnemyShooting : MonoBehaviour
     private EnemyBaseStats _enemyBaseStats;
 
 
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     private void Awake()
     {
         _enemyBaseStats = GetComponent<EnemyBaseStats>();
@@ -49,6 +51,7 @@ public class EnemyShooting : MonoBehaviour
     /// </summary>
     private void ShootBulletAttack()
     {
+        //TODO: TP2 - FSM
         if (isActive && isAlive)
         {
             currentShootBulletColdown += Time.deltaTime;
@@ -76,6 +79,7 @@ public class EnemyShooting : MonoBehaviour
         newBullet.SetActiveState(true);
         newBullet.ResetBulletTimer();
     }
+    //TODO - Documentation - Add summary
     public void SetBulletHolder(Transform holder)
     {
         bulletHolder = holder;

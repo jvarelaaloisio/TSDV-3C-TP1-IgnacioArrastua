@@ -6,6 +6,7 @@ using UnityEngine;
 /// </summary>
 public class BossAttacks : MonoBehaviour
 {
+    //TODO: TP2 - Syntax - Fix formatting
     [SerializeField]
     private Bullet bullet;
     [SerializeField]
@@ -36,6 +37,7 @@ public class BossAttacks : MonoBehaviour
         bossMovement = GetComponent<BossMovement>();
     }
 
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     void Start()
     {
 
@@ -56,6 +58,7 @@ public class BossAttacks : MonoBehaviour
 
         }
     }
+    //TODO: TP2 - Syntax - Fix declaration order
     /// <summary>
     /// Logic for shooting bullets
     /// One bullet for each bulletPoint
@@ -77,6 +80,7 @@ public class BossAttacks : MonoBehaviour
         }
 
     }
+    //TODO: TP2 - Remove unused methods
     /// <summary>
     /// Logic for the Laser Attack 
     /// </summary>
@@ -89,6 +93,7 @@ public class BossAttacks : MonoBehaviour
             ray.SetActive(false);
         }
     }
+    //TODO: TP2 - SOLID
     /// <summary>
     /// Choose between different attacks
     /// </summary>

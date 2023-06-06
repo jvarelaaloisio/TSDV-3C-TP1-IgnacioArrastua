@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class BossHealthBar : MonoBehaviour
 {
   
+    //TODO: TP2 - Syntax - Consistency in naming convention
     [SerializeField]
     private EnemyBaseStats bossHealthBar;
 
