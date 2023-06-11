@@ -32,4 +32,3 @@ public class LaserUI : MonoBehaviour
         slider.value = currentTime;
     }
 }
-}
