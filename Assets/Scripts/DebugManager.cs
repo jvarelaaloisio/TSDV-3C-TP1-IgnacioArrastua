@@ -24,7 +24,7 @@ public class DebugManager : MonoBehaviour
     [SerializeField] string[] activeTags;
 
     //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {

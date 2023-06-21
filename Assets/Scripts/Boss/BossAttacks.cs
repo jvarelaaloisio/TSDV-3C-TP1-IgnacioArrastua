@@ -7,10 +7,8 @@ using UnityEngine;
 public class BossAttacks : MonoBehaviour
 {
     //TODO: TP2 - Syntax - Fix formatting
-    [SerializeField]
-    private Bullet bullet;
-    [SerializeField]
-    private Transform bulletHolder;
+    [SerializeField] private Bullet bullet;
+    [SerializeField] private Transform bulletHolder;
     [SerializeField] private Transform shootingPoints;
     Transform[] bulletPoint;
     [SerializeField] Transform playerTransforms;
@@ -38,7 +36,7 @@ public class BossAttacks : MonoBehaviour
     }
 
     //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Start()
+    private void Start()
     {
 
         bulletPoint = shootingPoints.transform.Cast<Transform>().ToArray();
@@ -47,8 +45,7 @@ public class BossAttacks : MonoBehaviour
         attackNumber = -1;
     }
 
-  
-    void Update()
+    private void Update()
     {
         if (LevelController.levelStatus != LevelController.LevelState.playing) return;
         isAlive = _enemyBaseStats.IsAlive();

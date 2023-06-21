@@ -4,10 +4,11 @@ using UnityEngine;
 /// Class for the PlayerController
 /// </summary>
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour , IFillable
 {
     //TODO - Documentation - Add summary
     public static event Action<int> OnScoreUp;
+    public event Action<float> OnChangeValue;
 
     [SerializeField] private int maxHealthPoints;
     private float currentHealth;
@@ -23,7 +24,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip inpactSound;
     [SerializeField] [Range(0, 1)] private float inpactVolume;
 
-
+    public float _currentHealth
+    {
+        get=> currentHealth;
+        set
+        {
+            currentHealth = value;
+            OnChangeValue?.Invoke(currentHealth);
+        }
+    }
+    
     public static int Score
     {
         get => _score;
@@ -122,24 +132,26 @@ public class PlayerController : MonoBehaviour
             ReceiveDamage(currentHealth*0.87f);
         }
     }
-    //TODO - Fix - Should be Setter/Getter
-    /// <summary>
-    /// Gets maxHealthPoints
-    /// Used for the PlayerHealthBar
-    /// </summary>
-    /// <returns></returns>
-    public float GetMaxHealthPoints()
-    {
-        return maxHealthPoints;
-    }
     //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Gets currentHealthPoints
     /// Used for the PlayerHealthBar
     /// </summary>
     /// <returns></returns>
-    public float GetCurrentHealthPoints()
+    public float GetCurrentValue()
     {
         return currentHealth;
+    }
+    //TODO - Fix - Should be Setter/Getter
+    /// <summary>
+    /// Gets maxHealthPoints
+    /// Used for the PlayerHealthBar
+    /// </summary>
+    /// <returns></returns>
+ 
+
+    public float GetMaxValue()
+    {
+        return maxHealthPoints;
     }
 }
