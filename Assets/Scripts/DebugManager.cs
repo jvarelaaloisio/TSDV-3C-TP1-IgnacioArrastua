@@ -11,17 +11,17 @@ public class DebugManager : MonoBehaviour
     public static DebugManager _instance;
     public static DebugManager Instance
     {
-        get { return _instance; }
-        set { _instance = value; }
+        get => _instance;
+        set => _instance = value;
     }
-    [SerializeField] bool isPlayerActive;
-    [SerializeField] bool isCameraActive;
-    [SerializeField] bool isDebugActive;
-    [SerializeField] bool isLogActive;
-    [SerializeField] bool isLogWarningActive;
-    [SerializeField] bool isLogErrorActive;
-    [SerializeField] bool isRayActive;
-    [SerializeField] string[] activeTags;
+    [SerializeField] private bool isPlayerActive;
+    [SerializeField] private bool isCameraActive;
+    [SerializeField] private bool isDebugActive;
+    [SerializeField] private bool isLogActive;
+    [SerializeField] private bool isLogWarningActive;
+    [SerializeField] private bool isLogErrorActive;
+    [SerializeField] private bool isRayActive;
+    [SerializeField] private string[] activeTags;
 
     //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     private void Awake()

@@ -12,6 +12,7 @@ public class PlayerShooting : MonoBehaviour
     //TODO: TP2 - Syntax - Consistency in naming convention
     private bool canShoot;
 
+    [SerializeField] private BulletManager bulletManager;
     [SerializeField] private PlayerSettings player;
     [SerializeField] Transform rayPosition;
     [SerializeField] private Bullet bullet;
@@ -31,11 +32,11 @@ public class PlayerShooting : MonoBehaviour
 
     [Header("Cooldowns Presets")]
     private float currentBeanTimer;
-    private bool canFireSpecialBean;
+    private bool canFireSpecialBeam;
     private float specialBeanCooldown;
     private float specialBeanCooldownTimer = 0.0f;
-    private bool isChargingSpecialBean = false;
-    private float specialBeanTimer = 1.2f;
+    private bool isChargingSpecialBeam = false;
+    private float specialBeamTimer = 1.2f;
     private float minHoldShootTimer = 0.2f;
     private float currentHoldShootTimer;
     private float minShootTimer = 0.05f;
@@ -59,7 +60,7 @@ public class PlayerShooting : MonoBehaviour
         minShootTimer = player.minShootTimer;
         minHoldShootTimer = player.minHoldShootTimer;
         PlayerMovement.OnRoll += PlayerMovement_OnRoll;
-    
+
     }
 
     private void PlayerMovement_OnRoll(bool isOnRoll)
@@ -81,7 +82,7 @@ public class PlayerShooting : MonoBehaviour
     /// </summary>
     private void AttackLogic()
     {
-        //TODO: TP2 - SOLID
+        //TODO: TP2 - FSM
         if (!canShoot) return;
 
         SpecialBeanCooldownTimers();
@@ -90,7 +91,7 @@ public class PlayerShooting : MonoBehaviour
         //TODO: TP2 - SOLID
         if (isPressingButton)
         {
-            if (!isChargingSpecialBean)
+            if (!isChargingSpecialBeam)
             {
                 currentBeanTimer += Time.deltaTime;
                 if (currentSingleShootTimer > minShootTimer && !singleBulletShoot)
@@ -104,14 +105,14 @@ public class PlayerShooting : MonoBehaviour
                     currentHoldShootTimer -= minHoldShootTimer;
                 }
             }
-            if (currentBeanTimer > specialBeanTimer && canFireSpecialBean)
+            if (currentBeanTimer > specialBeamTimer && canFireSpecialBeam)
             {
                 prefire.Play();
-                if (!isChargingSpecialBean)
+                if (!isChargingSpecialBeam)
                 {
                     SoundManager.Instance.PlaySound(prepareLaserClip, prepareLaserVolume);
                 }
-                isChargingSpecialBean = true;
+                isChargingSpecialBeam = true;
             }
             else
             {
@@ -135,7 +136,7 @@ public class PlayerShooting : MonoBehaviour
         currentSingleShootTimer = 0.0f;
         currentBeanTimer = 0.0f;
         currentHoldShootTimer = minHoldShootTimer;
-        isChargingSpecialBean = false;
+        isChargingSpecialBeam = false;
         prefire.Stop();
     }
     /// <summary>
@@ -144,12 +145,11 @@ public class PlayerShooting : MonoBehaviour
     /// </summary>
     private void CheckIfCanFireLaser()
     {
-        if (currentBeanTimer > specialBeanTimer && canFireSpecialBean)
+        if (currentBeanTimer > specialBeamTimer && canFireSpecialBeam)
         {
-            //TODO - Fix - Code is in Spanish or is trash code
-            Debug.Log("Disparo");
+           
             ShootRay();
-            canFireSpecialBean = false;
+            canFireSpecialBeam = false;
             specialBeanCooldownTimer = 0.0f;
         }
     }
@@ -159,9 +159,9 @@ public class PlayerShooting : MonoBehaviour
     /// </summary>
     private void SpecialBeanCooldownTimers()
     {
-        if (!canFireSpecialBean) specialBeanCooldownTimer += Time.deltaTime;
+        if (!canFireSpecialBeam) specialBeanCooldownTimer += Time.deltaTime;
         if (!(specialBeanCooldownTimer > specialBeanCooldown)) return;
-        canFireSpecialBean = true;
+        canFireSpecialBeam = true;
 
     }
     //TODO - Fix - Using Input related logic outside of an input responsible class

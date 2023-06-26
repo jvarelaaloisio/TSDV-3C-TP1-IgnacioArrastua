@@ -58,18 +58,16 @@ public class EnemyBaseStats : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!other.gameObject.TryGetComponent(out Bullet bullet) || !isActive) 
+            return;
 
-        if (other.gameObject.tag == "PlayerBullet" && isActive)
-        {
-            //TODO - Fix - "var temp = other.gameObject.TryGetComponent(out Bullet bullet)"
-            other.gameObject.GetComponent<Bullet>().ResetBulletTimer();
-            other.gameObject.GetComponent<Bullet>().SetStartPosition(Vector3.zero);
-            other.gameObject.GetComponent<Bullet>().SetActiveState(false);
-            CurrentHealth -= other.gameObject.GetComponent<Bullet>().GetDamage();
-            Instantiate(impactPrefab, transform.position, Quaternion.identity, this.transform);
-            SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
-            CheckEnemyStatus();
-        }
+        bullet.ResetBulletTimer();
+        bullet.SetStartPosition(Vector3.zero);
+        bullet.SetActiveState(false);
+        CurrentHealth -= bullet.GetDamage();
+        Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
+        SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
+        CheckEnemyStatus();
     }
     //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
@@ -108,7 +106,7 @@ public class EnemyBaseStats : MonoBehaviour
     /// <summary>
     /// Deactivates the model and the active state
     /// </summary>
-    void KillEnemy()
+    private void KillEnemy()
     {
         model.SetActive(false);
         isActive = false;

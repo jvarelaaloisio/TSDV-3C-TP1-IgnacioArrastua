@@ -13,54 +13,51 @@ public interface IFillable
     float GetMaxValue();
 }
 
-
-public class HealthUI : MonoBehaviour
+//TODO: Hacer un intermedio que sea UIController
+public class UIFill : MonoBehaviour
 {
-    [SerializeField] private GameObject ObjectValues;
+    [SerializeField] private MonoBehaviour ValueToDisplay;
+    [SerializeField] private Image imageDisplay;
 
-    private Slider slider;
-
+  
     private float sliderMaxTimer;
     private float sliderCurrentTimer;
 
     private void Awake()
     {
-         ObjectValues.GetComponent<IFillable>().OnValueChanged += OnValueChange;
+         ValueToDisplay.GetComponent<IFillable>().OnValueChanged += OnValueChange;
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
-         ObjectValues.GetComponent<IFillable>().OnValueChanged -= OnValueChange;     
+         ValueToDisplay.GetComponent<IFillable>().OnValueChanged -= OnValueChange;     
     }
     private void Start()
     {
-        slider = GetComponent<Slider>();
-        sliderMaxTimer = ObjectValues.GetComponent<IFillable>().GetMaxValue();
-        sliderCurrentTimer = ObjectValues.GetComponent<IFillable>().GetCurrentValue();
+       
+        sliderMaxTimer = ValueToDisplay.GetComponent<IFillable>().GetMaxValue();
+        sliderCurrentTimer = ValueToDisplay.GetComponent<IFillable>().GetCurrentValue();
         var currentTime = sliderCurrentTimer / sliderMaxTimer;
         currentTime = Mathf.Clamp01(currentTime);
-        slider.value = currentTime;
+        imageDisplay.fillAmount = currentTime;
     }
 
-    private void Update()
-    {
-        UpdateHealthBar();
-    }
+    
     /// <summary>
     /// Updates the player HealthBar
     /// </summary>
-    private void UpdateHealthBar()
+    private void UpdateFill()
     {
-        sliderMaxTimer = ObjectValues.GetComponent<IFillable>().GetMaxValue();
-        sliderCurrentTimer = ObjectValues.GetComponent<IFillable>().GetCurrentValue();
+        sliderMaxTimer = ValueToDisplay.GetComponent<IFillable>().GetMaxValue();
+        sliderCurrentTimer = ValueToDisplay.GetComponent<IFillable>().GetCurrentValue();
         var currentTime = sliderCurrentTimer / sliderMaxTimer;
         currentTime = Mathf.Clamp01(currentTime);
-        slider.value = currentTime;
+        imageDisplay.fillAmount = currentTime;
     }
     private void OnValueChange(float newValue)
     {
         sliderCurrentTimer = newValue;
         var currentTime = sliderCurrentTimer / sliderMaxTimer;
         currentTime = Mathf.Clamp01(currentTime);
-        slider.value = currentTime;
+        imageDisplay.fillAmount = currentTime;
     }
 }

@@ -6,12 +6,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour , IFillable
 {
+
     //TODO - Documentation - Add summary
     public static event Action<int> OnScoreUp;
-    public event Action<float> OnChangeValue;
+
+    public event Action<float> OnValueChanged;
 
     [SerializeField] private int maxHealthPoints;
-    private float currentHealth;
+
+    [SerializeField] private float _currentHealth;
+  
+
     //TODO: TP2 - Remove unused methods/variables
     private BoxCollider bc;
     [SerializeField] private bool isDamageable = true;
@@ -24,13 +29,13 @@ public class PlayerController : MonoBehaviour , IFillable
     [SerializeField] private AudioClip inpactSound;
     [SerializeField] [Range(0, 1)] private float inpactVolume;
 
-    public float _currentHealth
+    public float CurrentHealth
     {
-        get=> currentHealth;
+        get=> _currentHealth;
         set
         {
-            currentHealth = value;
-            OnChangeValue?.Invoke(currentHealth);
+            _currentHealth = value;
+            OnValueChanged?.Invoke(_currentHealth);
         }
     }
     
@@ -54,7 +59,7 @@ public class PlayerController : MonoBehaviour , IFillable
     //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     void Start()
     {
-        currentHealth = maxHealthPoints;
+        CurrentHealth = maxHealthPoints;
         PlayerMovement.OnRoll += PlayerMovement_OnRoll;
         isDamageable = true;
         Score = 0;
@@ -80,12 +85,12 @@ public class PlayerController : MonoBehaviour , IFillable
     /// <param name="damage"></param>
     public void ReceiveDamage(float damage)
     {
-        currentHealth -= damage;
-        if (currentHealth < 0.0f)
+        CurrentHealth -= damage;
+        if (CurrentHealth < 0.0f)
         {
             IsAlive = false;
 
-          
+
             DeactivatePlayer();
 
         }
@@ -116,7 +121,7 @@ public class PlayerController : MonoBehaviour , IFillable
         }
         if (other.gameObject.CompareTag("BossBullet") && isDamageable)
         {
-          
+
             other.gameObject.GetComponent<Bullet>().ResetBulletTimer();
             other.gameObject.GetComponent<Bullet>().SetStartPosition(Vector3.zero);
             other.gameObject.GetComponent<Bullet>().SetActiveState(false);
@@ -126,10 +131,10 @@ public class PlayerController : MonoBehaviour , IFillable
         }
         if (other.gameObject.CompareTag("BossRay") && isDamageable)
         {
-            
+
             Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
             SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
-            ReceiveDamage(currentHealth*0.87f);
+            ReceiveDamage(CurrentHealth * 0.87f);
         }
     }
     //TODO: TP2 - Syntax - Fix formatting
@@ -140,8 +145,9 @@ public class PlayerController : MonoBehaviour , IFillable
     /// <returns></returns>
     public float GetCurrentValue()
     {
-        return currentHealth;
+        return CurrentHealth;
     }
+
     //TODO - Fix - Should be Setter/Getter
     /// <summary>
     /// Gets maxHealthPoints
@@ -154,4 +160,5 @@ public class PlayerController : MonoBehaviour , IFillable
     {
         return maxHealthPoints;
     }
+
 }

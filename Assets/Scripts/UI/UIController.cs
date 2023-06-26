@@ -42,7 +42,6 @@ public class UIController : MonoBehaviour
             ChangeTimeScale();
             pauseUI.GetComponent<SlideMenu>().ReturnToGame();
             Invoke(nameof(UpdateCanvas), 0.7f);
-
         }
 
     }

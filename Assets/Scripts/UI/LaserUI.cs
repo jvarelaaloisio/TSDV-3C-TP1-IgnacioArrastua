@@ -31,4 +31,5 @@ public class LaserUI : MonoBehaviour
         currentTime = Mathf.Clamp01(currentTime);
         slider.value = currentTime;
     }
+
 }

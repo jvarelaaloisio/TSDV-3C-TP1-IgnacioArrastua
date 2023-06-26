@@ -47,10 +47,8 @@ public class BossPattern : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = color;
-        for (int i = 0; i < points.Length; i++)
+        for (int i = 0; i < points.Length - 1; i++)
         {
-            //TODO - Fix - "i < points.Length - 1" in the for declaration
-            if (i == points.Length - 1) return;
             Transform t = points[i];
             Transform next = points[i + 1];
             Gizmos.DrawLine(t.position, next.position);
@@ -60,10 +58,8 @@ public class BossPattern : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(color.r, color.g, color.b, 0.1f);
-        for (int i = 0; i < points.Length; i++)
+        for (int i = 0; i < points.Length - 1; i++)
         {
-            //TODO - Fix - "i < points.Length - 1" in the for declaration
-            if (i == points.Length - 1) return;
             Transform t = points[i];
             Transform next = points[i + 1];
             Gizmos.DrawLine(t.position, next.position);

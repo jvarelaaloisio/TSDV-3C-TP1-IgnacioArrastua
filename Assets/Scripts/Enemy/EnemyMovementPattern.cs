@@ -34,7 +34,7 @@ public class EnemyMovementPattern : MonoBehaviour
 
     }
     //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Start()
+    private void Start()
     {
         if (isActive)
             StartPattern();

@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 /// <summary>
 /// Class for the BulletClass
@@ -7,17 +9,27 @@ public class Bullet : MonoBehaviour
     //TODO: TP2 - Syntax - Fix declaration order
     private bool isActive;
     public float velocity = 50f;
-   [SerializeField] private float damage = 30f;
+    [SerializeField] private float damage = 30f;
     public static float maxAliveTime = 3f;
     private float timer;
     private Transform world;
+    public DirectionHandler DirHandler { get; set; }
 
     private Vector3 direction;
-    
+
     //TODO: TP2 - Syntax - Consistency in naming convention
-    void Start()
+    private IEnumerator Start()
     {
-        SetBulletDefaultDirection();
+        if (timer >= maxAliveTime)
+        {
+            Destroy(gameObject);
+            yield break;
+        }
+
+        timer += Time.deltaTime;
+        direction = DirHandler.GetDirection(transform, world);
+        transform.localPosition += Time.deltaTime * velocity * direction;
+        yield return null;
     }
     /// <summary>
     /// Set the default direction of the bullet depending of the BulletGameObject Tag
@@ -49,7 +61,7 @@ public class Bullet : MonoBehaviour
         var aux = transform.InverseTransformDirection(dir);
         direction = aux;
         direction.z = 1;
-    
+
     }
     /// <summary>
     /// Set the World of the bullet
@@ -59,11 +71,11 @@ public class Bullet : MonoBehaviour
     {
         world = worldTransform;
         direction = world.transform.InverseTransformDirection(transform.forward);
-        
+
     }
-   
-    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Update()
+
+    [Obsolete]
+    private void Update()
     {
         //TODO: TP2 - SOLID
         if (gameObject.CompareTag("PlayerBullet") || gameObject.CompareTag("BossBullet"))
@@ -71,12 +83,13 @@ public class Bullet : MonoBehaviour
             direction = world.transform.InverseTransformDirection(transform.forward);
         }
         //TODO: TP2 - FSM
+        //Hacer una corrutina donde cada frame saque la direction y hasta que llegue al max time alive o se destruya
         if (isActive)
         {
             timer += Time.deltaTime;
             if (timer <= maxAliveTime)
             {
-              
+
                 transform.localPosition += Time.deltaTime * velocity * direction;
             }
             else
@@ -89,6 +102,9 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
+
     /// <summary>
     /// Set bullet active status
     /// </summary>
@@ -113,7 +129,6 @@ public class Bullet : MonoBehaviour
     {
         transform.position = spawnPosition;
     }
-
     /// <summary>
     /// Reset bullet timer
     /// </summary>

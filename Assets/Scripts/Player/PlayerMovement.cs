@@ -17,11 +17,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("GameObjects")]
 
     [SerializeField] private PlayerSettings player;
-    [SerializeField] Transform playerModel;
+    [SerializeField] private Transform playerModel;
 
     [SerializeField] private Animator animator;
     [SerializeField] private Transform aimTarget;
-    [SerializeField] Cinemachine.CinemachineDollyCart dolly;
+    [SerializeField] private Cinemachine.CinemachineDollyCart dolly;
     [SerializeField] private AudioClip barrelRollClip;
     [SerializeField] [Range(0, 1)] private float barrelRollVolume;
 
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         minPositionBeforeClamp = player.minPositionBeforeClamp;
     }
 
-    void Update()
+    private void Update()
     {
        if (LevelController.levelStatus != LevelController.LevelState.playing) return;
             Movement();
@@ -145,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="h"></param>
     /// <param name="v"></param>
     /// <param name="speed"></param>
-    void RotationLook(float h, float v, float speed)
+    private void RotationLook(float h, float v, float speed)
     {
         aimTarget.parent.position = Vector3.zero;
         aimTarget.localPosition = new Vector3(h, v, 1);
@@ -159,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="axis">Axis to lean</param>
     /// <param name="leanLimit">Limit of the lean</param>
     /// <param name="lerpTime">Time until lean is complete</param>
-    void HorizontalLean(Transform target, float axis, float leanLimit, float lerpTime)
+    private void HorizontalLean(Transform target, float axis, float leanLimit, float lerpTime)
     {
         Vector3 targetEulerAngels = target.localEulerAngles;
         target.localEulerAngles = new Vector3(targetEulerAngels.x, targetEulerAngels.y, Mathf.LerpAngle(targetEulerAngels.z, -axis * leanLimit, lerpTime));

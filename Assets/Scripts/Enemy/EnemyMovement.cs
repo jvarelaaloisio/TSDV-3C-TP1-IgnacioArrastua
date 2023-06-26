@@ -60,12 +60,8 @@ public class EnemyMovement : MonoBehaviour
         this.movementPoints = determinedMovement;
         transform.position = movementPoints[0].position;
     }
-    //TODO: TP2 - Remove unused methods
-    private void OnValidate()
-    {
 
-    }
-    void Update()
+    private void Update()
     {
 
         isAlive = _enemyBaseStats.IsAlive();
