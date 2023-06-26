@@ -59,7 +59,7 @@ public class EnemyShooting : MonoBehaviour
             {
                 foreach (var shoot in bulletPoint)
                 {
-                    ShootBullet(shoot);
+                //    ShootBullet(shoot);
                 }
 
                 currentShootBulletColdown -= shootBulletCooldown;

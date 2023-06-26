@@ -51,7 +51,7 @@ public class BossAttacks : MonoBehaviour
         isAlive = _enemyBaseStats.IsAlive();
         if (isActive && isAlive)
         {
-            ShootBulletAttack();
+            //ShootBulletAttack();
 
         }
     }

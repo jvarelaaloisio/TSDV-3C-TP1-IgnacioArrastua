@@ -12,7 +12,8 @@ public class PlayerShooting : MonoBehaviour
     //TODO: TP2 - Syntax - Consistency in naming convention
     private bool canShoot;
 
-    [SerializeField] private BulletManager bulletManager;
+    [SerializeField] private AskForBulletChannelSO askForBulletChannel;
+    [SerializeField] private DirectionHandler directionHandler;
     [SerializeField] private PlayerSettings player;
     [SerializeField] Transform rayPosition;
     [SerializeField] private Bullet bullet;
@@ -189,14 +190,17 @@ public class PlayerShooting : MonoBehaviour
         SoundManager.Instance.PlaySound(shootClip, shootVolume);
         foreach (Transform shootingPos in shootingPoints)
         {
-            var newBullet = Instantiate(bullet, shootingPos.position, transform.rotation, bulletHolder);
-            var currentDirection = (World.transform.InverseTransformDirection(shootingPos.forward));
-
-            newBullet.SetStartPosition(shootingPos);
-            newBullet.SetActiveState(true);
-            newBullet.ResetBulletTimer();
-            newBullet.SetWorld(World);
-            newBullet.SetDirection(currentDirection);
+            Debug.Log(shootingPos);
+            Debug.Log(directionHandler);
+            askForBulletChannel.RaiseEvent(shootingPos,LayerMask.LayerToName(gameObject.layer),directionHandler);
+            //var newBullet = Instantiate(bullet, shootingPos.position, transform.rotation, bulletHolder);
+            //var currentDirection = (World.transform.InverseTransformDirection(shootingPos.forward));
+            //
+            //newBullet.SetStartPosition(shootingPos);
+            //newBullet.SetActiveState(true);
+            //newBullet.ResetBulletTimer();
+            //newBullet.SetWorld(World);
+            //newBullet.SetDirection(currentDirection);
         }
     }
     /// <summary>
