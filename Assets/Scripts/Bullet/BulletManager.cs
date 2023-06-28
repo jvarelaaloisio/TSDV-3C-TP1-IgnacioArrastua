@@ -8,7 +8,7 @@ public class BulletManager : MonoBehaviour
     [SerializeField] private Transform bulletParent;
     [SerializeField] private Transform world;
     [SerializeField] private Bullet bullet;
-    private BulletFactory factory;
+    private BulletFactory factory = new BulletFactory();
 
     public void Awake()
     {

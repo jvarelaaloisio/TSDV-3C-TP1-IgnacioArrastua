@@ -83,7 +83,7 @@ public class PlayerShooting : MonoBehaviour
     /// </summary>
     private void AttackLogic()
     {
-        //TODO: TP2 - FSM
+        //TODO: TP2 - FSM- Pasarlo a corroutine
         if (!canShoot) return;
 
         SpecialBeanCooldownTimers();
