@@ -109,33 +109,18 @@ public class PlayerController : MonoBehaviour , IFillable
     private void OnTriggerEnter(Collider other)
     {
         //TODO: TP2 - SOLID
-        if (other.gameObject.CompareTag("EnemyBullet") && isDamageable)
+        if (other.TryGetComponent<Bullet>(out var bullet) && isDamageable)
         {
             Debug.Log("EnemyBulletHit");
-            other.gameObject.GetComponent<Bullet>().ResetBulletTimer();
-            other.gameObject.GetComponent<Bullet>().SetStartPosition(Vector3.zero);
-            other.gameObject.GetComponent<Bullet>().SetActiveState(false);
+            bullet.ResetBulletTimer();
+            bullet.SetStartPosition(Vector3.zero);
+            bullet.SetActiveState(false);
             Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
             SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
-            ReceiveDamage(other.gameObject.GetComponent<Bullet>().GetDamage());
+            ReceiveDamage(bullet.GetDamage());
         }
-        if (other.gameObject.CompareTag("BossBullet") && isDamageable)
-        {
 
-            other.gameObject.GetComponent<Bullet>().ResetBulletTimer();
-            other.gameObject.GetComponent<Bullet>().SetStartPosition(Vector3.zero);
-            other.gameObject.GetComponent<Bullet>().SetActiveState(false);
-            Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
-            SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
-            ReceiveDamage(other.gameObject.GetComponent<Bullet>().GetDamage());
-        }
-        if (other.gameObject.CompareTag("BossRay") && isDamageable)
-        {
 
-            Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
-            SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
-            ReceiveDamage(CurrentHealth * 0.87f);
-        }
     }
     //TODO: TP2 - Syntax - Fix formatting
     /// <summary>

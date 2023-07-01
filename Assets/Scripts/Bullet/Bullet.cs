@@ -8,8 +8,8 @@ public class Bullet : MonoBehaviour
 {
     //TODO: TP2 - Syntax - Fix declaration order
     private bool isActive;
-    public float velocity = 50f;
-    [SerializeField] private float damage = 30f;
+    public float Velocity { get; set; } = 50f;
+    public float Damage { get; set; } = 30f;
     public static float maxAliveTime = 3f;
     private float timer;
     private Transform world;
@@ -20,16 +20,14 @@ public class Bullet : MonoBehaviour
     //TODO: TP2 - Syntax - Consistency in naming convention
     private IEnumerator Start()
     {
-        if (timer >= maxAliveTime)
-        {
-            Destroy(gameObject);
-            yield break;
-        }
 
-        timer += Time.deltaTime;
-        direction = DirHandler.GetDirection(transform, world);
-        transform.localPosition += Time.deltaTime * velocity * direction;
-        yield return null;
+        Destroy(gameObject, maxAliveTime);
+        while (gameObject.activeSelf)
+        {
+            direction = DirHandler.GetDirection(transform, world);
+            transform.localPosition += Time.deltaTime * Velocity * direction;
+            yield return null;
+        }
     }
     /// <summary>
     /// Set the default direction of the bullet depending of the BulletGameObject Tag
@@ -77,30 +75,30 @@ public class Bullet : MonoBehaviour
     [Obsolete]
     private void Update()
     {
-        //TODO: TP2 - SOLID
-        if (gameObject.CompareTag("PlayerBullet") || gameObject.CompareTag("BossBullet"))
-        {
-            direction = world.transform.InverseTransformDirection(transform.forward);
-        }
-        //TODO: TP2 - FSM
-        //Hacer una corrutina donde cada frame saque la direction y hasta que llegue al max time alive o se destruya
-        if (isActive)
-        {
-            timer += Time.deltaTime;
-            if (timer <= maxAliveTime)
-            {
-
-                transform.localPosition += Time.deltaTime * velocity * direction;
-            }
-            else
-            {
-                isActive = false;
-            }
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        ////TODO: TP2 - SOLID
+        //if (gameObject.CompareTag("PlayerBullet") || gameObject.CompareTag("BossBullet"))
+        //{
+        //    direction = world.transform.InverseTransformDirection(transform.forward);
+        //}
+        ////TODO: TP2 - FSM
+        ////Hacer una corrutina donde cada frame saque la direction y hasta que llegue al max time alive o se destruya
+        //if (isActive)
+        //{
+        //    timer += Time.deltaTime;
+        //    if (timer <= maxAliveTime)
+        //    {
+        //
+        //        transform.localPosition += Time.deltaTime * velocity * direction;
+        //    }
+        //    else
+        //    {
+        //        isActive = false;
+        //    }
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
 
@@ -140,7 +138,7 @@ public class Bullet : MonoBehaviour
     /// Get Bullet Damage
     /// </summary>
     /// <returns></returns>
-    public float GetDamage() => damage;
+    public float GetDamage() => Damage;
     /// <summary>
     /// Get Active State
     /// </summary>

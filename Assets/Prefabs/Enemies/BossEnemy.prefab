@@ -266,10 +266,14 @@ MonoBehaviour:
   bullet: {fileID: 2672014167870166261, guid: a2061cb9da3003d4a9e7cab60fd49007, type: 3}
   bulletHolder: {fileID: 0}
   shootingPoints: {fileID: 3538858947297452951}
+  askForBulletChannel: {fileID: 11400000, guid: 8c811a9be8b34c6478075ea52e05dacb,
+    type: 2}
+  bulletConfiguration: {fileID: 11400000, guid: 85b681e1565b9974ca8b1637dca0918f,
+    type: 2}
   playerTransforms: {fileID: 0}
   bossMovement: {fileID: 0}
   ray: {fileID: 4352527644487610746}
-  shootBulletCooldown: 0.2
+  shootBulletCooldown: 0.5
   bulletAttackMaxDuration: 10
   chooseAttackCooldown: 10
   World: {fileID: 0}
@@ -451,6 +455,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BossRay
+      objectReference: {fileID: 0}
+    - target: {fileID: 2804110858878954457, guid: e78e7200a7a58d2499f9f0bc3b71d39e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5129622274614697578, guid: e78e7200a7a58d2499f9f0bc3b71d39e,
         type: 3}

@@ -3,14 +3,15 @@ using UnityEngine.Pool;
 
 public class BulletFactory
 {
-    private ObjectPool<Bullet> pool;
 
-    public void CreateBullet(Bullet bullet, Transform pos, string layerName, DirectionHandler directionHandler, Transform world, Transform bulletParent)
+    public void CreateBullet(Bullet bullet, Transform pos, string layerName, BulletConfiguration bulletConfig, Transform world, Transform bulletParent,Quaternion rotation)
     {
         var inverseRotation = Quaternion.Inverse(pos.rotation);
-        var newBullet = GameObject.Instantiate(bullet, pos.position, pos.rotation * inverseRotation, bulletParent);
+        var newBullet = GameObject.Instantiate(bullet, pos.position,  rotation, bulletParent);
         newBullet.gameObject.layer = LayerMask.NameToLayer(layerName);
-        newBullet.DirHandler = directionHandler;
+        newBullet.DirHandler = bulletConfig.directionHandler;
+        newBullet.Damage = bulletConfig.damage;
+        newBullet.Velocity = bulletConfig.velocity;
         newBullet.SetStartPosition(pos);
         newBullet.SetActiveState(true);
         newBullet.ResetBulletTimer();

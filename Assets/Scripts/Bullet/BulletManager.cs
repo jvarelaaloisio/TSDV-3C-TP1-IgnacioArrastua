@@ -19,11 +19,10 @@ public class BulletManager : MonoBehaviour
     {
         askForBulletChannel.Unsubscribe(SpawnBullet);
     }
-    public void SpawnBullet(Transform pos, string layer, DirectionHandler directionHandler)
+    public void SpawnBullet(Transform pos, string layer,BulletConfiguration bulletConfig,Quaternion rotation)
     {
       
-        Debug.Log(layer);
-        Debug.Log(directionHandler);
-        factory.CreateBullet(bullet, pos, layer, directionHandler, world, bulletParent);
+     
+        factory.CreateBullet(bullet, pos, layer, bulletConfig, world, bulletParent,rotation);
     }
 }

@@ -14,6 +14,8 @@ public class EnemyShooting : MonoBehaviour
     [SerializeField]
     private Transform bulletHolder;
     [SerializeField]private Transform shootingPoints;
+    [SerializeField] private AskForBulletChannelSO askForBulletChannel;
+    [SerializeField] private BulletConfiguration bulletConfiguration;
     Transform[] bulletPoint;
 
     [Header("Cooldowns Presets")]
@@ -59,7 +61,7 @@ public class EnemyShooting : MonoBehaviour
             {
                 foreach (var shoot in bulletPoint)
                 {
-                //    ShootBullet(shoot);
+                    ShootBullet(shoot);
                 }
 
                 currentShootBulletColdown -= shootBulletCooldown;
@@ -73,11 +75,12 @@ public class EnemyShooting : MonoBehaviour
     /// <param name="shooting">Transform from where the bullet spawn</param>
     private void ShootBullet(Transform shooting)
     {
-        var newBullet = Instantiate(bullet, shooting.position, shooting.rotation, bulletHolder);
-
-        newBullet.SetStartPosition(shooting);
-        newBullet.SetActiveState(true);
-        newBullet.ResetBulletTimer();
+        askForBulletChannel.RaiseEvent(shooting,LayerMask.LayerToName(gameObject.layer),bulletConfiguration,shooting.rotation);
+       // var newBullet = Instantiate(bullet, shooting.position, shooting.rotation, bulletHolder);
+       //
+       // newBullet.SetStartPosition(shooting);
+       // newBullet.SetActiveState(true);
+       // newBullet.ResetBulletTimer();
     }
     //TODO - Documentation - Add summary
     public void SetBulletHolder(Transform holder)

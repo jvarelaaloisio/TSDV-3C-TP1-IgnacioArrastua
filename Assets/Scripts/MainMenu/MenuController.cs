@@ -12,7 +12,8 @@ public class MenuController : MonoBehaviour
     [SerializeField] private List<CanvasGroup> totalCanvas;
     //TODO: TP2 - Syntax - Consistency in naming convention
     private CanvasGroup currentCanvas;
-    void Start()
+
+    private void Start()
     {
         currentCanvas = MainMenu;
 

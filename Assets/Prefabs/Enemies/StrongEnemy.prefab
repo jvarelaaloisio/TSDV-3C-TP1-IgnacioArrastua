@@ -257,6 +257,10 @@ MonoBehaviour:
   bullet: {fileID: 2672014167870166261, guid: f56f646d8415a2f46bde1e85bcb05095, type: 3}
   bulletHolder: {fileID: 0}
   shootingPoints: {fileID: 307250181581190972}
+  askForBulletChannel: {fileID: 11400000, guid: 8c811a9be8b34c6478075ea52e05dacb,
+    type: 2}
+  bulletConfiguration: {fileID: 11400000, guid: 45758ca129c6c264980642ef47fc1e23,
+    type: 2}
   shootBulletCooldown: 0.8
 --- !u!1 &7800048114351880072
 GameObject:

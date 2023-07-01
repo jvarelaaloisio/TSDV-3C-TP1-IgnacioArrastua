@@ -32,7 +32,7 @@ public class MoveCrosshair : MonoBehaviour
     /// <summary>
     /// Makes the CrossHair localPosition follow the target relative to the screen point 
     /// </summary>
-    void FollowTarget()
+    private void FollowTarget()
     {
         if (Camera.main != null)
         {

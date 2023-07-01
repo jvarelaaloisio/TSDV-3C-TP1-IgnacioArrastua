@@ -8,11 +8,8 @@ using UnityEngine;
 public class BossPattern : MonoBehaviour
 {
 
-
-
     //TODO: TP2 - Syntax - Fix formatting
     //TODO: TP2 - Syntax - Fix declaration order
-    private bool isActive = false;
     [SerializeField] private Color color;
     [SerializeField] public Transform[] points;
     [SerializeField] public float speed;
@@ -20,6 +17,7 @@ public class BossPattern : MonoBehaviour
     [SerializeField] public float loopTimes;
     [SerializeField] public int startLoop;
     [SerializeField] public int endLoop;
+    private bool isActive = false;
 
     private void OnValidate()
     {
@@ -28,7 +26,7 @@ public class BossPattern : MonoBehaviour
     }
 
     //TODO: TP2 - Syntax - Consistency in naming convention
-    void Start()
+    private void Start()
     {
         if (isActive)
             StartPattern();

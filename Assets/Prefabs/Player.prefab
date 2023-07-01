@@ -357,6 +357,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7322c2be5e74bf54e8d8c0ec477d51b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  askForBulletChannel: {fileID: 11400000, guid: 8c811a9be8b34c6478075ea52e05dacb,
+    type: 2}
+  bulletConfiguration: {fileID: 11400000, guid: d209097eb7d97ae4b9d886fa00ed50eb,
+    type: 2}
   player: {fileID: 11400000, guid: e64f707767407f34587f76abbb141f4f, type: 2}
   rayPosition: {fileID: 2741220430394713321}
   bullet: {fileID: 2672014167870166261, guid: f68c23854dd0056458ab89c9fca7be22, type: 3}
@@ -366,6 +370,7 @@ MonoBehaviour:
   cannon: {fileID: 6168236011001517408}
   shootClip: {fileID: 8300000, guid: bbec4c70f6006b54fa1cc827283e7f92, type: 3}
   shootVolume: 0.651
+  laserDamage: 500
   laserClip: {fileID: 8300000, guid: 532d97b9b01ea3247b1bbacd55944d6f, type: 3}
   laserVolume: 0.659
   prepareLaserClip: {fileID: 8300000, guid: 42434474876ee4d449160b85d5ce21c8, type: 3}
@@ -386,7 +391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5af2842cfa35944382d00a6fe9ddaf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 500
+  maxHealthPoints: 1000
+  _currentHealth: 0
   isDamageable: 1
   <IsAlive>k__BackingField: 1
   impactPrefab: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7,

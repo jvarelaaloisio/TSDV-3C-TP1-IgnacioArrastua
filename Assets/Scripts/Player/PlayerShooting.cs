@@ -13,7 +13,7 @@ public class PlayerShooting : MonoBehaviour
     private bool canShoot;
 
     [SerializeField] private AskForBulletChannelSO askForBulletChannel;
-    [SerializeField] private DirectionHandler directionHandler;
+    [SerializeField] private BulletConfiguration bulletConfiguration;
     [SerializeField] private PlayerSettings player;
     [SerializeField] Transform rayPosition;
     [SerializeField] private Bullet bullet;
@@ -190,9 +190,7 @@ public class PlayerShooting : MonoBehaviour
         SoundManager.Instance.PlaySound(shootClip, shootVolume);
         foreach (Transform shootingPos in shootingPoints)
         {
-            Debug.Log(shootingPos);
-            Debug.Log(directionHandler);
-            askForBulletChannel.RaiseEvent(shootingPos,LayerMask.LayerToName(gameObject.layer),directionHandler);
+            askForBulletChannel.RaiseEvent(shootingPos,LayerMask.LayerToName(gameObject.layer),bulletConfiguration,transform.rotation);
             //var newBullet = Instantiate(bullet, shootingPos.position, transform.rotation, bulletHolder);
             //var currentDirection = (World.transform.InverseTransformDirection(shootingPos.forward));
             //

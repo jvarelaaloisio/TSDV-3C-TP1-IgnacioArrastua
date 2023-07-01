@@ -10,7 +10,9 @@ public class BossAttacks : MonoBehaviour
     [SerializeField] private Bullet bullet;
     [SerializeField] private Transform bulletHolder;
     [SerializeField] private Transform shootingPoints;
-    Transform[] bulletPoint;
+    [SerializeField] private AskForBulletChannelSO askForBulletChannel;
+    [SerializeField] private BulletConfiguration bulletConfiguration;
+    private Transform[] bulletPoint;
     [SerializeField] Transform playerTransforms;
     [SerializeField] BossMovement bossMovement;
     [SerializeField] private GameObject ray;
@@ -51,7 +53,7 @@ public class BossAttacks : MonoBehaviour
         isAlive = _enemyBaseStats.IsAlive();
         if (isActive && isAlive)
         {
-            //ShootBulletAttack();
+            ShootBulletAttack();
 
         }
     }
@@ -77,53 +79,22 @@ public class BossAttacks : MonoBehaviour
         }
 
     }
-    //TODO: TP2 - Remove unused methods
-    /// <summary>
-    /// Logic for the Laser Attack 
-    /// </summary>
-    private void ShootLaserAttack()
-    {
-        ShootRay();
-        if (bossMovement.hasMovementEnded())
-        {
-            isAttacking = false;
-            ray.SetActive(false);
-        }
-    }
-    //TODO: TP2 - SOLID
-    /// <summary>
-    /// Choose between different attacks
-    /// </summary>
-    private void ChooseAttack()
-    {
-        attackNumber = Random.Range(0, 2);
-        switch (attackNumber)
-        {
-            case 0:
-                currentBulletAttack = 0;
-                break;
-            case 1:
-                bossMovement.StartNewPattern();
-                break;
-        }
 
-        isAttacking = true;
-        currentChooseAttack = 0;
-    }
     /// <summary>
     /// Intantiate a Bullet in the <paramref name="shooting"/> position
     /// </summary>
     /// <param name="shooting">Transform from where the bullet spawn</param>
     private void ShootBullet(Transform shooting)
     {
-        var newBullet = Instantiate(bullet, shooting.position, shooting.rotation, bulletHolder);
-        var currentDirection = (World.transform.InverseTransformDirection(shooting.forward));
-
-        newBullet.SetStartPosition(shooting);
-        newBullet.SetActiveState(true);
-        newBullet.ResetBulletTimer();
-        newBullet.SetWorld(World);
-        newBullet.SetDirection(currentDirection);
+        askForBulletChannel.RaiseEvent(shooting,LayerMask.LayerToName(gameObject.layer),bulletConfiguration,shooting.rotation);
+       //var newBullet = Instantiate(bullet, shooting.position, shooting.rotation, bulletHolder);
+       //var currentDirection = (World.transform.InverseTransformDirection(shooting.forward));
+       //
+       //newBullet.SetStartPosition(shooting);
+       //newBullet.SetActiveState(true);
+       //newBullet.ResetBulletTimer();
+       //newBullet.SetWorld(World);
+       //newBullet.SetDirection(currentDirection);
     }
     /// <summary>
     /// Sets the ray prefab to active

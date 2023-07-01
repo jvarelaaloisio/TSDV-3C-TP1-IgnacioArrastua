@@ -23,7 +23,7 @@ public class SlideMenu : MonoBehaviour
     }
 
     //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Start()
+    private void Start()
     {
         screenCanvas.interactable = false;
         screenCanvas.blocksRaycasts = false;
