@@ -72,36 +72,6 @@ public class Bullet : MonoBehaviour
 
     }
 
-    [Obsolete]
-    private void Update()
-    {
-        ////TODO: TP2 - SOLID
-        //if (gameObject.CompareTag("PlayerBullet") || gameObject.CompareTag("BossBullet"))
-        //{
-        //    direction = world.transform.InverseTransformDirection(transform.forward);
-        //}
-        ////TODO: TP2 - FSM
-        ////Hacer una corrutina donde cada frame saque la direction y hasta que llegue al max time alive o se destruya
-        //if (isActive)
-        //{
-        //    timer += Time.deltaTime;
-        //    if (timer <= maxAliveTime)
-        //    {
-        //
-        //        transform.localPosition += Time.deltaTime * velocity * direction;
-        //    }
-        //    else
-        //    {
-        //        isActive = false;
-        //    }
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
-    }
-
-
 
     /// <summary>
     /// Set bullet active status

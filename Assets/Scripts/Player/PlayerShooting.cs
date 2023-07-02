@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 /// Class for the PlayerShooting
 /// </summary>
 
-public class PlayerShooting : MonoBehaviour
+public class PlayerShooting : MonoBehaviour, IFillable
 {
     //TODO: TP2 - Syntax - Fix declaration order
     //TODO: TP2 - Syntax - Consistency in naming convention
@@ -14,6 +14,7 @@ public class PlayerShooting : MonoBehaviour
 
     [SerializeField] private AskForBulletChannelSO askForBulletChannel;
     [SerializeField] private BulletConfiguration bulletConfiguration;
+    [SerializeField] private FillUIChannelSO fillUIChannel;
     [SerializeField] private PlayerSettings player;
     [SerializeField] Transform rayPosition;
     [SerializeField] private Bullet bullet;
@@ -35,7 +36,17 @@ public class PlayerShooting : MonoBehaviour
     private float currentBeanTimer;
     private bool canFireSpecialBeam;
     private float specialBeanCooldown;
-    private float specialBeanCooldownTimer = 0.0f;
+
+    public float SpecialBeanCooldownTimer
+    {
+        get => _specialBeanCooldownTimer;
+        set
+        {
+            _specialBeanCooldownTimer = value;
+            fillUIChannel.RaiseEvent(this as IFillable);
+        }
+    }
+
     private bool isChargingSpecialBeam = false;
     private float specialBeamTimer = 1.2f;
     private float minHoldShootTimer = 0.2f;
@@ -48,6 +59,7 @@ public class PlayerShooting : MonoBehaviour
     private Transform bulletHolder;
 
     [SerializeField] private GameObject rayObject;
+    [SerializeField] private float _specialBeanCooldownTimer = 0.0f;
 
     private void Awake()
     {
@@ -148,10 +160,10 @@ public class PlayerShooting : MonoBehaviour
     {
         if (currentBeanTimer > specialBeamTimer && canFireSpecialBeam)
         {
-           
+
             ShootRay();
             canFireSpecialBeam = false;
-            specialBeanCooldownTimer = 0.0f;
+            SpecialBeanCooldownTimer = 0.0f;
         }
     }
 
@@ -160,8 +172,8 @@ public class PlayerShooting : MonoBehaviour
     /// </summary>
     private void SpecialBeanCooldownTimers()
     {
-        if (!canFireSpecialBeam) specialBeanCooldownTimer += Time.deltaTime;
-        if (!(specialBeanCooldownTimer > specialBeanCooldown)) return;
+        if (!canFireSpecialBeam) SpecialBeanCooldownTimer += Time.deltaTime;
+        if (!(SpecialBeanCooldownTimer > specialBeanCooldown)) return;
         canFireSpecialBeam = true;
 
     }
@@ -190,15 +202,7 @@ public class PlayerShooting : MonoBehaviour
         SoundManager.Instance.PlaySound(shootClip, shootVolume);
         foreach (Transform shootingPos in shootingPoints)
         {
-            askForBulletChannel.RaiseEvent(shootingPos,LayerMask.LayerToName(gameObject.layer),bulletConfiguration,transform.rotation);
-            //var newBullet = Instantiate(bullet, shootingPos.position, transform.rotation, bulletHolder);
-            //var currentDirection = (World.transform.InverseTransformDirection(shootingPos.forward));
-            //
-            //newBullet.SetStartPosition(shootingPos);
-            //newBullet.SetActiveState(true);
-            //newBullet.ResetBulletTimer();
-            //newBullet.SetWorld(World);
-            //newBullet.SetDirection(currentDirection);
+            askForBulletChannel.RaiseEvent(shootingPos, LayerMask.LayerToName(gameObject.layer), bulletConfiguration, transform.rotation);
         }
     }
     /// <summary>
@@ -210,7 +214,7 @@ public class PlayerShooting : MonoBehaviour
     /// Gets the SpecialBean current cooldown
     /// </summary>
     /// <returns></returns>
-    public float GetSpecialBeanCooldownTimer() => specialBeanCooldownTimer;
+    public float GetSpecialBeanCooldownTimer() => SpecialBeanCooldownTimer;
 
     /// <summary>
     /// Instantiate the Shoot Ray Logic
@@ -257,6 +261,16 @@ public class PlayerShooting : MonoBehaviour
         Gizmos.DrawRay(rayPosition.position + Vector3.down / 2, rayPosition.forward * raycastDistance);
         Gizmos.DrawRay(rayPosition.position + Vector3.right / 2, rayPosition.forward * raycastDistance);
         Gizmos.DrawRay(rayPosition.position + Vector3.left / 2, rayPosition.forward * raycastDistance);
+    }
+
+    public float GetCurrentValue()
+    {
+        return SpecialBeanCooldownTimer;
+    }
+
+    public float GetMaxValue()
+    {
+        return specialBeanCooldown;
     }
 }
 

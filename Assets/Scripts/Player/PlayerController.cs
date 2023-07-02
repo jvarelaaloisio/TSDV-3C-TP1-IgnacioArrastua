@@ -4,21 +4,18 @@ using UnityEngine;
 /// Class for the PlayerController
 /// </summary>
 
-public class PlayerController : MonoBehaviour , IFillable
+public class PlayerController : MonoBehaviour, IFillable
 {
 
     //TODO - Documentation - Add summary
     public static event Action<int> OnScoreUp;
 
-    public event Action<float> OnValueChanged;
 
     [SerializeField] private int maxHealthPoints;
 
     [SerializeField] private float _currentHealth;
-  
+    [SerializeField] private FillUIChannelSO fillUIChannel;
 
-    //TODO: TP2 - Remove unused methods/variables
-    private BoxCollider bc;
     [SerializeField] private bool isDamageable = true;
     [field: SerializeField] public bool IsAlive { get; private set; } = true;
     private static int _score = 0;
@@ -31,14 +28,14 @@ public class PlayerController : MonoBehaviour , IFillable
 
     public float CurrentHealth
     {
-        get=> _currentHealth;
+        get => _currentHealth;
         set
         {
             _currentHealth = value;
-            OnValueChanged?.Invoke(_currentHealth);
+            fillUIChannel.RaiseEvent(this as IFillable);
         }
     }
-    
+
     public static int Score
     {
         get => _score;
@@ -52,7 +49,7 @@ public class PlayerController : MonoBehaviour , IFillable
 
     private void Awake()
     {
-        bc = GetComponent<BoxCollider>();
+
 
     }
 
@@ -139,7 +136,7 @@ public class PlayerController : MonoBehaviour , IFillable
     /// Used for the PlayerHealthBar
     /// </summary>
     /// <returns></returns>
- 
+
 
     public float GetMaxValue()
     {

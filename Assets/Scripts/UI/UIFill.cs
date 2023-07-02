@@ -1,22 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
-
-/// <summary>
-/// Class for the HealthUI
-/// </summary>
-/// 
-public interface IFillable
-{
-    float GetCurrentValue();
-    event Action<float> OnValueChanged;
-    float GetMaxValue();
-}
 
 //TODO: Hacer un intermedio que sea UIController
 public class UIFill : MonoBehaviour
 {
-    [SerializeField] private MonoBehaviour ValueToDisplay;
+    [SerializeField] private FillUIChannelSO fillUI;
     [SerializeField] private Image imageDisplay;
 
   
@@ -25,39 +13,28 @@ public class UIFill : MonoBehaviour
 
     private void Awake()
     {
-         ValueToDisplay.GetComponent<IFillable>().OnValueChanged += OnValueChange;
+        fillUI.Subscribe(UpdateFill);
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
-         ValueToDisplay.GetComponent<IFillable>().OnValueChanged -= OnValueChange;     
+        fillUI.Unsubscribe(UpdateFill);
     }
     private void Start()
     {
-       
-        sliderMaxTimer = ValueToDisplay.GetComponent<IFillable>().GetMaxValue();
-        sliderCurrentTimer = ValueToDisplay.GetComponent<IFillable>().GetCurrentValue();
-        var currentTime = sliderCurrentTimer / sliderMaxTimer;
-        currentTime = Mathf.Clamp01(currentTime);
-        imageDisplay.fillAmount = currentTime;
+        
     }
 
     
     /// <summary>
     /// Updates the player HealthBar
     /// </summary>
-    private void UpdateFill()
+    private void UpdateFill(IFillable fillable)
     {
-        sliderMaxTimer = ValueToDisplay.GetComponent<IFillable>().GetMaxValue();
-        sliderCurrentTimer = ValueToDisplay.GetComponent<IFillable>().GetCurrentValue();
+        sliderMaxTimer = fillable.GetMaxValue();
+        sliderCurrentTimer = fillable.GetCurrentValue();
         var currentTime = sliderCurrentTimer / sliderMaxTimer;
         currentTime = Mathf.Clamp01(currentTime);
         imageDisplay.fillAmount = currentTime;
     }
-    private void OnValueChange(float newValue)
-    {
-        sliderCurrentTimer = newValue;
-        var currentTime = sliderCurrentTimer / sliderMaxTimer;
-        currentTime = Mathf.Clamp01(currentTime);
-        imageDisplay.fillAmount = currentTime;
-    }
+
 }

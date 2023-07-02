@@ -403,6 +403,85 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1001 &483507273
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3463420292624133770, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: m_Name
+      value: BulletManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463420292624133772, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463420292624133772, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.03549
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463420292624133772, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 66.50072
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463420292624133772, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -35.434376
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463420292624133772, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463420292624133772, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463420292624133772, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463420292624133772, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463420292624133772, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463420292624133772, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463420292624133772, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463420292624133773, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: world
+      value: 
+      objectReference: {fileID: 1919810104}
+    - target: {fileID: 3463420292624133773, guid: 16b4f9f74096cbc4c8ad4669fd04354f,
+        type: 3}
+      propertyPath: bulletParent
+      value: 
+      objectReference: {fileID: 2076982228}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 16b4f9f74096cbc4c8ad4669fd04354f, type: 3}
 --- !u!114 &560658272 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2093486271105489221, guid: c49e61c99fc5fa645bdc365d396e34ff,
@@ -575,6 +654,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce5860af3c371d948955ecaa2af94891, type: 3}
+--- !u!4 &1919810104 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3936125703432919136, guid: e32d506b9cdf0024892e291f9fec0819,
+    type: 3}
+  m_PrefabInstance: {fileID: 3936125703512013470}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2076982228 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3936125704485979060, guid: e32d506b9cdf0024892e291f9fec0819,
+    type: 3}
+  m_PrefabInstance: {fileID: 3936125703512013470}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2115284892 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8937604905261992028, guid: e32d506b9cdf0024892e291f9fec0819,

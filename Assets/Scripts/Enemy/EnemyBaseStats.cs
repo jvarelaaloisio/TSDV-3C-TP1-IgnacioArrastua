@@ -3,12 +3,12 @@ using UnityEngine;
 /// <summary>
 /// Class for the EnemyBaseStats
 /// </summary>
-public class EnemyBaseStats : MonoBehaviour
+public class EnemyBaseStats : MonoBehaviour, IFillable
 {
     //TODO: TP2 - Syntax - Consistency in naming convention
     //TODO: TP2 - Syntax - Fix declaration order
+    [SerializeField] private FillUIChannelSO fillUIChannel;
     public bool isActive;
-    private BoxCollider bc;
     [SerializeField]
     GameObject model;
     [SerializeField]
@@ -26,35 +26,22 @@ public class EnemyBaseStats : MonoBehaviour
     public float CurrentHealth
     {
         get => _currentHealth;
-        set => _currentHealth = value;
+        set
+        {
+            _currentHealth = value;
+            fillUIChannel.RaiseEvent(this as IFillable);
+        }
     }
 
-    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Start()
+    private void Start()
     {
         isActive = true;
         boom = GetComponentInChildren<ParticleSystem>();
         boom.enableEmission = false;
-        bc = GetComponent<BoxCollider>();
         CurrentHealth = maxHealth;
         boom.Stop();
 
     }
-
-
-    //TODO: TP2 - Remove unused methods
-    /// <summary>
-    /// Start enemy object with mesh
-    /// Sets current Health to maxHealth and isActive to true
-    /// </summary>
-    public void StartObject()
-    {
-        model.SetActive(true);
-        CurrentHealth = maxHealth;
-        isActive = true;
-
-    }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -129,6 +116,16 @@ public class EnemyBaseStats : MonoBehaviour
     public float GetCurrentHealthPoints()
     {
         return CurrentHealth;
+    }
+
+    public float GetCurrentValue()
+    {
+        return CurrentHealth;
+    }
+
+    public float GetMaxValue()
+    {
+        return maxHealth;
     }
 }
 
