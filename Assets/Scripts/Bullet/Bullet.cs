@@ -11,7 +11,6 @@ public class Bullet : MonoBehaviour
     public float Velocity { get; set; } = 50f;
     public float Damage { get; set; } = 30f;
     public static float maxAliveTime = 3f;
-    private float timer;
     private Transform world;
     public DirectionHandler DirHandler { get; set; }
 
@@ -29,38 +28,8 @@ public class Bullet : MonoBehaviour
             yield return null;
         }
     }
-    /// <summary>
-    /// Set the default direction of the bullet depending of the BulletGameObject Tag
-    /// </summary>
-    private void SetBulletDefaultDirection()
-    {
-        isActive = true;
-        timer = 0.0f;
-        //TODO: TP2 - SOLID
-        switch (gameObject.tag)
-        {
-            case "PlayerBullet":
-            case "BossBullet":
-                direction = Vector3.zero;
+ 
 
-                break;
-            case "EnemyBullet":
-                direction = Vector3.back;
-                break;
-        }
-    }
-    /// <summary>
-    /// Set the bullet direction
-    /// The direction is change form world to local
-    /// </summary>
-    /// <param name="dir">Direction of the bullet</param>
-    public void SetDirection(Vector3 dir)
-    {
-        var aux = transform.InverseTransformDirection(dir);
-        direction = aux;
-        direction.z = 1;
-
-    }
     /// <summary>
     /// Set the World of the bullet
     /// </summary>
@@ -97,21 +66,14 @@ public class Bullet : MonoBehaviour
     {
         transform.position = spawnPosition;
     }
+
     /// <summary>
     /// Reset bullet timer
     /// </summary>
-    public void ResetBulletTimer()
+    public void DestroyGameObject()
     {
-        timer = 0.0f;
+        Destroy(this.gameObject);
     }
-    /// <summary>
-    /// Get Bullet Damage
-    /// </summary>
-    /// <returns></returns>
     public float GetDamage() => Damage;
-    /// <summary>
-    /// Get Active State
-    /// </summary>
-    /// <returns></returns>
-    public bool GetActiveState() => isActive;
+  
 }

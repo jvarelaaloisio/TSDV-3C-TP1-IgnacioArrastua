@@ -186,7 +186,7 @@ public class PlayerShooting : MonoBehaviour, IFillable
         if (ctx.performed)
         {
             isPressingButton = true;
-
+            Debug.Log("IsPressingButton");
         }
         else if (ctx.canceled)
         {
@@ -199,6 +199,7 @@ public class PlayerShooting : MonoBehaviour, IFillable
     /// </summary>
     private void ShootBullet()
     {
+        Debug.Log("Shoot");
         SoundManager.Instance.PlaySound(shootClip, shootVolume);
         foreach (Transform shootingPos in shootingPoints)
         {

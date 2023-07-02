@@ -6,11 +6,14 @@ public abstract class  ChannelSO<T> : ScriptableObject
     private Action<T> dataEvent;
     public void Subscribe(in Action<T> handler)
     {
+        Debug.Log("{name}:Suscribed.");
         dataEvent += handler;
     }
+    private void OnEnable() => hideFlags = HideFlags.DontUnloadUnusedAsset;
     public void Unsubscribe(in Action<T> handler)
     {
-        dataEvent += handler;
+        Debug.Log("{name}:Unsuscribed.");
+        dataEvent -= handler;
     }
 
     public void RaiseEvent(T data)
@@ -34,7 +37,7 @@ public abstract class ChannelSO<T1,T2> : ScriptableObject
     }
     public void Unsubscribe(in Action<T1, T2> handler)
     {
-        dataEvent += handler;
+        dataEvent -= handler;
     }
 
     public void RaiseEvent(T1 data1,T2 data2)
@@ -58,7 +61,7 @@ public abstract class ChannelSO<T1,T2,T3> : ScriptableObject
     }
     public void Unsubscribe(in Action<T1, T2, T3> handler)
     {
-        dataEvent += handler;
+        dataEvent -= handler;
     }
 
     public void RaiseEvent(T1 data1,T2 data2,T3 data3)
@@ -82,7 +85,8 @@ public abstract class ChannelSO<T1,T2,T3,T4> : ScriptableObject
     }
     public void Unsubscribe(in Action<T1, T2, T3,T4> handler)
     {
-        dataEvent += handler;
+        
+        dataEvent -= handler;
     }
 
     public void RaiseEvent(T1 data1,T2 data2,T3 data3,T4 data4)
@@ -106,7 +110,7 @@ public abstract class ChannelSO<T1,T2,T3,T4,T5> : ScriptableObject
     }
     public void Unsubscribe(in Action<T1, T2, T3,T4,T5> handler)
     {
-        dataEvent += handler;
+        dataEvent-= handler;
     }
 
     public void RaiseEvent(T1 data1,T2 data2,T3 data3,T4 data4,T5 data5)

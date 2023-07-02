@@ -47,14 +47,9 @@ public class PlayerController : MonoBehaviour, IFillable
         }
     }
 
-    private void Awake()
-    {
-
-
-    }
-
-    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Start()
+   
+    
+    private void Start()
     {
         CurrentHealth = maxHealthPoints;
         PlayerMovement.OnRoll += PlayerMovement_OnRoll;
@@ -108,13 +103,10 @@ public class PlayerController : MonoBehaviour, IFillable
         //TODO: TP2 - SOLID
         if (other.TryGetComponent<Bullet>(out var bullet) && isDamageable)
         {
-            Debug.Log("EnemyBulletHit");
-            bullet.ResetBulletTimer();
-            bullet.SetStartPosition(Vector3.zero);
-            bullet.SetActiveState(false);
             Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
             SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
             ReceiveDamage(bullet.GetDamage());
+            bullet.DestroyGameObject();
         }
 
 

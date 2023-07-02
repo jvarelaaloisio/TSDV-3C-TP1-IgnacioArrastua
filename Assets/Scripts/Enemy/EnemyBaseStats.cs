@@ -48,13 +48,11 @@ public class EnemyBaseStats : MonoBehaviour, IFillable
         if (!other.gameObject.TryGetComponent(out Bullet bullet) || !isActive) 
             return;
 
-        bullet.ResetBulletTimer();
-        bullet.SetStartPosition(Vector3.zero);
-        bullet.SetActiveState(false);
         CurrentHealth -= bullet.GetDamage();
         Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
         SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
         CheckEnemyStatus();
+        bullet.DestroyGameObject();
     }
     //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
