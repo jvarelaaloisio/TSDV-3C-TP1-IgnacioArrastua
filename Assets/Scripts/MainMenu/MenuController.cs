@@ -10,6 +10,10 @@ public class MenuController : MonoBehaviour
     [SerializeField] private CanvasGroup Options;
     [SerializeField] private CanvasGroup Credits;
     [SerializeField] private List<CanvasGroup> totalCanvas;
+
+    [SerializeField] private string firstSceneName = "Level1";
+    [SerializeField] private string tutorialSceneName = "Tutorial";
+
     //TODO: TP2 - Syntax - Consistency in naming convention
     private CanvasGroup currentCanvas;
 
@@ -21,18 +25,16 @@ public class MenuController : MonoBehaviour
         SetCanvasState(Options, false);
         SetCanvasState(Credits, false);
         SoundManager.Instance.GetMusicSource().Stop();
-
         SoundManager.Instance.GetMusicSource().clip = SoundManager.Instance.mainMenu;
         SoundManager.Instance.GetMusicSource().Play();
     }
 
     /// <summary>
-    /// Loads GameScene
+    /// Loads First GameScene
     /// </summary>
     public void GoToGame()
     {
-        //TODO - Fix - Hardcoded value - Receive as param
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene(firstSceneName);
         SoundManager.Instance.PlayButtonSound();
     }
     /// <summary>
@@ -40,8 +42,7 @@ public class MenuController : MonoBehaviour
     /// </summary>
     public void GoToTutorial()
     {
-        //TODO - Fix - Hardcoded value - Receive as param
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene(tutorialSceneName);
         SoundManager.Instance.PlayButtonSound();
     }
     /// <summary>
@@ -74,12 +75,10 @@ public class MenuController : MonoBehaviour
         currentCanvas = MainMenu;
         SoundManager.Instance.PlayButtonSound();
     }
-    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Exits the game
     /// If activate in Unity Editor exits playmode
     /// </summary>
-
     public void ExitAplication()
     {
         SoundManager.Instance.PlaySound(SoundManager.Instance.button);

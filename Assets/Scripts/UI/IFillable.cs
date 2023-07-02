@@ -6,6 +6,6 @@ using System;
 /// 
 public interface IFillable
 {
-    float GetCurrentValue();
-    float GetMaxValue();
+    float GetCurrentFillValue();
+    float GetMaxFillValue();
 }

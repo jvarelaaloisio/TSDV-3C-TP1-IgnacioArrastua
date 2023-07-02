@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class ScoreUI : MonoBehaviour
 {
-    //TODO: TP2 - Syntax - Fix formatting
-   [SerializeField] private TMP_Text textComponent;
+    [SerializeField] private TMP_Text textComponent;
     [SerializeField] private string scoreText;
     [SerializeField] private int scoreValue;
 
@@ -19,12 +18,12 @@ public class ScoreUI : MonoBehaviour
     private void Start()
     {
         scoreValue = 0;
-        PlayerController.OnScoreUp += OnScoreUp;
+        PlayerHealthSystem.OnScoreUp += OnScoreUp;
     }
 
     private void OnDestroy()
     {
-        PlayerController.OnScoreUp -= OnScoreUp;
+        PlayerHealthSystem.OnScoreUp -= OnScoreUp;
     }
     /// <summary>
     /// Changes the ScoreValue and Text
@@ -33,8 +32,6 @@ public class ScoreUI : MonoBehaviour
     private void OnScoreUp(int obj)
     {
         scoreValue = obj;
-        //TODO - Fix - Bad log/Log out of context
-        Debug.Log(scoreValue);
         textComponent.text = scoreText + scoreValue;
     }
 }

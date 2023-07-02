@@ -25,8 +25,7 @@ public class EnemyMovement : MonoBehaviour
         _enemyBaseStats = GetComponent<EnemyBaseStats>();
     }
 
-    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Start()
+    private void Start()
     {
         if (movementPoints.Length != 0)
         {
@@ -40,7 +39,7 @@ public class EnemyMovement : MonoBehaviour
     }
     //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
-    /// Set the parameters to replicate the pattern
+    /// Set the parameters of the enemy to follow a new movement
     /// </summary>
     /// <param name="speed"></param>
     /// <param name="shouldLoop"></param>
@@ -93,18 +92,17 @@ public class EnemyMovement : MonoBehaviour
             }
         }
     }
-    //TODO - Fix - Summary
+
     /// <summary>
-    /// Sets the hasEnded variable when the enemy reaches his 
+    /// Sets the hasEnded variable when the enemy reaches his destined location
     /// </summary>
     private void EndMovement()
     {
-        if (currentPoint >= movementPoints.Length)
-        {
-            isActive = false;
-            hasEnded = true;
-            _enemyBaseStats.DeActivateEnemy();
-        }
+        if (currentPoint < movementPoints.Length) 
+            return;
+        isActive = false;
+        hasEnded = true;
+        _enemyBaseStats.DeActivateEnemy();
     }
     /// <summary>
     /// Set the Movement Active and moves to the default position

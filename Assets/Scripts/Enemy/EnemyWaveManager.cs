@@ -8,18 +8,15 @@ public class EnemyWaveManager : MonoBehaviour
 {
     [SerializeField] private EnemyMovementPattern[] pattern;
     [SerializeField] private float[] activationPoint;
-    //TODO: TP2 - Syntax - Consistency in naming convention
-     private int nextPoint = 0;
+    private int nextActivationPoints = 0;
 
 
      //TODO: TP2 - Syntax - Fix declaration order
     [SerializeField] private CinemachineDollyCart dollyCart;
     private float currentPosition;
 
- 
-
-    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Update()
+    
+    private void Update()
     {
         ActivatePattern();
     }
@@ -29,10 +26,10 @@ public class EnemyWaveManager : MonoBehaviour
     private void ActivatePattern()
     {
         currentPosition = dollyCart.m_Position;
-        if (nextPoint < activationPoint.Length && currentPosition >= activationPoint[nextPoint])
+        if (nextActivationPoints < activationPoint.Length && currentPosition >= activationPoint[nextActivationPoints])
         {
-            pattern[nextPoint].StartPattern();
-            nextPoint++;
+            pattern[nextActivationPoints].StartPattern();
+            nextActivationPoints++;
         }
     }
 }

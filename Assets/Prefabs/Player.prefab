@@ -361,10 +361,9 @@ MonoBehaviour:
     type: 2}
   bulletConfiguration: {fileID: 11400000, guid: d209097eb7d97ae4b9d886fa00ed50eb,
     type: 2}
+  fillUIChannel: {fileID: 11400000, guid: 3302874b4a83eb3429f1a4124aece744, type: 2}
   player: {fileID: 11400000, guid: e64f707767407f34587f76abbb141f4f, type: 2}
   rayPosition: {fileID: 2741220430394713321}
-  bullet: {fileID: 2672014167870166261, guid: f68c23854dd0056458ab89c9fca7be22, type: 3}
-  World: {fileID: 0}
   prefire: {fileID: 599008557134133571}
   shootingPoints: []
   cannon: {fileID: 6168236011001517408}
@@ -379,6 +378,7 @@ MonoBehaviour:
   bulletHolder: {fileID: 0}
   rayObject: {fileID: 2804110858878954457, guid: 845cc55330f813348b45e1c436c44cce,
     type: 3}
+  _specialBeanCooldownTimer: 0
 --- !u!114 &2115284895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealthPoints: 1000
   _currentHealth: 0
+  fillUIChannel: {fileID: 11400000, guid: 793ad92a4a55fe84bb5d4d2b235b1b7b, type: 2}
   isDamageable: 1
   <IsAlive>k__BackingField: 1
   impactPrefab: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7,

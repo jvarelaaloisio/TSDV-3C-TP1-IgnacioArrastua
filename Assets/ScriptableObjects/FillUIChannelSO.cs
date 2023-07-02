@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "FillUiChannelSO")]
+[CreateAssetMenu(menuName = "Channel/FillUiChannelSO",fileName = "FillUiChannelSO")]
 public class FillUIChannelSO : ChannelSO<IFillable> {
 }

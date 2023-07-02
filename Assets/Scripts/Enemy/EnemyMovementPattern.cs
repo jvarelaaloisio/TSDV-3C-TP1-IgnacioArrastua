@@ -9,7 +9,7 @@ using UnityEngine;
 public class EnemyMovementPattern : MonoBehaviour
 {
     [SerializeField] private EnemyMovement[] enemyTypes;
-    [SerializeField] private Transform enemyHolder ;
+    [SerializeField] private Transform enemyHolder;
     [SerializeField] private int defaultEnemyCount = 0;
     [SerializeField] private int specialEnemyCount = 0;
     private List<EnemyMovement> enemysToSpawn;
@@ -18,7 +18,7 @@ public class EnemyMovementPattern : MonoBehaviour
     private bool isActive = false;
     [SerializeField] private Color color;
     [SerializeField] private float speed;
-    [SerializeField] Transform[] points;
+    [SerializeField] private Transform[] points;
     [SerializeField] private bool shouldLoop = false;
     [SerializeField] private float loopTimes;
     [SerializeField] private int startLoop;
@@ -33,7 +33,6 @@ public class EnemyMovementPattern : MonoBehaviour
         points = transform.Cast<Transform>().ToArray();
 
     }
-    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     private void Start()
     {
         if (isActive)
@@ -41,7 +40,7 @@ public class EnemyMovementPattern : MonoBehaviour
     }
     //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
-    /// Initialize Pattern
+    /// Initialize enemy Pattern
     /// </summary>
     public void StartPattern()
     {
@@ -49,7 +48,6 @@ public class EnemyMovementPattern : MonoBehaviour
         startLoop = Mathf.Clamp(startLoop, 0, endLoop - 1);
         SetMaxEnemiesInScreen();
         SetRandomEnemies();
-
         maxEnemysInScene = enemysToSpawn.Count;
         isActive = true;
     }
@@ -89,19 +87,18 @@ public class EnemyMovementPattern : MonoBehaviour
         foreach (var enemy in enemysToSpawn)
         {
             enemy.SetStartParameters(speed, shouldLoop, loopTimes, startLoop, endLoop, false, points);
-            enemy.gameObject.GetComponent<EnemyShooting>().SetBulletHolder(bulletHolder);
         }
     }
 
-    void Update()
+    private void Update()
     {
-        ActiveEnemies();
+        ActivateEnemies();
     }
     //TODO: TP2 - Syntax - Consistency in naming convention
     /// <summary>
     /// Activate Enemies in scene according to spawnTimer and enemy count
     /// </summary>
-    private void ActiveEnemies()
+    private void ActivateEnemies()
     {
         if (isActive)
         {
@@ -118,10 +115,8 @@ public class EnemyMovementPattern : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = color;
-        for (int i = 0; i < points.Length; i++)
+        for (int i = 0; i < points.Length - 1; i++)
         {
-            //TODO - Fix - "i < points.Length - 1" in the for declaration
-            if (i == points.Length - 1) return;
             Transform t = points[i];
             Transform next = points[i + 1];
             Gizmos.DrawLine(t.position, next.position);
@@ -130,9 +125,8 @@ public class EnemyMovementPattern : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(color.r, color.g, color.b, 0.1f);
-        for (int i = 0; i < points.Length; i++)
+        for (int i = 0; i < points.Length - 1; i++)
         {
-            //TODO - Fix - "i < points.Length - 1" in the for declaration
             if (i == points.Length - 1) return;
             Transform t = points[i];
             Transform next = points[i + 1];

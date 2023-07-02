@@ -27,17 +27,14 @@ public class SoundManager : MonoBehaviour
         }
 
     }
-    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Plays a <paramref name="clip"/> with PlayOneShot
     /// </summary>
     /// <param name="clip">The audio clip that will play.</param>
     /// <param name="volume">Sets the volume of the clip between 0-1f, if null will play at max volume</param>
-
-
     public void PlaySound(AudioClip clip, float volume = 1.0f)
     {
-        effectSource.PlayOneShot(clip,volume);
+        effectSource.PlayOneShot(clip, volume);
     }
     /// <summary>
     /// Plays the button sound

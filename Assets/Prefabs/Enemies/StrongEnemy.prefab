@@ -180,11 +180,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
+  fillUIChannel: {fileID: 11400000, guid: 1ee8004c75854f341bf133a4c8e1473b, type: 2}
   model: {fileID: 2930856266476704020}
+  timeUntilDeath: 1
+  scoreValue: 300
   maxHealth: 400
   impactPrefab: {fileID: 5880797563141009103, guid: 265d3a5ba69981a4698ceabcedf368b0,
     type: 3}
-  scoreValue: 300
   explosionSound: {fileID: 8300000, guid: 4cedceaf8b5c979439a0a34f61192892, type: 3}
   explosionVolume: 0.145
   inpactSound: {fileID: 8300000, guid: d3d81d7184e428345b0fa8e25047eba7, type: 3}
@@ -254,8 +256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc2c79b77d079949956be2bf5435f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 2672014167870166261, guid: f56f646d8415a2f46bde1e85bcb05095, type: 3}
-  bulletHolder: {fileID: 0}
   shootingPoints: {fileID: 307250181581190972}
   askForBulletChannel: {fileID: 11400000, guid: 8c811a9be8b34c6478075ea52e05dacb,
     type: 2}

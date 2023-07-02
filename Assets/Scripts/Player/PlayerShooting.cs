@@ -16,12 +16,12 @@ public class PlayerShooting : MonoBehaviour, IFillable
     [SerializeField] private BulletConfiguration bulletConfiguration;
     [SerializeField] private FillUIChannelSO fillUIChannel;
     [SerializeField] private PlayerSettings player;
-    [SerializeField] Transform rayPosition;
-    [SerializeField] private Bullet bullet;
-    [SerializeField] private Transform World;
+    [SerializeField] private Transform rayPosition;
     [SerializeField] private ParticleSystem prefire;
     [SerializeField] private Transform[] shootingPoints;
     [SerializeField] private Transform cannon;
+
+    [Header("Audio")]
     [SerializeField] private AudioClip shootClip;
     [SerializeField] [Range(0, 1)] private float shootVolume;
     [SerializeField] private float laserDamage = 200f;
@@ -55,9 +55,6 @@ public class PlayerShooting : MonoBehaviour, IFillable
     private float currentSingleShootTimer;
 
     private bool singleBulletShoot;
-    [SerializeField]
-    private Transform bulletHolder;
-
     [SerializeField] private GameObject rayObject;
     [SerializeField] private float _specialBeanCooldownTimer = 0.0f;
 
@@ -160,7 +157,6 @@ public class PlayerShooting : MonoBehaviour, IFillable
     {
         if (currentBeanTimer > specialBeamTimer && canFireSpecialBeam)
         {
-
             ShootRay();
             canFireSpecialBeam = false;
             SpecialBeanCooldownTimer = 0.0f;
@@ -186,7 +182,6 @@ public class PlayerShooting : MonoBehaviour, IFillable
         if (ctx.performed)
         {
             isPressingButton = true;
-            Debug.Log("IsPressingButton");
         }
         else if (ctx.canceled)
         {
@@ -199,23 +194,12 @@ public class PlayerShooting : MonoBehaviour, IFillable
     /// </summary>
     private void ShootBullet()
     {
-        Debug.Log("Shoot");
         SoundManager.Instance.PlaySound(shootClip, shootVolume);
         foreach (Transform shootingPos in shootingPoints)
         {
             askForBulletChannel.RaiseEvent(shootingPos, LayerMask.LayerToName(gameObject.layer), bulletConfiguration, transform.rotation);
         }
     }
-    /// <summary>
-    /// Gets the SpecialBeanCooldown max Cooldown
-    /// </summary>
-    /// <returns></returns>
-    public float GetSpecialBeanCooldown() => specialBeanCooldown;
-    /// <summary>
-    /// Gets the SpecialBean current cooldown
-    /// </summary>
-    /// <returns></returns>
-    public float GetSpecialBeanCooldownTimer() => SpecialBeanCooldownTimer;
 
     /// <summary>
     /// Instantiate the Shoot Ray Logic
@@ -263,13 +247,19 @@ public class PlayerShooting : MonoBehaviour, IFillable
         Gizmos.DrawRay(rayPosition.position + Vector3.right / 2, rayPosition.forward * raycastDistance);
         Gizmos.DrawRay(rayPosition.position + Vector3.left / 2, rayPosition.forward * raycastDistance);
     }
-
-    public float GetCurrentValue()
+    /// <summary>
+    /// Gets the SpecialBeanCooldown max Cooldown
+    /// </summary>
+    /// <returns></returns>
+    public float GetCurrentFillValue()
     {
         return SpecialBeanCooldownTimer;
     }
-
-    public float GetMaxValue()
+    /// <summary>
+    /// Gets the SpecialBean current cooldown
+    /// </summary>
+    /// <returns></returns>
+    public float GetMaxFillValue()
     {
         return specialBeanCooldown;
     }

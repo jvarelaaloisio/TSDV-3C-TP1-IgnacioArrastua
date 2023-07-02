@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 /// <summary>
@@ -6,20 +5,15 @@ using UnityEngine;
 /// </summary>
 public class Bullet : MonoBehaviour
 {
-    //TODO: TP2 - Syntax - Fix declaration order
-    private bool isActive;
     public float Velocity { get; set; } = 50f;
     public float Damage { get; set; } = 30f;
     public static float maxAliveTime = 3f;
-    private Transform world;
     public DirectionHandler DirHandler { get; set; }
-
+    private Transform world;
     private Vector3 direction;
 
-    //TODO: TP2 - Syntax - Consistency in naming convention
     private IEnumerator Start()
     {
-
         Destroy(gameObject, maxAliveTime);
         while (gameObject.activeSelf)
         {
@@ -28,7 +22,7 @@ public class Bullet : MonoBehaviour
             yield return null;
         }
     }
- 
+
 
     /// <summary>
     /// Set the World of the bullet
@@ -38,18 +32,8 @@ public class Bullet : MonoBehaviour
     {
         world = worldTransform;
         direction = world.transform.InverseTransformDirection(transform.forward);
-
     }
 
-
-    /// <summary>
-    /// Set bullet active status
-    /// </summary>
-    /// <param name="status">Bullet active state</param>
-    public void SetActiveState(bool status)
-    {
-        isActive = status;
-    }
     /// <summary>
     /// Set bullet spawnPosition
     /// </summary>
@@ -58,22 +42,14 @@ public class Bullet : MonoBehaviour
     {
         transform.position = spawnPosition.position;
     }
-    /// <summary>
-    /// Set bullet spawnPosition
-    /// </summary>
-    /// <param name="spawnPosition">Spawn position of the bullet</param>
-    public void SetStartPosition(Vector3 spawnPosition)
-    {
-        transform.position = spawnPosition;
-    }
 
     /// <summary>
-    /// Reset bullet timer
+    /// Destroy the GameObject attached to the bullet
     /// </summary>
     public void DestroyGameObject()
     {
         Destroy(this.gameObject);
     }
-    public float GetDamage() => Damage;
-  
+
+
 }

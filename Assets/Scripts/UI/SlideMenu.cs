@@ -7,8 +7,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SlideMenu : MonoBehaviour
 {
-    [SerializeField]
-    private TMPro.TextMeshProUGUI textMesh;
+    [SerializeField] private TMPro.TextMeshProUGUI textMesh;
     [SerializeField] private GameObject currentbutton;
     [SerializeField] private PopUpText screen;
     private int playerScore;
@@ -16,20 +15,20 @@ public class SlideMenu : MonoBehaviour
     private bool isActive;
     private static MoveCrosshair cross;
     [SerializeField] private AudioClip openSlideSound;
+    [SerializeField] private  float timeUntilNextScene = 0.5f;
+    [SerializeField] private string menuSceneName = "MainMenu";
     private void Awake()
     {
         screenCanvas = GetComponent<CanvasGroup>();
         cross = GameObject.Find("CrossHair").GetComponent<MoveCrosshair>();
     }
 
-    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     private void Start()
     {
         screenCanvas.interactable = false;
         screenCanvas.blocksRaycasts = false;
         isActive = false;
     }
-
 
     /// <summary>
     /// Activates the PopUpText and activates the CanvasGroup
@@ -45,7 +44,7 @@ public class SlideMenu : MonoBehaviour
         isActive = true;
         EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(currentbutton);
         screen.ActiveBox();
-        playerScore = PlayerController.Score;
+        playerScore = PlayerHealthSystem.Score;
         if (textMesh)
         {
             textMesh.text = "Score:" + playerScore;
@@ -62,7 +61,6 @@ public class SlideMenu : MonoBehaviour
         Time.timeScale = 1;
         screen.DeactivateBox();
         Invoke(nameof(LoadMenu), 0.5f);
-        cross.ResetCrosshair();
     }
     /// <summary>
     /// Resets the current scene after 0.5f, set Time.timeScale to 1 and resets the crosshair 
@@ -71,9 +69,7 @@ public class SlideMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         screen.DeactivateBox();
-        //TODO - Fix - Hardcoded value
-        Invoke(nameof(ResetScene), 0.5f);
-        cross.ResetCrosshair();
+        Invoke(nameof(ResetScene), timeUntilNextScene);
     }
     /// <summary>
     /// Loads the next scene after 0.5f, set Time.timeScale to 1 and resets the crosshair 
@@ -82,9 +78,7 @@ public class SlideMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         screen.DeactivateBox();
-        //TODO - Fix - Hardcoded value
-        Invoke(nameof(LoadNextScene), 0.5f);
-        cross.ResetCrosshair();
+        Invoke(nameof(LoadNextScene), timeUntilNextScene);
     }
     /// <summary>
     /// Close this screen
@@ -93,8 +87,6 @@ public class SlideMenu : MonoBehaviour
     {
         isActive = false;
         SoundManager.Instance.PlaySound(SoundManager.Instance.button);
-        //TODO - Fix - Bad log/Log out of context
-        Debug.Log("Return");
         screen.DeactivateBox();
     }
     /// <summary>
@@ -103,9 +95,7 @@ public class SlideMenu : MonoBehaviour
     private void LoadMenu()
     {
         SoundManager.Instance.PlaySound(SoundManager.Instance.button);
-        //TODO - Fix - Hardcoded value
-        SceneManager.LoadScene("MainMenu");
-        cross.ResetCrosshair();
+        SceneManager.LoadScene(menuSceneName);
     }
     /// <summary>
     /// Loads next Scene
@@ -115,7 +105,6 @@ public class SlideMenu : MonoBehaviour
         int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
         SoundManager.Instance.PlaySound(SoundManager.Instance.button);
         SceneManager.LoadScene(nextScene);
-        cross.ResetCrosshair();
     }
     /// <summary>
     /// Reset CurrentScene
@@ -124,6 +113,5 @@ public class SlideMenu : MonoBehaviour
     {
         SoundManager.Instance.PlaySound(SoundManager.Instance.button);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        cross.ResetCrosshair();
     }
 }

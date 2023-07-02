@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.Screen;
 
 /// <summary>
 /// Class for the OptionsMenu
@@ -10,9 +11,9 @@ public class OptionsMenu : MonoBehaviour
 
     private void Start()
     {
-  
-        isFullScreen = Screen.fullScreenMode == FullScreenMode.FullScreenWindow ? true : false;
- 
+
+        isFullScreen = fullScreenMode == FullScreenMode.FullScreenWindow;
+
     }
     /// <summary>
     /// Toggle Screen mode
@@ -21,16 +22,14 @@ public class OptionsMenu : MonoBehaviour
     {
         SoundManager.Instance.PlayButtonSound();
         isFullScreen = !isFullScreen;
-        var fullsScreenMode = isFullScreen? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
-        //TODO: TP2 - Syntax - Fix formatting
-        Screen.SetResolution(1920, 1080,fullsScreenMode );
+        var fullsScreenMode = isFullScreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
+        SetResolution(1920, 1080, fullsScreenMode);
     }
     /// <summary>
     /// Toggle SFX mute state
     /// </summary>
     public void ChangeSFX()
     {
-        //BUG: Could it be that the button sound will never play because it'll be muted immediately?
         SoundManager.Instance.PlayButtonSound();
         SoundManager.Instance.ToggleEffects();
     }

@@ -1,21 +1,19 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;using UnityEngine.InputSystem.XInput;
 
 //TODO: TP2 - Syntax - Fix formatting
 /// <summary>
 /// Class for the UIController
 /// </summary>
-
-
 public class UIController : MonoBehaviour
 {
-    //TODO: TP2 - Syntax - Fix declaration order
     //TODO: TP2 - Syntax - Consistency in naming convention
+    [SerializeField] private CanvasGroup inGameUiCanvas;
+    [SerializeField] private CanvasGroup pauseUiCanvas;
+    [SerializeField] private float timeUntilTheCanvasIsUpdated = 0.7f;
     private bool isPaused = false;
-    [SerializeField] private CanvasGroup InGameUi;
-    [SerializeField] private CanvasGroup pauseUI;
-    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Start()
+  
+    private void Start()
     {
         Time.timeScale = 1;
         isPaused = false;
@@ -34,21 +32,20 @@ public class UIController : MonoBehaviour
         if (isPaused)
         {
             UpdateCanvas();
-            pauseUI.GetComponent<SlideMenu>().OpenSlide();
-            Invoke(nameof(ChangeTimeScale), 0.7f);
+            pauseUiCanvas.GetComponent<SlideMenu>().OpenSlide();
+            ToggleTimeScaleOnPauseState();
         }
         else
         {
-            ChangeTimeScale();
-            pauseUI.GetComponent<SlideMenu>().ReturnToGame();
-            Invoke(nameof(UpdateCanvas), 0.7f);
+            ToggleTimeScaleOnPauseState();
+            pauseUiCanvas.GetComponent<SlideMenu>().ReturnToGame();
+            Invoke(nameof(UpdateCanvas), timeUntilTheCanvasIsUpdated);
         }
 
     }
     /// <summary>
     /// Toggle Pause depending on Input
     /// </summary>
-
     public void SetPause()
     {
        
@@ -56,24 +53,22 @@ public class UIController : MonoBehaviour
         if (isPaused)
         {
             UpdateCanvas();
-            pauseUI.GetComponent<SlideMenu>().OpenSlide();
-            Invoke(nameof(ChangeTimeScale), 0.7f);
+            pauseUiCanvas.GetComponent<SlideMenu>().OpenSlide();
+            ToggleTimeScaleOnPauseState();
         }
         else
         {
-            ChangeTimeScale();
-            pauseUI.GetComponent<SlideMenu>().ReturnToGame();
-            Invoke(nameof(UpdateCanvas), 0.7f);
+            ToggleTimeScaleOnPauseState();
+            pauseUiCanvas.GetComponent<SlideMenu>().ReturnToGame();
+            Invoke(nameof(UpdateCanvas), timeUntilTheCanvasIsUpdated);
 
         }
 
     }
-
-    //TODO: TP2 - Syntax - Consistency in naming convention
     /// <summary>
     /// Change the timeScale according to isPaused
     /// </summary>
-    public void ChangeTimeScale()
+    public void ToggleTimeScaleOnPauseState()
     {
         Time.timeScale = isPaused ? 0 : 1;
     }
@@ -82,26 +77,26 @@ public class UIController : MonoBehaviour
     /// </summary>
     public void UpdateCanvas()
     {
-        pauseUI.alpha = isPaused ? 1 : 0;
-        pauseUI.blocksRaycasts = isPaused;
-        pauseUI.interactable = isPaused;
+        pauseUiCanvas.alpha = isPaused ? 1 : 0;
+        pauseUiCanvas.blocksRaycasts = isPaused;
+        pauseUiCanvas.interactable = isPaused;
 
-        InGameUi.alpha = !isPaused ? 1 : 0;
-        InGameUi.blocksRaycasts = !isPaused;
-        InGameUi.interactable = !isPaused;
+        inGameUiCanvas.alpha = !isPaused ? 1 : 0;
+        inGameUiCanvas.blocksRaycasts = !isPaused;
+        inGameUiCanvas.interactable = !isPaused;
     }
     /// <summary>
     /// Set the InGameUi and PauseUI to not be visible or interactable
     /// </summary>
     public void EndScreenSecuence()
     {
-        InGameUi.alpha = 0;
-        InGameUi.blocksRaycasts = false;
-        InGameUi.interactable = false;
+        inGameUiCanvas.alpha = 0;
+        inGameUiCanvas.blocksRaycasts = false;
+        inGameUiCanvas.interactable = false;
         isPaused = false;
-        pauseUI.alpha = 0;
-        pauseUI.blocksRaycasts = false;
-        pauseUI.interactable = false;
+        pauseUiCanvas.alpha = 0;
+        pauseUiCanvas.blocksRaycasts = false;
+        pauseUiCanvas.interactable = false;
     }
 
 }

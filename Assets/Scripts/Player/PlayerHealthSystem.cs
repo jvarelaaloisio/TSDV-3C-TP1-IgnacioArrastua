@@ -4,7 +4,7 @@ using UnityEngine;
 /// Class for the PlayerController
 /// </summary>
 
-public class PlayerController : MonoBehaviour, IFillable
+public class PlayerHealthSystem : MonoBehaviour, IFillable
 {
 
     //TODO - Documentation - Add summary
@@ -47,8 +47,6 @@ public class PlayerController : MonoBehaviour, IFillable
         }
     }
 
-   
-    
     private void Start()
     {
         CurrentHealth = maxHealthPoints;
@@ -56,7 +54,6 @@ public class PlayerController : MonoBehaviour, IFillable
         isDamageable = true;
         Score = 0;
     }
-
 
     private void OnDestroy()
     {
@@ -100,37 +97,30 @@ public class PlayerController : MonoBehaviour, IFillable
 
     private void OnTriggerEnter(Collider other)
     {
-        //TODO: TP2 - SOLID
-        if (other.TryGetComponent<Bullet>(out var bullet) && isDamageable)
-        {
-            Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
-            SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
-            ReceiveDamage(bullet.GetDamage());
-            bullet.DestroyGameObject();
-        }
+        if (!other.TryGetComponent<Bullet>(out var bullet) || !isDamageable) 
+            return;
 
-
+        Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
+        SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
+        ReceiveDamage(bullet.Damage);
+        bullet.DestroyGameObject();
     }
-    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Gets currentHealthPoints
     /// Used for the PlayerHealthBar
     /// </summary>
     /// <returns></returns>
-    public float GetCurrentValue()
+    public float GetCurrentFillValue()
     {
         return CurrentHealth;
     }
 
-    //TODO - Fix - Should be Setter/Getter
     /// <summary>
     /// Gets maxHealthPoints
     /// Used for the PlayerHealthBar
     /// </summary>
     /// <returns></returns>
-
-
-    public float GetMaxValue()
+    public float GetMaxFillValue()
     {
         return maxHealthPoints;
     }

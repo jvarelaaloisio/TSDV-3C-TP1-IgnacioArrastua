@@ -26,8 +26,8 @@ public class UIFill : MonoBehaviour
     /// </summary>
     private void UpdateFill(IFillable fillable)
     {
-        sliderMaxTimer = fillable.GetMaxValue();
-        sliderCurrentTimer = fillable.GetCurrentValue();
+        sliderMaxTimer = fillable.GetMaxFillValue();
+        sliderCurrentTimer = fillable.GetCurrentFillValue();
         var currentTime = sliderCurrentTimer / sliderMaxTimer;
         currentTime = Mathf.Clamp01(currentTime);
         imageDisplay.fillAmount = currentTime;

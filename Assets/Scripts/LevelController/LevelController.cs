@@ -24,7 +24,7 @@ public class LevelController : MonoBehaviour
         private set => LevelStatus = value;
     }
 
-    [SerializeField] private PlayerController player;
+    [SerializeField] private PlayerHealthSystem player;
     [SerializeField] private EnemyBaseStats enemy;
     [SerializeField] private CinemachineDollyCart levelDolly;
     [SerializeField] private CinemachinePathBase path;
@@ -36,7 +36,7 @@ public class LevelController : MonoBehaviour
     {
         levelStatus = LevelState.playing;
         levelDolly = GetComponent<CinemachineDollyCart>();
-        player = GetComponentInChildren<PlayerController>();
+        player = GetComponentInChildren<PlayerHealthSystem>();
    
     }
     private void Start()

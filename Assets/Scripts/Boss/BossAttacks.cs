@@ -6,29 +6,23 @@ using UnityEngine;
 /// </summary>
 public class BossAttacks : MonoBehaviour
 {
-    //TODO: TP2 - Syntax - Fix formatting
-    [SerializeField] private Bullet bullet;
-    [SerializeField] private Transform bulletHolder;
+
     [SerializeField] private Transform shootingPoints;
     [SerializeField] private AskForBulletChannelSO askForBulletChannel;
     [SerializeField] private BulletConfiguration bulletConfiguration;
+    [SerializeField] private Transform playerTransforms;
     private Transform[] bulletPoint;
-    [SerializeField] Transform playerTransforms;
-    [SerializeField] BossMovement bossMovement;
-    [SerializeField] private GameObject ray;
     [Header("Cooldowns Presets")]
     [SerializeField] private float shootBulletCooldown = 0.2f;
     private float currentShootBulletCooldown = 0.0f;
     private bool isActive = false;
     private bool isAlive;
     private EnemyBaseStats _enemyBaseStats;
-    [SerializeField] private Transform World;
 
 
     private void Awake()
     {
         _enemyBaseStats = GetComponent<EnemyBaseStats>();
-        bossMovement = GetComponent<BossMovement>();
     }
 
     private void Start()
@@ -77,9 +71,7 @@ public class BossAttacks : MonoBehaviour
     /// <param name="shooting">Transform from where the bullet spawn</param>
     private void ShootBullet(Transform shooting)
     {
-
-        askForBulletChannel.RaiseEvent(shooting,LayerMask.LayerToName(gameObject.layer),bulletConfiguration,shooting.rotation);
-
+        askForBulletChannel.RaiseEvent(shooting, LayerMask.LayerToName(gameObject.layer), bulletConfiguration, shooting.rotation);
     }
 
 

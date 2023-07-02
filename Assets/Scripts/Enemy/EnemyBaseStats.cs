@@ -7,16 +7,17 @@ public class EnemyBaseStats : MonoBehaviour, IFillable
 {
     //TODO: TP2 - Syntax - Consistency in naming convention
     //TODO: TP2 - Syntax - Fix declaration order
-    [SerializeField] private FillUIChannelSO fillUIChannel;
     public bool isActive;
-    [SerializeField]
-    GameObject model;
-    [SerializeField]
-    private float maxHealth;
-    private float _currentHealth;
-    private ParticleSystem boom;
-    [SerializeField] private ParticleSystem impactPrefab;
+    [SerializeField] private FillUIChannelSO fillUIChannel;
+    [SerializeField] private GameObject model;
+    [SerializeField] private float timeUntilDeath = 1f;
     [SerializeField] private int scoreValue;
+    [SerializeField] private float maxHealth;
+    private float _currentHealth;
+    [Header("Particle")]
+    [SerializeField] private ParticleSystem impactPrefab;
+    private ParticleSystem boom;
+    [Header("Audio")]
     [SerializeField] private AudioClip explosionSound;
     [SerializeField] [Range(0, 1)] private float explosionVolume;
     [SerializeField] private AudioClip inpactSound;
@@ -45,33 +46,31 @@ public class EnemyBaseStats : MonoBehaviour, IFillable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.TryGetComponent(out Bullet bullet) || !isActive) 
+        if (!other.gameObject.TryGetComponent(out Bullet bullet) || !isActive)
             return;
 
-        CurrentHealth -= bullet.GetDamage();
+        CurrentHealth -= bullet.Damage;
         Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
         SoundManager.Instance.PlaySound(inpactSound, inpactVolume);
         CheckEnemyStatus();
         bullet.DestroyGameObject();
     }
-    //TODO: TP2 - Syntax - Fix formatting
-    /// <summary>
+    ///// <summary>
     /// Check if enemy is Dead
     /// </summary>
     public void CheckEnemyStatus()
     {
-        if (!IsAlive())
-        {
-            KillEnemy();
-            PlayerController.Score += scoreValue;
-            if (boom.isPlaying == false)
-            {
-                boom.Play();
-                //TODO - Fix - Hardcoded value
-                Invoke(nameof(DeActivateEnemy), 1f);
-                SoundManager.Instance.PlaySound(explosionSound, explosionVolume);
-            }
-        }
+        if (IsAlive()) 
+            return;
+        KillEnemy();
+        PlayerHealthSystem.Score += scoreValue;
+
+        if (boom.isPlaying)
+            return;
+
+        boom.Play();
+        Invoke(nameof(DeActivateEnemy), timeUntilDeath);
+        SoundManager.Instance.PlaySound(explosionSound, explosionVolume);
     }
     /// <summary>
     /// Deactivates the gameObject
@@ -96,32 +95,23 @@ public class EnemyBaseStats : MonoBehaviour, IFillable
         model.SetActive(false);
         isActive = false;
     }
-    //TODO - Fix - Should be native getter
-    /// <summary>
-    /// Get maxHealth Points
-    /// Used for the Boss HealthBar
-    /// </summary>
-    /// <returns></returns>
-    public float GetMaxHealthPoints()
-    {
-        return maxHealth;
-    }
+
     /// <summary>
     /// Get currentHealth points
     /// Used for the Boss HealthBar
     /// </summary>
     /// <returns></returns>
-    public float GetCurrentHealthPoints()
+
+    public float GetCurrentFillValue()
     {
         return CurrentHealth;
     }
-
-    public float GetCurrentValue()
-    {
-        return CurrentHealth;
-    }
-
-    public float GetMaxValue()
+    /// <summary>
+    /// Get maxHealth Points
+    /// Used for the Boss HealthBar
+    /// </summary>
+    /// <returns></returns>
+    public float GetMaxFillValue()
     {
         return maxHealth;
     }

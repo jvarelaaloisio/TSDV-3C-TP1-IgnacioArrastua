@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "AskForBulletChannel")]
+[CreateAssetMenu(menuName = "Channel/AskForBulletChannel",fileName = "AskForBulletChannel")]
 public class AskForBulletChannelSO : ChannelSO<Transform, string, BulletConfiguration,Quaternion> {
 }

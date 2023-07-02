@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Channel",fileName ="VoidChannelSO")]
+[CreateAssetMenu(menuName = "Channel/VoidChannelSO",fileName ="VoidChannelSO")]
 
 public class VoidChannelSO : ScriptableObject
 {
