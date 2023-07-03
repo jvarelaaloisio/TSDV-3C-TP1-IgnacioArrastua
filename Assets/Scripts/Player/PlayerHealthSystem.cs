@@ -15,8 +15,6 @@ public class PlayerHealthSystem : MonoBehaviour, IFillable
 
     [SerializeField] private float _currentHealth;
     [SerializeField] private FillUIChannelSO fillUIChannel;
-
-    [SerializeField] private bool isDamageable = true;
     [field: SerializeField] public bool IsAlive { get; private set; } = true;
     private static int _score = 0;
     [SerializeField] private ParticleSystem impactPrefab;
@@ -50,24 +48,9 @@ public class PlayerHealthSystem : MonoBehaviour, IFillable
     private void Start()
     {
         CurrentHealth = maxHealthPoints;
-        PlayerMovement.OnRoll += PlayerMovement_OnRoll;
-        isDamageable = true;
         Score = 0;
     }
 
-    private void OnDestroy()
-    {
-        PlayerMovement.OnRoll -= PlayerMovement_OnRoll;
-    }
-    //TODO - Fix - Should be Setter/Getter
-    /// <summary>
-    /// Change is Damageable if player is Rolling
-    /// </summary>
-    /// <param name="isOnRoll"></param>
-    private void PlayerMovement_OnRoll(bool isOnRoll)
-    {
-        isDamageable = !isOnRoll;
-    }
     /// <summary>
     /// Set the damage that the player received and starts the player deactivation 
     /// </summary>
@@ -78,8 +61,6 @@ public class PlayerHealthSystem : MonoBehaviour, IFillable
         if (CurrentHealth < 0.0f)
         {
             IsAlive = false;
-
-
             DeactivatePlayer();
 
         }
@@ -97,7 +78,7 @@ public class PlayerHealthSystem : MonoBehaviour, IFillable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.TryGetComponent<Bullet>(out var bullet) || !isDamageable) 
+        if (!other.TryGetComponent<Bullet>(out var bullet)) 
             return;
 
         Instantiate(impactPrefab, transform.position, Quaternion.identity, transform);
@@ -106,15 +87,14 @@ public class PlayerHealthSystem : MonoBehaviour, IFillable
         bullet.DestroyGameObject();
     }
     /// <summary>
-    /// Gets currentHealthPoints
-    /// Used for the PlayerHealthBar
+    /// Gets currentHealthPoints.
+    /// Used for the PlayerHealthBar.
     /// </summary>
     /// <returns></returns>
     public float GetCurrentFillValue()
     {
         return CurrentHealth;
     }
-
     /// <summary>
     /// Gets maxHealthPoints
     /// Used for the PlayerHealthBar

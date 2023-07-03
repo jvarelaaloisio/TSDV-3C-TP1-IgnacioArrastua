@@ -1,54 +1,41 @@
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem;using UnityEngine.InputSystem.XInput;
+using UnityEngine.InputSystem;
 
-//TODO: TP2 - Syntax - Fix formatting
 /// <summary>
 /// Class for the UIController
 /// </summary>
 public class UIController : MonoBehaviour
 {
-    //TODO: TP2 - Syntax - Consistency in naming convention
+    [Header("Channels")]
+    [SerializeField] private VoidChannelSO OnPauseChannel;
+    [Header("Canvas")]
     [SerializeField] private CanvasGroup inGameUiCanvas;
     [SerializeField] private CanvasGroup pauseUiCanvas;
     [SerializeField] private float timeUntilTheCanvasIsUpdated = 0.7f;
     private bool isPaused = false;
-  
+
+    private void Awake()
+    {
+        OnPauseChannel.Subscribe(SetPause);
+    }
+
+    private void OnDestroy()
+    {
+        OnPauseChannel.Unsubscribe(SetPause);
+    }
+
     private void Start()
     {
         Time.timeScale = 1;
         isPaused = false;
     }
 
-    //TODO - Fix - Using Input related logic outside of an input responsible class
     /// <summary>
-    /// Toggle Pause depending on Input
-    /// </summary>
-    /// <param name="ctx">Input</param>
-
-    public void SetPause(InputAction.CallbackContext ctx)
-    {
-        if (!ctx.performed) return;
-        isPaused = !isPaused;
-        if (isPaused)
-        {
-            UpdateCanvas();
-            pauseUiCanvas.GetComponent<SlideMenu>().OpenSlide();
-            ToggleTimeScaleOnPauseState();
-        }
-        else
-        {
-            ToggleTimeScaleOnPauseState();
-            pauseUiCanvas.GetComponent<SlideMenu>().ReturnToGame();
-            Invoke(nameof(UpdateCanvas), timeUntilTheCanvasIsUpdated);
-        }
-
-    }
-    /// <summary>
-    /// Toggle Pause depending on Input
+    /// Toggle Pause logic.
     /// </summary>
     public void SetPause()
     {
-       
         isPaused = !isPaused;
         if (isPaused)
         {

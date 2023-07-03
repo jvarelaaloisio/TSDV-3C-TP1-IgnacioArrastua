@@ -9,17 +9,15 @@ public class MenuController : MonoBehaviour
     [SerializeField] private CanvasGroup MainMenu;
     [SerializeField] private CanvasGroup Options;
     [SerializeField] private CanvasGroup Credits;
-    [SerializeField] private List<CanvasGroup> totalCanvas;
 
     [SerializeField] private string firstSceneName = "Level1";
     [SerializeField] private string tutorialSceneName = "Tutorial";
 
-    //TODO: TP2 - Syntax - Consistency in naming convention
-    private CanvasGroup currentCanvas;
+    private CanvasGroup currentActiveCanvas;
 
     private void Start()
     {
-        currentCanvas = MainMenu;
+        currentActiveCanvas = MainMenu;
 
         SetCanvasState(MainMenu, true);
         SetCanvasState(Options, false);
@@ -50,9 +48,9 @@ public class MenuController : MonoBehaviour
     /// </summary>
     public void GoToOptions()
     {
-        SetCanvasState(currentCanvas, false);
+        SetCanvasState(currentActiveCanvas, false);
         SetCanvasState(Options, true);
-        currentCanvas = Options;
+        currentActiveCanvas = Options;
         SoundManager.Instance.PlayButtonSound();
     }
     /// <summary>
@@ -60,9 +58,9 @@ public class MenuController : MonoBehaviour
     /// </summary>
     public void GoToCredits()
     {
-        SetCanvasState(currentCanvas, false);
+        SetCanvasState(currentActiveCanvas, false);
         SetCanvasState(Credits, true);
-        currentCanvas = Credits;
+        currentActiveCanvas = Credits;
         SoundManager.Instance.PlayButtonSound();
     }
     /// <summary>
@@ -70,9 +68,9 @@ public class MenuController : MonoBehaviour
     /// </summary>
     public void GoBackToMenu()
     {
-        SetCanvasState(currentCanvas, false);
+        SetCanvasState(currentActiveCanvas, false);
         SetCanvasState(MainMenu, true);
-        currentCanvas = MainMenu;
+        currentActiveCanvas = MainMenu;
         SoundManager.Instance.PlayButtonSound();
     }
     /// <summary>
@@ -82,7 +80,6 @@ public class MenuController : MonoBehaviour
     public void ExitAplication()
     {
         SoundManager.Instance.PlaySound(SoundManager.Instance.button);
-        Debug.Log("Quit!");
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

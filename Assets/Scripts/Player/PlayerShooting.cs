@@ -11,10 +11,12 @@ public class PlayerShooting : MonoBehaviour, IFillable
     //TODO: TP2 - Syntax - Fix declaration order
     //TODO: TP2 - Syntax - Consistency in naming convention
     private bool canShoot;
-
+    [Header("Channels")]
     [SerializeField] private AskForBulletChannelSO askForBulletChannel;
-    [SerializeField] private BulletConfiguration bulletConfiguration;
+    [SerializeField] private BoolChannelSO OnFireChannel;
     [SerializeField] private FillUIChannelSO fillUIChannel;
+    [Header("Configurations")]
+    [SerializeField] private BulletConfiguration bulletConfiguration;
     [SerializeField] private PlayerSettings player;
     [SerializeField] private Transform rayPosition;
     [SerializeField] private ParticleSystem prefire;
@@ -33,10 +35,10 @@ public class PlayerShooting : MonoBehaviour, IFillable
     private bool isPressingButton;
 
     [Header("Cooldowns Presets")]
+    private float _specialBeanCooldownTimer = 0.0f;
     private float currentBeanTimer;
     private bool canFireSpecialBeam;
     private float specialBeanCooldown;
-
     public float SpecialBeanCooldownTimer
     {
         get => _specialBeanCooldownTimer;
@@ -46,7 +48,6 @@ public class PlayerShooting : MonoBehaviour, IFillable
             fillUIChannel.RaiseEvent(this as IFillable);
         }
     }
-
     private bool isChargingSpecialBeam = false;
     private float specialBeamTimer = 1.2f;
     private float minHoldShootTimer = 0.2f;
@@ -56,11 +57,15 @@ public class PlayerShooting : MonoBehaviour, IFillable
 
     private bool singleBulletShoot;
     [SerializeField] private GameObject rayObject;
-    [SerializeField] private float _specialBeanCooldownTimer = 0.0f;
 
     private void Awake()
     {
         shootingPoints = cannon.transform.Cast<Transform>().ToArray();
+        OnFireChannel.Subscribe(OnFire);
+    }
+    private void OnDestroy()
+    {
+        OnFireChannel.Unsubscribe(OnFire);
     }
 
     private void Start()
@@ -69,17 +74,6 @@ public class PlayerShooting : MonoBehaviour, IFillable
         specialBeanCooldown = player.specialBeanCooldown;
         minShootTimer = player.minShootTimer;
         minHoldShootTimer = player.minHoldShootTimer;
-        PlayerMovement.OnRoll += PlayerMovement_OnRoll;
-
-    }
-
-    private void PlayerMovement_OnRoll(bool isOnRoll)
-    {
-        canShoot = !isOnRoll;
-    }
-    private void OnDestroy()
-    {
-        PlayerMovement.OnRoll -= PlayerMovement_OnRoll;
     }
 
     private void Update()
@@ -162,7 +156,6 @@ public class PlayerShooting : MonoBehaviour, IFillable
             SpecialBeanCooldownTimer = 0.0f;
         }
     }
-
     /// <summary>
     /// Logic of the timers for the SpecialBean
     /// </summary>
@@ -171,23 +164,8 @@ public class PlayerShooting : MonoBehaviour, IFillable
         if (!canFireSpecialBeam) SpecialBeanCooldownTimer += Time.deltaTime;
         if (!(SpecialBeanCooldownTimer > specialBeanCooldown)) return;
         canFireSpecialBeam = true;
-
     }
-    //TODO - Fix - Using Input related logic outside of an input responsible class
-    /// <summary>
-    /// InputAction for the ShootInput
-    /// </summary>
-    public void OnFire(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            isPressingButton = true;
-        }
-        else if (ctx.canceled)
-        {
-            isPressingButton = false;
-        }
-    }
+    public void OnFire(bool value) => isPressingButton = value;
     /// <summary>
     /// Logic to Instantiate bullets
     /// The method shoots one bullet for each ShootingPoint
@@ -204,9 +182,9 @@ public class PlayerShooting : MonoBehaviour, IFillable
     /// <summary>
     /// Instantiate the Shoot Ray Logic
     /// </summary>
+    /// TODO CHECKEAR ESTO
     public void ShootRay()
     {
-
         var newRay = Instantiate(rayObject, rayPosition.position, transform.rotation, transform);
         SoundManager.Instance.PlaySound(laserClip, laserVolume);
         newRay.transform.localPosition += new Vector3(0, 0, 45f);
@@ -214,9 +192,7 @@ public class PlayerShooting : MonoBehaviour, IFillable
         {
             hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth -= hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth;
             hit.collider.GetComponent<EnemyBaseStats>().CheckEnemyStatus();
-
         }
-
         if (CheckLaserHitBox(out hit) && hit.collider.CompareTag("Boss") && hit.collider.GetComponent<EnemyBaseStats>().isActive)
         {
             hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth -= laserDamage;

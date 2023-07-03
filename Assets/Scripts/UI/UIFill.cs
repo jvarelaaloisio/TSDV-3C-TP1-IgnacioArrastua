@@ -6,8 +6,6 @@ public class UIFill : MonoBehaviour
 {
     [SerializeField] private FillUIChannelSO fillUI;
     [SerializeField] private Image imageDisplay;
-
-
     private float sliderMaxTimer;
     private float sliderCurrentTimer;
 

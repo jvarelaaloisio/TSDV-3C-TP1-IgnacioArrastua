@@ -12,7 +12,7 @@ public class VoidChannelSO : ScriptableObject
     }
     public void Unsubscribe(in Action handler)
     {
-        voidEvent += handler;
+        voidEvent -= handler;
     }
 
     public void RaiseEvent()

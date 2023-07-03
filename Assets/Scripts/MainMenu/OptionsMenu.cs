@@ -8,7 +8,6 @@ using static UnityEngine.Screen;
 public class OptionsMenu : MonoBehaviour
 {
     private bool isFullScreen = false;
-
     private void Start()
     {
 
