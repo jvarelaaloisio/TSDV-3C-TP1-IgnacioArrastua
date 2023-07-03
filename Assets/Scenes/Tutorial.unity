@@ -3143,6 +3143,11 @@ PrefabInstance:
       propertyPath: enemy
       value: 
       objectReference: {fileID: 889461638}
+    - target: {fileID: 2114012967681020914, guid: 331458108d9ba74408d700c0c713a6bf,
+        type: 3}
+      propertyPath: maxTimeBetweenText
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2953652745360819654, guid: 331458108d9ba74408d700c0c713a6bf,
         type: 3}
       propertyPath: m_IsActive

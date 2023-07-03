@@ -16,13 +16,12 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private bool isActive = false;
     [SerializeField] private bool hasEnded = false;
     [SerializeField] private float currentLoopTimes;
-    //TODO: TP2 - Syntax - Consistency in naming convention
     private bool isAlive;
-    private EnemyBaseStats _enemyBaseStats;
+    private EnemyBaseStats enemyBaseStats;
 
     private void Awake()
     {
-        _enemyBaseStats = GetComponent<EnemyBaseStats>();
+        enemyBaseStats = GetComponent<EnemyBaseStats>();
     }
 
     private void Start()
@@ -31,13 +30,10 @@ public class EnemyMovement : MonoBehaviour
         {
             transform.position = movementPoints[0].position;
         }
-
-        //TODO: TP2 - FSM
         isActive = false;
         hasEnded = false;
         isAlive = true;
     }
-    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Set the parameters of the enemy to follow a new movement
     /// </summary>
@@ -63,7 +59,7 @@ public class EnemyMovement : MonoBehaviour
     private void Update()
     {
 
-        isAlive = _enemyBaseStats.IsAlive();
+        isAlive = enemyBaseStats.IsAlive();
         if (!isActive || hasEnded || !isAlive) return;
 
         Vector3 localPosition = movementPoints[currentPoint].localPosition - transform.parent.localPosition;
@@ -102,7 +98,7 @@ public class EnemyMovement : MonoBehaviour
             return;
         isActive = false;
         hasEnded = true;
-        _enemyBaseStats.DeActivateEnemy();
+        enemyBaseStats.DeActivateEnemy();
     }
     /// <summary>
     /// Set the Movement Active and moves to the default position

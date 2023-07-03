@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 2115284895}
   - component: {fileID: 9065621869916247657}
   - component: {fileID: 2115284897}
+  - component: {fileID: 1034169358658799076}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -188,12 +189,11 @@ MonoBehaviour:
   playerModel: {fileID: 1384327598977671451}
   animator: {fileID: 3317901509801995504}
   aimTarget: {fileID: 0}
-  dolly: {fileID: 0}
   barrelRollClip: {fileID: 8300000, guid: f626a89c4a2c12b43b4d82a62b687716, type: 3}
   barrelRollVolume: 0.455
+  rollTime: 0
   xySpeed: 20
   lookSpeed: 100
-  cartSpeed: 0
   leanLimit: 80
   isFocusActivate: 0
 --- !u!114 &8492530721915205002
@@ -216,20 +216,21 @@ MonoBehaviour:
     type: 2}
   player: {fileID: 11400000, guid: e64f707767407f34587f76abbb141f4f, type: 2}
   rayPosition: {fileID: 2741220430394713321}
-  prefire: {fileID: 599008557134133571}
+  prefireParticle: {fileID: 599008557134133571}
   shootingPoints: []
   cannon: {fileID: 6168236011001517408}
+  rayObject: {fileID: 2804110858878954457, guid: 845cc55330f813348b45e1c436c44cce,
+    type: 3}
   shootClip: {fileID: 8300000, guid: bbec4c70f6006b54fa1cc827283e7f92, type: 3}
   shootVolume: 0.651
-  laserDamage: 500
   laserClip: {fileID: 8300000, guid: 532d97b9b01ea3247b1bbacd55944d6f, type: 3}
   laserVolume: 0.659
   prepareLaserClip: {fileID: 8300000, guid: 42434474876ee4d449160b85d5ce21c8, type: 3}
   prepareLaserVolume: 0.593
   raycastDistance: 80
-  rayObject: {fileID: 2804110858878954457, guid: 845cc55330f813348b45e1c436c44cce,
-    type: 3}
-  _specialBeanCooldownTimer: 0
+  beamLocalPosition: {x: 0, y: 0, z: 45}
+  beamVisualLifeTime: 0.2
+  laserDamage: 500
 --- !u!114 &2115284895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +246,6 @@ MonoBehaviour:
   maxHealthPoints: 1000
   _currentHealth: 0
   fillUIChannel: {fileID: 11400000, guid: 793ad92a4a55fe84bb5d4d2b235b1b7b, type: 2}
-  isDamageable: 1
   <IsAlive>k__BackingField: 1
   impactPrefab: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7,
     type: 3}
@@ -283,6 +283,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1034169358658799076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4561208014810438877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c402a875ada87f24db802733fc9594f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 0}
+  playerHealthSystem: {fileID: 0}
+  playerShooting: {fileID: 0}
+  pauseChannelSo: {fileID: 11400000, guid: a2fc920baef67b244ad6b14575cb5df8, type: 2}
+  rollChannelSo: {fileID: 11400000, guid: 163e31b1ddcab254ca1076b32a13bf1c, type: 2}
 --- !u!1 &7312943972449882230
 GameObject:
   m_ObjectHideFlags: 0

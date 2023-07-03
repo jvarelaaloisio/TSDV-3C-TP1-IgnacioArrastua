@@ -5,10 +5,20 @@ using UnityEngine;
 /// </summary>
 public class EnemyBaseStats : MonoBehaviour, IFillable
 {
-    //TODO: TP2 - Syntax - Consistency in naming convention
-    //TODO: TP2 - Syntax - Fix declaration order
-    public bool isActive;
+    [Header("Channel")]
     [SerializeField] private FillUIChannelSO fillUIChannel;
+    
+    [Header("Variables")]
+    public bool isActive;
+    public float CurrentHealth
+    {
+        get => _currentHealth;
+        set
+        {
+            _currentHealth = value;
+            fillUIChannel.RaiseEvent(this as IFillable);
+        }
+    }
     [SerializeField] private GameObject model;
     [SerializeField] private float timeUntilDeath = 1f;
     [SerializeField] private int scoreValue;
@@ -24,15 +34,6 @@ public class EnemyBaseStats : MonoBehaviour, IFillable
     [SerializeField] [Range(0, 1)] private float inpactVolume;
 
 
-    public float CurrentHealth
-    {
-        get => _currentHealth;
-        set
-        {
-            _currentHealth = value;
-            fillUIChannel.RaiseEvent(this as IFillable);
-        }
-    }
 
     private void Start()
     {

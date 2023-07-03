@@ -48,7 +48,6 @@ public class EnemyShooting : MonoBehaviour
     /// </summary>
     private void ShootBulletAttack()
     {
-        //TODO: TP2 - FSM
         if (isActive && isAlive)
         {
             currentShootBulletColdown += Time.deltaTime;

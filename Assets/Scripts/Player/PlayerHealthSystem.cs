@@ -66,7 +66,9 @@ public class PlayerHealthSystem : MonoBehaviour, IFillable
         }
     }
 
-    //TODO - Documentation - Add summary
+    /// <summary>
+    /// Deactivates player and plays the death animation
+    /// </summary>
     public void DeactivatePlayer()
     {
         IsAlive = false;

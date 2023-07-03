@@ -8,9 +8,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour, IFillable
 {
-    //TODO: TP2 - Syntax - Fix declaration order
-    //TODO: TP2 - Syntax - Consistency in naming convention
-    private bool canShoot;
     [Header("Channels")]
     [SerializeField] private AskForBulletChannelSO askForBulletChannel;
     [SerializeField] private BoolChannelSO OnFireChannel;
@@ -19,21 +16,26 @@ public class PlayerShooting : MonoBehaviour, IFillable
     [SerializeField] private BulletConfiguration bulletConfiguration;
     [SerializeField] private PlayerSettings player;
     [SerializeField] private Transform rayPosition;
-    [SerializeField] private ParticleSystem prefire;
+    [SerializeField] private ParticleSystem prefireParticle;
     [SerializeField] private Transform[] shootingPoints;
     [SerializeField] private Transform cannon;
+    [SerializeField] private GameObject rayObject;
 
     [Header("Audio")]
     [SerializeField] private AudioClip shootClip;
     [SerializeField] [Range(0, 1)] private float shootVolume;
-    [SerializeField] private float laserDamage = 200f;
     [SerializeField] private AudioClip laserClip;
     [SerializeField] [Range(0, 1)] private float laserVolume;
     [SerializeField] private AudioClip prepareLaserClip;
     [SerializeField] [Range(0, 1)] private float prepareLaserVolume;
-    public int raycastDistance;
-    private bool isPressingButton;
 
+    [Header("Variables")]
+    public int raycastDistance;
+    [SerializeField] private Vector3 beamLocalPosition = new(0, 0, 45f);
+    [SerializeField] private float beamVisualLifeTime = 0.2f;
+    [SerializeField] private float laserDamage = 400f;
+    private bool isPressingButton;
+    private bool singleBulletShoot;
     [Header("Cooldowns Presets")]
     private float _specialBeanCooldownTimer = 0.0f;
     private float currentBeanTimer;
@@ -55,8 +57,6 @@ public class PlayerShooting : MonoBehaviour, IFillable
     private float minShootTimer = 0.05f;
     private float currentSingleShootTimer;
 
-    private bool singleBulletShoot;
-    [SerializeField] private GameObject rayObject;
 
     private void Awake()
     {
@@ -70,7 +70,6 @@ public class PlayerShooting : MonoBehaviour, IFillable
 
     private void Start()
     {
-        canShoot = true;
         specialBeanCooldown = player.specialBeanCooldown;
         minShootTimer = player.minShootTimer;
         minHoldShootTimer = player.minHoldShootTimer;
@@ -86,9 +85,6 @@ public class PlayerShooting : MonoBehaviour, IFillable
     /// </summary>
     private void AttackLogic()
     {
-        //TODO: TP2 - FSM- Pasarlo a corroutine
-        if (!canShoot) return;
-
         SpecialBeanCooldownTimers();
         currentHoldShootTimer += Time.deltaTime;
         currentSingleShootTimer += Time.deltaTime;
@@ -111,7 +107,7 @@ public class PlayerShooting : MonoBehaviour, IFillable
             }
             if (currentBeanTimer > specialBeamTimer && canFireSpecialBeam)
             {
-                prefire.Play();
+                prefireParticle.Play();
                 if (!isChargingSpecialBeam)
                 {
                     SoundManager.Instance.PlaySound(prepareLaserClip, prepareLaserVolume);
@@ -120,7 +116,7 @@ public class PlayerShooting : MonoBehaviour, IFillable
             }
             else
             {
-                prefire.Stop();
+                prefireParticle.Stop();
             }
 
         }
@@ -141,7 +137,7 @@ public class PlayerShooting : MonoBehaviour, IFillable
         currentBeanTimer = 0.0f;
         currentHoldShootTimer = minHoldShootTimer;
         isChargingSpecialBeam = false;
-        prefire.Stop();
+        prefireParticle.Stop();
     }
     /// <summary>
     /// Checks if player can fireLaser
@@ -182,23 +178,17 @@ public class PlayerShooting : MonoBehaviour, IFillable
     /// <summary>
     /// Instantiate the Shoot Ray Logic
     /// </summary>
-    /// TODO CHECKEAR ESTO
     public void ShootRay()
     {
         var newRay = Instantiate(rayObject, rayPosition.position, transform.rotation, transform);
         SoundManager.Instance.PlaySound(laserClip, laserVolume);
-        newRay.transform.localPosition += new Vector3(0, 0, 45f);
-        if (CheckLaserHitBox(out var hit) && hit.collider.CompareTag("Enemy") && hit.collider.GetComponent<EnemyBaseStats>().isActive)
+        newRay.transform.localPosition += beamLocalPosition;
+        if (CheckLaserHitBox(out var hit) && hit.collider.TryGetComponent<EnemyBaseStats>(out var enemyBaseStats) && enemyBaseStats.isActive)
         {
-            hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth -= hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth;
-            hit.collider.GetComponent<EnemyBaseStats>().CheckEnemyStatus();
+            enemyBaseStats.CurrentHealth -= laserDamage;
+            enemyBaseStats.CheckEnemyStatus();
         }
-        if (CheckLaserHitBox(out hit) && hit.collider.CompareTag("Boss") && hit.collider.GetComponent<EnemyBaseStats>().isActive)
-        {
-            hit.collider.GetComponent<EnemyBaseStats>().CurrentHealth -= laserDamage;
-            hit.collider.GetComponent<EnemyBaseStats>().CheckEnemyStatus();
-        }
-        Destroy(newRay, 0.2f);
+        Destroy(newRay, beamVisualLifeTime);
     }
     /// <summary>
     /// Check if Ray hit Something

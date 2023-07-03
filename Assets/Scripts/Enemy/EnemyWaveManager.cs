@@ -6,15 +6,11 @@ using UnityEngine;
 /// </summary>
 public class EnemyWaveManager : MonoBehaviour
 {
+    [SerializeField] private CinemachineDollyCart dollyCart;
     [SerializeField] private EnemyMovementPattern[] pattern;
     [SerializeField] private float[] activationPoint;
     private int nextActivationPoints = 0;
-
-
-     //TODO: TP2 - Syntax - Fix declaration order
-    [SerializeField] private CinemachineDollyCart dollyCart;
-    private float currentPosition;
-
+    private float currentDollyPosition;
     
     private void Update()
     {
@@ -25,8 +21,8 @@ public class EnemyWaveManager : MonoBehaviour
     /// </summary>
     private void ActivatePattern()
     {
-        currentPosition = dollyCart.m_Position;
-        if (nextActivationPoints < activationPoint.Length && currentPosition >= activationPoint[nextActivationPoints])
+        currentDollyPosition = dollyCart.m_Position;
+        if (nextActivationPoints < activationPoint.Length && currentDollyPosition >= activationPoint[nextActivationPoints])
         {
             pattern[nextActivationPoints].StartPattern();
             nextActivationPoints++;

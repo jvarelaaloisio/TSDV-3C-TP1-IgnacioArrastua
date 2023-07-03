@@ -27,7 +27,6 @@ public class BossAttacks : MonoBehaviour
 
     private void Start()
     {
-
         bulletPoint = shootingPoints.transform.Cast<Transform>().ToArray();
         isActive = true;
     }
@@ -38,19 +37,16 @@ public class BossAttacks : MonoBehaviour
         isAlive = _enemyBaseStats.IsAlive();
         if (isActive && isAlive)
         {
-            ShootBulletAttack();
-
+            Attack();
         }
     }
-    //TODO: TP2 - Syntax - Fix declaration order
     /// <summary>
     /// Logic for shooting bullets
     /// One bullet for each bulletPoint
-    /// Bullets spawn lookit at the player
+    /// Bullets spawn looking at the player
     /// </summary>
-    private void ShootBulletAttack()
+    private void Attack()
     {
-
         currentShootBulletCooldown += Time.deltaTime;
         if (currentShootBulletCooldown > shootBulletCooldown)
         {
@@ -59,7 +55,6 @@ public class BossAttacks : MonoBehaviour
                 shoot.LookAt(playerTransforms.position);
                 ShootBullet(shoot);
             }
-
             currentShootBulletCooldown -= shootBulletCooldown;
         }
 

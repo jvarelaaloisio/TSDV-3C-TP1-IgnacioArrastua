@@ -38,7 +38,6 @@ public class EnemyMovementPattern : MonoBehaviour
         if (isActive)
             StartPattern();
     }
-    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Initialize enemy Pattern
     /// </summary>
@@ -92,13 +91,12 @@ public class EnemyMovementPattern : MonoBehaviour
 
     private void Update()
     {
-        ActivateEnemies();
+        SpawnEnemies();
     }
-    //TODO: TP2 - Syntax - Consistency in naming convention
     /// <summary>
     /// Activate Enemies in scene according to spawnTimer and enemy count
     /// </summary>
-    private void ActivateEnemies()
+    private void SpawnEnemies()
     {
         if (isActive)
         {

@@ -4036,7 +4036,6 @@ MonoBehaviour:
   MainMenu: {fileID: 980093423}
   Options: {fileID: 1611114263}
   Credits: {fileID: 674957769}
-  totalCanvas: []
   firstSceneName: Level1
   tutorialSceneName: Tutorial
 --- !u!1 &1549991994

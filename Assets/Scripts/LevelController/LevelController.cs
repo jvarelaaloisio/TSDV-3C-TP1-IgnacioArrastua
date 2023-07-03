@@ -7,7 +7,6 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
     //TODO: TP2 - Syntax - Fix declaration order
-    [SerializeField] private AudioClip inGameMusic;
     //TODO: TP2 - FSM
     /// <summary>
     /// Enum for the level state
@@ -24,6 +23,7 @@ public class LevelController : MonoBehaviour
         private set => LevelStatus = value;
     }
 
+    [SerializeField] private AudioClip inGameMusic;
     [SerializeField] private PlayerHealthSystem player;
     [SerializeField] private EnemyBaseStats enemy;
     [SerializeField] private CinemachineDollyCart levelDolly;
@@ -46,8 +46,8 @@ public class LevelController : MonoBehaviour
         soundManager.clip = inGameMusic;
         soundManager.Play();
     }
- 
-    void Update()
+
+    private void Update()
     {
         LevelCompletionLogic();
     }

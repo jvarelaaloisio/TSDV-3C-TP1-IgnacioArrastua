@@ -13,13 +13,10 @@ public class InputController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext ctx)
     {
-        //TODO: TP2 - SOLID
-        if (Time.timeScale == 0) return;
         OnMoveChannel.RaiseEvent(ctx.ReadValue<Vector2>());
     }
     public void OnRollInput(InputAction.CallbackContext ctx)
     {
-        if (Time.timeScale == 0) return;
         if (ctx.performed)
         {
             OnRollChannel.RaiseEvent();
