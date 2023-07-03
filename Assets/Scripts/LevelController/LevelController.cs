@@ -13,8 +13,8 @@ public class LevelController : MonoBehaviour
     /// </summary>
     public enum LevelState
     {
-        playing, 
-        failed, 
+        playing,
+        failed,
         Complete
     }
     public static LevelState levelStatus
@@ -23,6 +23,7 @@ public class LevelController : MonoBehaviour
         private set => LevelStatus = value;
     }
 
+    [SerializeField] private VoidChannelSO PlayerDeadChannel;
     [SerializeField] private AudioClip inGameMusic;
     [SerializeField] private PlayerHealthSystem player;
     [SerializeField] private EnemyBaseStats enemy;
@@ -34,10 +35,10 @@ public class LevelController : MonoBehaviour
 
     private void Awake()
     {
+        PlayerDeadChannel.Subscribe(OnPlayerDead);
         levelStatus = LevelState.playing;
         levelDolly = GetComponent<CinemachineDollyCart>();
         player = GetComponentInChildren<PlayerHealthSystem>();
-   
     }
     private void Start()
     {
@@ -46,9 +47,14 @@ public class LevelController : MonoBehaviour
         soundManager.clip = inGameMusic;
         soundManager.Play();
     }
+    private void OnDisable()
+    {
+        PlayerDeadChannel.Unsubscribe(OnPlayerDead);
+    }
 
     private void Update()
     {
+
         LevelCompletionLogic();
     }
     //TODO: TP2 - Syntax - Consistency in naming convention
@@ -57,21 +63,22 @@ public class LevelController : MonoBehaviour
     /// </summary>
     private void LevelCompletionLogic()
     {
-        if (!player.IsAlive)
-        {
-            LevelController.levelStatus = LevelController.LevelState.failed;
-            levelDolly.m_Speed = 0;
-            gameOver.OpenSlide();
-        }
-        else if (enemy && !enemy.IsAlive())
-        {
-            LevelController.levelStatus = LevelController.LevelState.Complete;
-            end.OpenSlide();
-        }
-
         if (!(levelDolly.m_Position >= path.MaxPos &&
               LevelController.levelStatus == LevelController.LevelState.playing)) return;
+        OnLevelCompleted();
+    }
+    private void OnPlayerDead()
+    {
+        LevelController.levelStatus = LevelController.LevelState.failed;
+        levelDolly.m_Speed = 0;
+        gameOver.OpenSlide();
+        enabled = false;
+    }
+    private void OnLevelCompleted()
+    {
         LevelController.levelStatus = LevelController.LevelState.Complete;
         end.OpenSlide();
+        enabled = false;
     }
+
 }

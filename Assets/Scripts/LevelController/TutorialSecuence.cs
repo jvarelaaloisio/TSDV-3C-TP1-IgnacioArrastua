@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,23 +17,20 @@ public class TutorialSecuence : MonoBehaviour
     private int maxTextCounter = 0;
     private float currentTimeBetweenText;
 
-    private void Start()
+    private IEnumerator Start()
     {
         currentTextCounter = -1;
         currentTimeBetweenText = maxTimeBetweenText;
         maxTextCounter = popUpText.Count - 1;
-
+        while(gameObject.activeSelf)
+        {
+            ShowMessage();
+            yield return maxTimeBetweenText;
+        }
     }
 
     private void Update()
     {
-        //TODO - Fix - Coroutine
-        currentTimeBetweenText += Time.deltaTime;
-        if (currentTimeBetweenText > maxTimeBetweenText)
-        {
-            currentTimeBetweenText = 0;
-            ShowMessage();
-        }
         CheckIfGameShouldEnd();
     }
     /// <summary>

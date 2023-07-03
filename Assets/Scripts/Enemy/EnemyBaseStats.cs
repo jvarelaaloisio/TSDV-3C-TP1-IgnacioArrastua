@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Class for the EnemyBaseStats
@@ -6,6 +7,7 @@ using UnityEngine;
 public class EnemyBaseStats : MonoBehaviour, IFillable
 {
     [Header("Channel")]
+    public UnityEvent onDeath;
     [SerializeField] private FillUIChannelSO fillUIChannel;
     
     [Header("Variables")]
@@ -65,18 +67,14 @@ public class EnemyBaseStats : MonoBehaviour, IFillable
             return;
         KillEnemy();
         PlayerHealthSystem.Score += scoreValue;
-
-        if (boom.isPlaying)
-            return;
-
-        boom.Play();
-        Invoke(nameof(DeActivateEnemy), timeUntilDeath);
+        onDeath.Invoke();
+        Invoke(nameof(DeactivateEnemy), timeUntilDeath);
         SoundManager.Instance.PlaySound(explosionSound, explosionVolume);
     }
     /// <summary>
     /// Deactivates the gameObject
     /// </summary>
-    public void DeActivateEnemy()
+    public void DeactivateEnemy()
     {
         transform.gameObject.SetActive(false);
     }
@@ -117,4 +115,5 @@ public class EnemyBaseStats : MonoBehaviour, IFillable
         return maxHealth;
     }
 }
+
 

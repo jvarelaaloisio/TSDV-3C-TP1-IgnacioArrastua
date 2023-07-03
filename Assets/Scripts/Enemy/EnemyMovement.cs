@@ -98,7 +98,7 @@ public class EnemyMovement : MonoBehaviour
             return;
         isActive = false;
         hasEnded = true;
-        enemyBaseStats.DeActivateEnemy();
+        enemyBaseStats.DeactivateEnemy();
     }
     /// <summary>
     /// Set the Movement Active and moves to the default position
