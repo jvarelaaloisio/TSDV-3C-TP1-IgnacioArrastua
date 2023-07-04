@@ -7,14 +7,12 @@ using UnityEngine;
 /// </summary>
 public class EnemyShooting : MonoBehaviour
 {
+    
 
-    //TODO: TP2 - Syntax - Fix formatting
-    [SerializeField]
-    private Bullet bullet;
-    [SerializeField]
-    private Transform bulletHolder;
     [SerializeField]private Transform shootingPoints;
-    Transform[] bulletPoint;
+    [SerializeField] private AskForBulletChannelSO askForBulletChannel;
+    [SerializeField] private BulletConfiguration bulletConfiguration;
+    private Transform[] bulletPoint;
 
     [Header("Cooldowns Presets")]
     [SerializeField] private float shootBulletCooldown = 0.2f;
@@ -24,21 +22,20 @@ public class EnemyShooting : MonoBehaviour
     private EnemyBaseStats _enemyBaseStats;
 
 
-    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
+
     private void Awake()
     {
         _enemyBaseStats = GetComponent<EnemyBaseStats>();
     }
 
-    void Start()
+    private void Start()
     {
-        
         bulletPoint = shootingPoints.transform.Cast<Transform>().ToArray();
         isActive = true;
     }
 
-    
-    void Update()
+
+    private void Update()
     {
         if (LevelController.levelStatus != LevelController.LevelState.playing) return;
         isAlive = _enemyBaseStats.IsAlive();
@@ -51,7 +48,6 @@ public class EnemyShooting : MonoBehaviour
     /// </summary>
     private void ShootBulletAttack()
     {
-        //TODO: TP2 - FSM
         if (isActive && isAlive)
         {
             currentShootBulletColdown += Time.deltaTime;
@@ -73,15 +69,7 @@ public class EnemyShooting : MonoBehaviour
     /// <param name="shooting">Transform from where the bullet spawn</param>
     private void ShootBullet(Transform shooting)
     {
-        var newBullet = Instantiate(bullet, shooting.position, shooting.rotation, bulletHolder);
-
-        newBullet.SetStartPosition(shooting);
-        newBullet.SetActiveState(true);
-        newBullet.ResetBulletTimer();
+        askForBulletChannel.RaiseEvent(shooting,LayerMask.LayerToName(gameObject.layer),bulletConfiguration,shooting.rotation);
     }
-    //TODO - Documentation - Add summary
-    public void SetBulletHolder(Transform holder)
-    {
-        bulletHolder = holder;
-    }
+ 
 }

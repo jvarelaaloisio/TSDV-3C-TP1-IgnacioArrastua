@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,28 +10,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //TODO - Documentation - Add summary
-    public static event Action<bool> OnRoll;
 
     private bool canRoll = false;
-    private bool canMove = false;
+
+    [Header("Channels")]
+    [SerializeField] private VoidChannelSO OnRollChannel;
+    [SerializeField] private BoolChannelSO OnFocusChannel;
+    [SerializeField] private Vector2ChannelSO OnMoveChannel;
 
     [Header("GameObjects")]
-
     [SerializeField] private PlayerSettings player;
-    [SerializeField] Transform playerModel;
-
+    [SerializeField] private Transform playerModel;
     [SerializeField] private Animator animator;
     [SerializeField] private Transform aimTarget;
-    [SerializeField] Cinemachine.CinemachineDollyCart dolly;
     [SerializeField] private AudioClip barrelRollClip;
     [SerializeField] [Range(0, 1)] private float barrelRollVolume;
 
     [Header("Values")]
-
+    public float rollTime;
     [SerializeField] private float xySpeed;
     [SerializeField] private float lookSpeed;
-    [SerializeField] private float cartSpeed;
     [SerializeField] private float leanLimit;
     [SerializeField] private bool isFocusActivate = false;
     private Vector2 movevementValue;
@@ -42,23 +42,35 @@ public class PlayerMovement : MonoBehaviour
     private static readonly int IsRolling = Animator.StringToHash("IsRolling");
     private static readonly int MovementX = Animator.StringToHash("MovementX");
 
+    private void Awake()
+    {
+
+    }
+
+    private void OnDestroy()
+    {
+        OnFocusChannel.Unsubscribe(OnFocusMode);
+        OnRollChannel.Unsubscribe(OnRoll);
+        OnMoveChannel.Unsubscribe(OnMove);
+    }
 
     private void Start()
     {
+        OnFocusChannel.Subscribe(OnFocusMode);
+        OnRollChannel.Subscribe(OnRoll);
+        OnMoveChannel.Subscribe(OnMove);
         canRoll = true;
-        canMove = true;
         isFocusActivate = false;
         xySpeed = player.xySpeed;
         lookSpeed = player.lookSpeed;
-        cartSpeed = player.cartSpeed;
         maxPositionBeforeClamp = player.maxPositionBeforeClamp;
         minPositionBeforeClamp = player.minPositionBeforeClamp;
     }
 
-    void Update()
+    private void Update()
     {
-       if (LevelController.levelStatus != LevelController.LevelState.playing) return;
-            Movement();
+        if (LevelController.levelStatus != LevelController.LevelState.playing) return;
+        Movement();
     }
     /// <summary>
     /// Logic to make the playerMove
@@ -74,49 +86,49 @@ public class PlayerMovement : MonoBehaviour
         HorizontalLean(playerModel, -movevementValue.x, leanLimit, .1f);
         ClampPosition();
     }
-    //TODO - Fix - Using Input related logic outside of an input responsible class
     /// <summary>
     /// Changes movevementValue to Input
     /// </summary>
-    /// <param name="ctx">Input</param>
-    public void OnMove(InputAction.CallbackContext ctx)
-    {
-        //TODO: TP2 - SOLID
-        if (Time.timeScale == 0) return;
-        movevementValue = ctx.ReadValue<Vector2>();
-    }
+    /// <param name="value">Input</param>
+    public void OnMove(Vector2 value) => movevementValue = value;
     /// <summary>
     /// Logic for the RollMovement
     /// Actiavtes the animation
     /// </summary>
-    /// <param name="ctx">Input</param>
-    public void OnRollInput(InputAction.CallbackContext ctx)
+
+    public void OnRoll()
     {
-        if (Time.timeScale == 0) return;
-        if (ctx.performed && canRoll)
+        if (!gameObject.activeSelf)
+            return;
+
+        StartCoroutine(OnRolling());
+    }
+    public IEnumerator OnRolling()
+    {
+        if (!canRoll)
         {
-            canRoll = false;
-            animator.SetFloat(MovementX, movevementValue.x);
-            animator.SetTrigger(IsRolling);
-            SoundManager.Instance.PlaySound(barrelRollClip,barrelRollVolume);
+            yield break;
         }
+        canRoll = false;
+        animator.SetFloat(MovementX, movevementValue.x);
+        animator.SetTrigger(IsRolling);
+        SoundManager.Instance.PlaySound(barrelRollClip, barrelRollVolume);
+        yield return new WaitForSeconds(rollTime);
+        canRoll = true;
     }
     /// <summary>
     /// Activates focusMode
     /// </summary>
-    /// <param name="ctx">Input</param>
-    public void OnFocusMode(InputAction.CallbackContext ctx)
-    {
-        isFocusActivate = ctx.performed;
-    }
+    public void OnFocusMode(bool value) => isFocusActivate = value;
+
     /// <summary>
     /// Toggle RollState according to bool
     /// </summary>
     /// <param name="state">Bool State</param>
     public void RollMovement(bool state)
     {
-        OnRoll?.Invoke(state);
-        canRoll = !state;
+        //OnRoll?.Invoke(state);
+        //canRoll = !state;
 
     }
     /// <summary>
@@ -145,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="h"></param>
     /// <param name="v"></param>
     /// <param name="speed"></param>
-    void RotationLook(float h, float v, float speed)
+    private void RotationLook(float h, float v, float speed)
     {
         aimTarget.parent.position = Vector3.zero;
         aimTarget.localPosition = new Vector3(h, v, 1);
@@ -159,11 +171,10 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="axis">Axis to lean</param>
     /// <param name="leanLimit">Limit of the lean</param>
     /// <param name="lerpTime">Time until lean is complete</param>
-    void HorizontalLean(Transform target, float axis, float leanLimit, float lerpTime)
+    private void HorizontalLean(Transform target, float axis, float leanLimit, float lerpTime)
     {
         Vector3 targetEulerAngels = target.localEulerAngles;
         target.localEulerAngles = new Vector3(targetEulerAngels.x, targetEulerAngels.y, Mathf.LerpAngle(targetEulerAngels.z, -axis * leanLimit, lerpTime));
     }
-
 
 }

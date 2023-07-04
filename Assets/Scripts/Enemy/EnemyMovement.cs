@@ -16,31 +16,26 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private bool isActive = false;
     [SerializeField] private bool hasEnded = false;
     [SerializeField] private float currentLoopTimes;
-    //TODO: TP2 - Syntax - Consistency in naming convention
     private bool isAlive;
-    private EnemyBaseStats _enemyBaseStats;
+    private EnemyBaseStats enemyBaseStats;
 
     private void Awake()
     {
-        _enemyBaseStats = GetComponent<EnemyBaseStats>();
+        enemyBaseStats = GetComponent<EnemyBaseStats>();
     }
 
-    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Start()
+    private void Start()
     {
         if (movementPoints.Length != 0)
         {
             transform.position = movementPoints[0].position;
         }
-
-        //TODO: TP2 - FSM
         isActive = false;
         hasEnded = false;
         isAlive = true;
     }
-    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
-    /// Set the parameters to replicate the pattern
+    /// Set the parameters of the enemy to follow a new movement
     /// </summary>
     /// <param name="speed"></param>
     /// <param name="shouldLoop"></param>
@@ -60,15 +55,11 @@ public class EnemyMovement : MonoBehaviour
         this.movementPoints = determinedMovement;
         transform.position = movementPoints[0].position;
     }
-    //TODO: TP2 - Remove unused methods
-    private void OnValidate()
+
+    private void Update()
     {
 
-    }
-    void Update()
-    {
-
-        isAlive = _enemyBaseStats.IsAlive();
+        isAlive = enemyBaseStats.IsAlive();
         if (!isActive || hasEnded || !isAlive) return;
 
         Vector3 localPosition = movementPoints[currentPoint].localPosition - transform.parent.localPosition;
@@ -97,18 +88,17 @@ public class EnemyMovement : MonoBehaviour
             }
         }
     }
-    //TODO - Fix - Summary
+
     /// <summary>
-    /// Sets the hasEnded variable when the enemy reaches his 
+    /// Sets the hasEnded variable when the enemy reaches his destined location
     /// </summary>
     private void EndMovement()
     {
-        if (currentPoint >= movementPoints.Length)
-        {
-            isActive = false;
-            hasEnded = true;
-            _enemyBaseStats.DeActivateEnemy();
-        }
+        if (currentPoint < movementPoints.Length) 
+            return;
+        isActive = false;
+        hasEnded = true;
+        enemyBaseStats.DeactivateEnemy();
     }
     /// <summary>
     /// Set the Movement Active and moves to the default position

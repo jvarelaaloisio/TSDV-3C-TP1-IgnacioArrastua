@@ -9,29 +9,30 @@ public class MenuController : MonoBehaviour
     [SerializeField] private CanvasGroup MainMenu;
     [SerializeField] private CanvasGroup Options;
     [SerializeField] private CanvasGroup Credits;
-    [SerializeField] private List<CanvasGroup> totalCanvas;
-    //TODO: TP2 - Syntax - Consistency in naming convention
-    private CanvasGroup currentCanvas;
-    void Start()
+
+    [SerializeField] private string firstSceneName = "Level1";
+    [SerializeField] private string tutorialSceneName = "Tutorial";
+
+    private CanvasGroup currentActiveCanvas;
+
+    private void Start()
     {
-        currentCanvas = MainMenu;
+        currentActiveCanvas = MainMenu;
 
         SetCanvasState(MainMenu, true);
         SetCanvasState(Options, false);
         SetCanvasState(Credits, false);
         SoundManager.Instance.GetMusicSource().Stop();
-
         SoundManager.Instance.GetMusicSource().clip = SoundManager.Instance.mainMenu;
         SoundManager.Instance.GetMusicSource().Play();
     }
 
     /// <summary>
-    /// Loads GameScene
+    /// Loads First GameScene
     /// </summary>
     public void GoToGame()
     {
-        //TODO - Fix - Hardcoded value - Receive as param
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene(firstSceneName);
         SoundManager.Instance.PlayButtonSound();
     }
     /// <summary>
@@ -39,8 +40,7 @@ public class MenuController : MonoBehaviour
     /// </summary>
     public void GoToTutorial()
     {
-        //TODO - Fix - Hardcoded value - Receive as param
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene(tutorialSceneName);
         SoundManager.Instance.PlayButtonSound();
     }
     /// <summary>
@@ -48,9 +48,9 @@ public class MenuController : MonoBehaviour
     /// </summary>
     public void GoToOptions()
     {
-        SetCanvasState(currentCanvas, false);
+        SetCanvasState(currentActiveCanvas, false);
         SetCanvasState(Options, true);
-        currentCanvas = Options;
+        currentActiveCanvas = Options;
         SoundManager.Instance.PlayButtonSound();
     }
     /// <summary>
@@ -58,9 +58,9 @@ public class MenuController : MonoBehaviour
     /// </summary>
     public void GoToCredits()
     {
-        SetCanvasState(currentCanvas, false);
+        SetCanvasState(currentActiveCanvas, false);
         SetCanvasState(Credits, true);
-        currentCanvas = Credits;
+        currentActiveCanvas = Credits;
         SoundManager.Instance.PlayButtonSound();
     }
     /// <summary>
@@ -68,21 +68,18 @@ public class MenuController : MonoBehaviour
     /// </summary>
     public void GoBackToMenu()
     {
-        SetCanvasState(currentCanvas, false);
+        SetCanvasState(currentActiveCanvas, false);
         SetCanvasState(MainMenu, true);
-        currentCanvas = MainMenu;
+        currentActiveCanvas = MainMenu;
         SoundManager.Instance.PlayButtonSound();
     }
-    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Exits the game
     /// If activate in Unity Editor exits playmode
     /// </summary>
-
     public void ExitAplication()
     {
         SoundManager.Instance.PlaySound(SoundManager.Instance.button);
-        Debug.Log("Quit!");
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

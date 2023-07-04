@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,52 +8,48 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class TutorialSecuence : MonoBehaviour
 {
-    //TODO: TP2 - Syntax - Fix declaration order
     [SerializeField] private GameObject enemy;
     [SerializeField] private List<PopUpText> popUpText;
-    //TODO: TP2 - Syntax - Consistency in naming convention
-    private int textCounter = -1;
-    private int maxCounter = 0;
-    [SerializeField] private float timeBetweernMessages;
-    private float currentTime;
-    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Start()
+    [SerializeField] private float maxTimeBetweenText;
+    [SerializeField] private  float timeUntilChangeScene = 2f;
+    [SerializeField] private string scenesMainmenu = "Scenes/MainMenu";
+    private int currentTextCounter = -1;
+    private int maxTextCounter = 0;
+    private float currentTimeBetweenText;
+
+    private IEnumerator Start()
     {
-        textCounter = -1;
-        currentTime = timeBetweernMessages;
-        maxCounter = popUpText.Count-1;
+        currentTextCounter = -1;
+        currentTimeBetweenText = maxTimeBetweenText;
+        maxTextCounter = popUpText.Count - 1;
+        while(gameObject.activeSelf)
+        {
+            ShowMessage();
+            yield return new WaitForSeconds(maxTimeBetweenText);
+        }
     }
 
-    void Update()
+    private void Update()
     {
-        //TODO - Fix - Coroutine
-        currentTime += Time.deltaTime;
-        if (!(currentTime > timeBetweernMessages)) return;
-        currentTime = 0;
-        ShowMessage();
+        CheckIfGameShouldEnd();
     }
-    //TODO: TP2 - Syntax - Fix formatting
     /// <summary>
     /// Show a PopUpText according to time
     /// </summary>
     private void ShowMessage()
     {
-
-        if (textCounter < maxCounter)
+        if (currentTextCounter < maxTextCounter)
         {
-            if (textCounter > -1)
+            if (currentTextCounter > -1)
             {
-                popUpText[textCounter].DeactivateBox();
+                popUpText[currentTextCounter].DeactivateBox();
             }
-            textCounter++;
-            Debug.Log(textCounter);
-            popUpText[textCounter].ActiveBox();
+            currentTextCounter++;
+            Debug.Log(currentTextCounter);
+            popUpText[currentTextCounter].ActiveBox();
         }
-        else
-        {
-            CheckIfGameShouldEnd();
-        }
-       
+      
+
     }
     /// <summary>
     /// Check if the condition to end the tutorial is fullfil and changes scene
@@ -61,8 +58,7 @@ public class TutorialSecuence : MonoBehaviour
     {
         if (!enemy.GetComponent<EnemyBaseStats>().IsAlive())
         {
-            //TODO - Fix - Hardcoded value
-            Invoke(nameof(GoBackToMenu), 2f);
+            Invoke(nameof(GoBackToMenu), timeUntilChangeScene);
         }
     }
     /// <summary>
@@ -70,7 +66,6 @@ public class TutorialSecuence : MonoBehaviour
     /// </summary>
     private void GoBackToMenu()
     {
-        //TODO - Fix - Hardcoded value
-        SceneManager.LoadScene($"Scenes/MainMenu");
+        SceneManager.LoadScene(scenesMainmenu);
     }
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 /// </summary>
 public class PopUpText : MonoBehaviour
 {
-    //TODO: TP2 - Syntax - Fix declaration order
-    [SerializeField]private Animator animator;
     public bool isActive = false;
+    [SerializeField]private Animator animator;
+    private static readonly int Pop = Animator.StringToHash("Pop");
+    private static readonly int Close = Animator.StringToHash("Close");
 
     private void Awake()
     {
@@ -20,8 +21,7 @@ public class PopUpText : MonoBehaviour
     {
         if (isActive) return;
             isActive = true;
-        //TODO - Fix - Hardcoded value
-        animator.SetTrigger("Pop");
+            animator.SetTrigger(Pop);
     } 
     /// <summary>
     /// Actiavte the "Close" animation
@@ -29,8 +29,7 @@ public class PopUpText : MonoBehaviour
     public void DeactivateBox()
     {
         isActive = false;
-        //TODO - Fix - Hardcoded value
-        animator.SetTrigger("Close");
+        animator.SetTrigger(Close);
     }
   
     

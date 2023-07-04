@@ -7,37 +7,36 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
     //TODO: TP2 - Syntax - Fix declaration order
-    [SerializeField] private AudioClip inGameMusic;
     //TODO: TP2 - FSM
     /// <summary>
     /// Enum for the level state
     /// </summary>
     public enum LevelState
     {
-        playing, 
-        failed, 
+        playing,
+        failed,
         Complete
     }
-    public static LevelState levelStatus
-    {
-        get => LevelStatus;
-        private set => LevelStatus = value;
-    }
+    public static LevelState levelStatus { get; private set; }
 
-    [SerializeField] private PlayerController player;
-    [SerializeField] private EnemyBaseStats enemy;
+    [SerializeField] private VoidChannelSO playerDeadChannel;
+    [SerializeField] private VoidChannelSO onBossDeath;
+    [SerializeField] private IntChannelSO scoreChannelSO;
+    [SerializeField] private AudioClip inGameMusic;
     [SerializeField] private CinemachineDollyCart levelDolly;
     [SerializeField] private CinemachinePathBase path;
     [SerializeField] private SlideMenu end;
     [SerializeField] private SlideMenu gameOver;
-    private static LevelState LevelStatus;
+    public static int score  =0;
 
     private void Awake()
     {
+        playerDeadChannel.Subscribe(OnPlayerDead);
+        scoreChannelSO.Subscribe(OnScoreUp);
+        onBossDeath.Subscribe(OnLevelCompleted);
         levelStatus = LevelState.playing;
         levelDolly = GetComponent<CinemachineDollyCart>();
-        player = GetComponentInChildren<PlayerController>();
-   
+        score  =0;
     }
     private void Start()
     {
@@ -46,8 +45,20 @@ public class LevelController : MonoBehaviour
         soundManager.clip = inGameMusic;
         soundManager.Play();
     }
- 
-    void Update()
+    private void OnDisable()
+    {
+        playerDeadChannel.Unsubscribe(OnPlayerDead);
+        scoreChannelSO.Unsubscribe(OnScoreUp);
+        onBossDeath.Unsubscribe(OnLevelCompleted);
+    }
+
+    private static void OnScoreUp(int obj)
+    {
+        SoundManager.Instance.PlaySoundScore();
+        score += obj;
+    }
+
+    private void Update()
     {
         LevelCompletionLogic();
     }
@@ -57,21 +68,22 @@ public class LevelController : MonoBehaviour
     /// </summary>
     private void LevelCompletionLogic()
     {
-        if (!player.IsAlive)
-        {
-            LevelController.levelStatus = LevelController.LevelState.failed;
-            levelDolly.m_Speed = 0;
-            gameOver.OpenSlide();
-        }
-        else if (enemy && !enemy.IsAlive())
-        {
-            LevelController.levelStatus = LevelController.LevelState.Complete;
-            end.OpenSlide();
-        }
-
         if (!(levelDolly.m_Position >= path.MaxPos &&
               LevelController.levelStatus == LevelController.LevelState.playing)) return;
+        OnLevelCompleted();
+    }
+    private void OnPlayerDead()
+    {
+        LevelController.levelStatus = LevelController.LevelState.failed;
+        levelDolly.m_Speed = 0;
+        gameOver.OpenSlide();
+        enabled = false;
+    }
+    private void OnLevelCompleted()
+    {
         LevelController.levelStatus = LevelController.LevelState.Complete;
         end.OpenSlide();
+        enabled = false;
     }
+
 }

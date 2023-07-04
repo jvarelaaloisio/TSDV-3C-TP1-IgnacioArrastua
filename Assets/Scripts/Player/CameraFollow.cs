@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 /// <summary>
 /// Class for the CameraFollow
@@ -5,35 +6,32 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class CameraFollow : MonoBehaviour
 {
-    [Header("Target")]
+    [Header("Target")] 
     public Transform target;
-    [Header("Offset")]
+    [Header("Offset")] 
     public Vector3 offset = Vector3.zero;
-    [Header("Limits")]
-    public Vector2 limits = new Vector2(5, 3);
+    [Header("Limits")] 
+    public Vector2 limits = new(5, 3);
 
-    [Range(0, 1)]
-    public float smoothTime;
+    [Range(0, 1)] public float smoothTime;
     private Vector3 velocity = Vector3.zero;
 
- 
-
-    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
-    void Update()
+    private IEnumerator Start()
     {
-  
-        if (!Application.isPlaying)
+        while (gameObject.activeSelf)
         {
-            transform.localPosition = offset;
+            yield return null;
+            FollowTarget(target);
         }
-        FollowTarget(target);
     }
 
-    void LateUpdate()
+
+    private void LateUpdate()
     {
         Vector3 localPos = transform.localPosition;
-        //TODO: TP2 - Syntax - Fix formatting
-        transform.localPosition = new Vector3(Mathf.Clamp(localPos.x, -limits.x, limits.x), Mathf.Clamp(localPos.y, -limits.y, limits.y), localPos.z);
+        float xPosition = Mathf.Clamp(localPos.x, -limits.x, limits.x);
+        float yPosition = Mathf.Clamp(localPos.y, -limits.y, limits.y);
+        transform.localPosition = new Vector3(xPosition, yPosition, localPos.z);
     }
     /// <summary>
     /// Makes the camera follo the target LocalPosition with an offset and Smooth
