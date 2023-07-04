@@ -9,6 +9,7 @@ public class EnemyBaseStats : MonoBehaviour, IFillable
     [Header("Channel")]
     public UnityEvent onDeath;
     [SerializeField] private FillUIChannelSO fillUIChannel;
+    [SerializeField] private IntChannelSO OnScoreUpChannel;
     
     [Header("Variables")]
     public bool isActive;
@@ -66,10 +67,10 @@ public class EnemyBaseStats : MonoBehaviour, IFillable
         if (IsAlive()) 
             return;
         KillEnemy();
-        PlayerHealthSystem.Score += scoreValue;
+        OnScoreUpChannel.RaiseEvent(scoreValue);
+        SoundManager.Instance.PlaySound(explosionSound, explosionVolume);
         onDeath.Invoke();
         Invoke(nameof(DeactivateEnemy), timeUntilDeath);
-        SoundManager.Instance.PlaySound(explosionSound, explosionVolume);
     }
     /// <summary>
     /// Deactivates the gameObject

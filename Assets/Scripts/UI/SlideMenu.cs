@@ -13,14 +13,12 @@ public class SlideMenu : MonoBehaviour
     private int playerScore;
     [SerializeField] private CanvasGroup screenCanvas;
     private bool isActive;
-    private static MoveCrosshair cross;
     [SerializeField] private AudioClip openSlideSound;
     [SerializeField] private  float timeUntilNextScene = 0.5f;
     [SerializeField] private string menuSceneName = "MainMenu";
     private void Awake()
     {
         screenCanvas = GetComponent<CanvasGroup>();
-        cross = GameObject.Find("CrossHair").GetComponent<MoveCrosshair>();
     }
 
     private void Start()
@@ -44,7 +42,7 @@ public class SlideMenu : MonoBehaviour
         isActive = true;
         EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(currentbutton);
         screen.ActiveBox();
-        playerScore = PlayerHealthSystem.Score;
+        playerScore = LevelController.score;
         if (textMesh)
         {
             textMesh.text = "Score:" + playerScore;

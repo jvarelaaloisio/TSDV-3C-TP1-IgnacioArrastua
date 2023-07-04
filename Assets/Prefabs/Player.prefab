@@ -246,6 +246,8 @@ MonoBehaviour:
   maxHealthPoints: 1000
   _currentHealth: 0
   fillUIChannel: {fileID: 11400000, guid: 793ad92a4a55fe84bb5d4d2b235b1b7b, type: 2}
+  playerDeathChannelSO: {fileID: 11400000, guid: f87ea3618bccb7e419cf3265dba85557,
+    type: 2}
   <IsAlive>k__BackingField: 1
   impactPrefab: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7,
     type: 3}

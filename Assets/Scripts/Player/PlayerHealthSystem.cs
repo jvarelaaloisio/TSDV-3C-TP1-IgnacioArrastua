@@ -6,15 +6,11 @@ using UnityEngine;
 
 public class PlayerHealthSystem : MonoBehaviour, IFillable
 {
-
-    //TODO - Documentation - Add summary
-    public static event Action<int> OnScoreUp;
-
-
     [SerializeField] private int maxHealthPoints;
 
     [SerializeField] private float _currentHealth;
     [SerializeField] private FillUIChannelSO fillUIChannel;
+    [SerializeField] private VoidChannelSO playerDeathChannelSO;
     [field: SerializeField] public bool IsAlive { get; private set; } = true;
     private static int _score = 0;
     [SerializeField] private ParticleSystem impactPrefab;
@@ -34,21 +30,10 @@ public class PlayerHealthSystem : MonoBehaviour, IFillable
         }
     }
 
-    public static int Score
-    {
-        get => _score;
-        set
-        {
-            _score = value;
-            OnScoreUp?.Invoke(_score);
-            SoundManager.Instance.PlaySoundScore();
-        }
-    }
 
     private void Start()
     {
         CurrentHealth = maxHealthPoints;
-        Score = 0;
     }
 
     /// <summary>
@@ -58,12 +43,11 @@ public class PlayerHealthSystem : MonoBehaviour, IFillable
     public void ReceiveDamage(float damage)
     {
         CurrentHealth -= damage;
-        if (CurrentHealth < 0.0f)
-        {
-            IsAlive = false;
-            DeactivatePlayer();
-
-        }
+        if (!(CurrentHealth < 0.0f)) 
+            return;
+        playerDeathChannelSO.RaiseEvent();
+        IsAlive = false;
+        DeactivatePlayer();
     }
 
     /// <summary>

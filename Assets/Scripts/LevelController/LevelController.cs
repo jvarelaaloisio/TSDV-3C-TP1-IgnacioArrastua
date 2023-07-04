@@ -17,28 +17,26 @@ public class LevelController : MonoBehaviour
         failed,
         Complete
     }
-    public static LevelState levelStatus
-    {
-        get => LevelStatus;
-        private set => LevelStatus = value;
-    }
+    public static LevelState levelStatus { get; private set; }
 
-    [SerializeField] private VoidChannelSO PlayerDeadChannel;
+    [SerializeField] private VoidChannelSO playerDeadChannel;
+    [SerializeField] private VoidChannelSO onBossDeath;
+    [SerializeField] private IntChannelSO scoreChannelSO;
     [SerializeField] private AudioClip inGameMusic;
-    [SerializeField] private PlayerHealthSystem player;
-    [SerializeField] private EnemyBaseStats enemy;
     [SerializeField] private CinemachineDollyCart levelDolly;
     [SerializeField] private CinemachinePathBase path;
     [SerializeField] private SlideMenu end;
     [SerializeField] private SlideMenu gameOver;
-    private static LevelState LevelStatus;
+    public static int score  =0;
 
     private void Awake()
     {
-        PlayerDeadChannel.Subscribe(OnPlayerDead);
+        playerDeadChannel.Subscribe(OnPlayerDead);
+        scoreChannelSO.Subscribe(OnScoreUp);
+        onBossDeath.Subscribe(OnLevelCompleted);
         levelStatus = LevelState.playing;
         levelDolly = GetComponent<CinemachineDollyCart>();
-        player = GetComponentInChildren<PlayerHealthSystem>();
+        score  =0;
     }
     private void Start()
     {
@@ -49,12 +47,19 @@ public class LevelController : MonoBehaviour
     }
     private void OnDisable()
     {
-        PlayerDeadChannel.Unsubscribe(OnPlayerDead);
+        playerDeadChannel.Unsubscribe(OnPlayerDead);
+        scoreChannelSO.Unsubscribe(OnScoreUp);
+        onBossDeath.Unsubscribe(OnLevelCompleted);
+    }
+
+    private static void OnScoreUp(int obj)
+    {
+        SoundManager.Instance.PlaySoundScore();
+        score += obj;
     }
 
     private void Update()
     {
-
         LevelCompletionLogic();
     }
     //TODO: TP2 - Syntax - Consistency in naming convention

@@ -21,6 +21,7 @@ public abstract class ChannelSO<T> : ScriptableObject
         dataEvent?.Invoke(data);
     }
 }
+
 public abstract class ChannelSO<T1, T2> : ScriptableObject
 {
     private Action<T1, T2> dataEvent;

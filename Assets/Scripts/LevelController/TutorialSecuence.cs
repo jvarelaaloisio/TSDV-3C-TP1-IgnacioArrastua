@@ -25,7 +25,7 @@ public class TutorialSecuence : MonoBehaviour
         while(gameObject.activeSelf)
         {
             ShowMessage();
-            yield return maxTimeBetweenText;
+            yield return new WaitForSeconds(maxTimeBetweenText);
         }
     }
 

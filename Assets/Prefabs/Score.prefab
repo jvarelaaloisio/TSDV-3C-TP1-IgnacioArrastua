@@ -151,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textComponent: {fileID: 0}
   scoreText: 'Score:'
+  scoreChannelSO: {fileID: 11400000, guid: f2d101443c6e7dd4d8744d6db335aabf, type: 2}
   scoreValue: 0
 --- !u!1 &3164065520699365636
 GameObject:

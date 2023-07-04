@@ -4179,6 +4179,21 @@ PrefabInstance:
       propertyPath: inGameMusic
       value: 
       objectReference: {fileID: 8300000, guid: afa8754710002824f8a416d7fe9d2ddf, type: 3}
+    - target: {fileID: 899837566, guid: e32d506b9cdf0024892e291f9fec0819, type: 3}
+      propertyPath: onBossDeath
+      value: 
+      objectReference: {fileID: 11400000, guid: df236fc24462c8747a0e3ae0dc6a4536,
+        type: 2}
+    - target: {fileID: 899837566, guid: e32d506b9cdf0024892e291f9fec0819, type: 3}
+      propertyPath: scoreChannelSO
+      value: 
+      objectReference: {fileID: 11400000, guid: f2d101443c6e7dd4d8744d6db335aabf,
+        type: 2}
+    - target: {fileID: 899837566, guid: e32d506b9cdf0024892e291f9fec0819, type: 3}
+      propertyPath: playerDeadChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: f87ea3618bccb7e419cf3265dba85557,
+        type: 2}
     - target: {fileID: 707988716586685001, guid: e32d506b9cdf0024892e291f9fec0819,
         type: 3}
       propertyPath: maxHealthPoints

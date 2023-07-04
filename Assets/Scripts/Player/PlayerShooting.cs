@@ -88,8 +88,12 @@ public class PlayerShooting : MonoBehaviour, IFillable
         SpecialBeanCooldownTimers();
         currentHoldShootTimer += Time.deltaTime;
         currentSingleShootTimer += Time.deltaTime;
-        //TODO: TP2 - SOLID
-        if (isPressingButton)
+        if (!isPressingButton)
+        {
+            CheckIfCanFireLaser();
+            ResetTimers();
+        }
+        else
         {
             if (!isChargingSpecialBeam)
             {
@@ -105,27 +109,20 @@ public class PlayerShooting : MonoBehaviour, IFillable
                     currentHoldShootTimer -= minHoldShootTimer;
                 }
             }
+
             if (currentBeanTimer > specialBeamTimer && canFireSpecialBeam)
             {
                 prefireParticle.Play();
                 if (!isChargingSpecialBeam)
-                {
                     SoundManager.Instance.PlaySound(prepareLaserClip, prepareLaserVolume);
-                }
+
                 isChargingSpecialBeam = true;
             }
             else
             {
                 prefireParticle.Stop();
             }
-
         }
-        else
-        {
-            CheckIfCanFireLaser();
-            ResetTimers();
-        }
-
     }
     /// <summary>
     /// Resets variables for shooting 
@@ -145,12 +142,10 @@ public class PlayerShooting : MonoBehaviour, IFillable
     /// </summary>
     private void CheckIfCanFireLaser()
     {
-        if (currentBeanTimer > specialBeamTimer && canFireSpecialBeam)
-        {
-            ShootRay();
-            canFireSpecialBeam = false;
-            SpecialBeanCooldownTimer = 0.0f;
-        }
+        if (!(currentBeanTimer > specialBeamTimer) || !canFireSpecialBeam) return;
+        ShootRay();
+        canFireSpecialBeam = false;
+        SpecialBeanCooldownTimer = 0.0f;
     }
     /// <summary>
     /// Logic of the timers for the SpecialBean

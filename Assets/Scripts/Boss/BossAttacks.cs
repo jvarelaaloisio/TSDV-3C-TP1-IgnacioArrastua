@@ -15,30 +15,17 @@ public class BossAttacks : MonoBehaviour
     [Header("Cooldowns Presets")]
     [SerializeField] private float shootBulletCooldown = 0.2f;
     private float currentShootBulletCooldown = 0.0f;
-    private bool isActive = false;
-    private bool isAlive;
-    private EnemyBaseStats _enemyBaseStats;
-
-
-    private void Awake()
-    {
-        _enemyBaseStats = GetComponent<EnemyBaseStats>();
-    }
+   
 
     private void Start()
     {
         bulletPoint = shootingPoints.transform.Cast<Transform>().ToArray();
-        isActive = true;
     }
 
     private void Update()
     {
         if (LevelController.levelStatus != LevelController.LevelState.playing) return;
-        isAlive = _enemyBaseStats.IsAlive();
-        if (isActive && isAlive)
-        {
-            Attack();
-        }
+        Attack();
     }
     /// <summary>
     /// Logic for shooting bullets
