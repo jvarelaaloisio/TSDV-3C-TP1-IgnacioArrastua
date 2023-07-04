@@ -1,4 +1,4 @@
-# _ToTheMoon_
+[![N|Solid](https://img.itch.zone/aW1nLzEyNjYyMzE2LnBuZw==/original/bnDxbN.png)]((https://rojoin.itch.io/tothemoon))
 _ToTheMoon and beyond!_
 
 ToTheMoon its a spaceship game inspired by KH GummyShip levels, Star Fox and Ex-Zodiac. 
@@ -27,15 +27,19 @@ Press SpaceBar or Cross/B/A to do a BarrerRoll!
 ## Credits:
 Game made by : Ignacio "Rojoin" Arrastua
 
-Logo made by :Ezequiel Agustin "CanineLotus" Gonzalez
+Music made by :Ezequiel Agustin "CanineLotus" Gonzalez
 
-SpaceShip Models by : Facundo Arrastua
+SpaceShip Models by : Facundo "BlurkLink" Arrastua
 
 Boss Model by : Francisco Sanchez
 
 UI by: Kenney
 
 Inputs Promps by: Nicolae "Xelu" Berbece
+
+Logo by: Nicole Yeger
+
+SplashArt by: Sol Saucedo
 
 ## Download
 You can download the game from https://rojoin.itch.io/tothemoon or you can build it yourself!
